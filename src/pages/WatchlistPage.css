@@ -1,0 +1,242 @@
+.watchlist-page {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 48px 24px;
+}
+
+.wl-hero {
+  margin-bottom: 40px;
+}
+
+.wl-title {
+  font-size: 32px;
+  letter-spacing: 6px;
+  color: var(--text);
+  margin-bottom: 10px;
+}
+
+.wl-hero p {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin-bottom: 16px;
+}
+
+.wl-tier-note {
+  display: inline-block;
+  font-size: 12px;
+  letter-spacing: 3px;
+  color: var(--green);
+  border: 1px solid var(--green);
+  padding: 3px 12px;
+  border-radius: 10px;
+  opacity: 0.8;
+}
+
+/* Add form */
+.wl-add-card {
+  padding: 28px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--bg-card);
+  margin-bottom: 32px;
+}
+
+.wl-add-title {
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: var(--text-muted);
+  margin-bottom: 20px;
+}
+
+.wl-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.wl-input {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 13px;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.wl-input:focus { border-color: var(--accent); }
+.wl-input::placeholder { color: var(--text-muted); opacity: 0.4; }
+
+.wl-chain-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.wl-chain-label {
+  font-size: 10px;
+  color: var(--text-muted);
+  letter-spacing: 2px;
+}
+
+.wl-chain-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  font-family: var(--font-body);
+  font-size: 10px;
+  letter-spacing: 2px;
+  padding: 5px 14px;
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  transition: all 0.2s;
+}
+
+.wl-chain-btn:hover { border-color: var(--text-muted); }
+.wl-chain-btn.active { border-color: var(--green); color: var(--green); }
+
+.wl-submit {
+  background: var(--green);
+  border: none;
+  color: #000;
+  font-family: var(--font-body);
+  font-size: 11px;
+  letter-spacing: 2px;
+  padding: 12px;
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  font-weight: bold;
+  transition: opacity 0.2s;
+}
+
+.wl-submit:hover:not(:disabled) { opacity: 0.85; }
+.wl-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.wl-error   { font-size: 12px; color: var(--red);   margin-top: 8px; }
+.wl-success { font-size: 12px; color: var(--green); margin-top: 8px; }
+
+/* List */
+.wl-list-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.wl-list-title {
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: var(--text-muted);
+}
+
+.wl-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 32px;
+}
+
+.wl-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 18px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--bg-card);
+  gap: 16px;
+}
+
+.wl-row-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.wl-row-label {
+  font-size: 13px;
+  color: var(--text);
+}
+
+.wl-row-addr {
+  font-size: 12px;
+  color: var(--text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.wl-row-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.wl-row-chain {
+  font-size: 12px;
+  letter-spacing: 2px;
+  padding: 2px 8px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+}
+
+.wl-row-chain.eth  { color: var(--accent); border-color: var(--accent); }
+.wl-row-chain.base { color: #0052ff; border-color: #0052ff; }
+
+.wl-remove {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 11px;
+  padding: 4px 8px;
+  cursor: pointer;
+  border-radius: var(--radius-sm);
+  transition: all 0.2s;
+}
+
+.wl-remove:hover { border-color: var(--red); color: var(--red); }
+
+.wl-empty {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text-muted);
+  font-size: 13px;
+  margin-bottom: 24px;
+}
+
+.wl-note {
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.8;
+  border-top: 1px solid var(--border);
+  padding-top: 20px;
+}
+
+@media (max-width: 640px) {
+  .watchlist-page {
+    padding: 32px 16px;
+  }
+
+  .wl-add-card {
+    padding: 20px 16px;
+  }
+
+  .wl-chain-row {
+    flex-wrap: wrap;
+  }
+
+  .wl-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .wl-row-right {
+    width: 100%;
+    justify-content: space-between;
+  }
+}

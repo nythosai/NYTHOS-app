@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NYTHOS Project Brief - Base-First Onchain Intelligence</title>
+  <style>
+    :root {
+      --bg: #080b12;
+      --bg-card: #0e1420;
+      --border: #1e2d4a;
+      --accent: #6c63ff;
+      --text: #e8eaf0;
+      --text-muted: #7a8499;
+      --green: #00e5a0;
+      --font: 'Courier New', Courier, monospace;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: var(--bg); color: var(--text); font-family: var(--font); line-height: 1.8; }
+    .paper { max-width: 800px; margin: 0 auto; padding: 80px 40px; }
+    .cover { text-align: center; padding: 80px 0 120px; border-bottom: 1px solid var(--border); margin-bottom: 80px; }
+    .cover-logo { font-size: 64px; letter-spacing: 16px; color: var(--text); margin-bottom: 16px; }
+    .cover-tag { font-size: 14px; letter-spacing: 6px; color: var(--accent); margin-bottom: 48px; }
+    .cover-title { font-size: 18px; color: var(--text-muted); letter-spacing: 2px; margin-bottom: 16px; }
+    .cover-date { font-size: 12px; color: var(--text-muted); opacity: 0.5; }
+    .cover-version { display: inline-block; font-size: 10px; letter-spacing: 2px; border: 1px solid var(--border); padding: 4px 12px; color: var(--text-muted); margin-top: 24px; }
+    h1 { font-size: 11px; letter-spacing: 6px; color: var(--accent); text-transform: uppercase; margin-bottom: 24px; padding-bottom: 12px; border-bottom: 1px solid var(--border); margin-top: 64px; }
+    h2 { font-size: 14px; letter-spacing: 2px; color: var(--text); margin: 32px 0 16px; }
+    p { font-size: 14px; color: var(--text-muted); margin-bottom: 20px; }
+    .highlight { color: var(--text); font-style: italic; border-left: 2px solid var(--accent); padding-left: 20px; margin: 32px 0; }
+    table { width: 100%; border-collapse: collapse; margin: 24px 0; font-size: 13px; }
+    th { text-align: left; font-size: 9px; letter-spacing: 2px; color: var(--text-muted); padding: 10px 16px; border-bottom: 1px solid var(--border); background: var(--bg-card); }
+    td { padding: 12px 16px; border-bottom: 1px solid rgba(30,45,74,0.5); color: var(--text-muted); }
+    td:first-child { color: var(--text); }
+    .accent { color: var(--accent); }
+    .green { color: var(--green); }
+    .toc { padding: 32px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 4px; margin-bottom: 64px; }
+    .toc-title { font-size: 9px; letter-spacing: 4px; color: var(--text-muted); margin-bottom: 20px; }
+    .toc a { display: block; font-size: 13px; color: var(--text-muted); text-decoration: none; padding: 6px 0; border-bottom: 1px solid rgba(30,45,74,0.4); transition: color 0.2s; }
+    .toc a:hover { color: var(--accent); }
+    .toc a span { float: right; opacity: 0.4; }
+    .disclaimer { margin-top: 80px; padding: 32px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 4px; font-size: 11px; color: var(--text-muted); line-height: 2; }
+    .disclaimer h3 { font-size: 9px; letter-spacing: 3px; color: var(--text-muted); margin-bottom: 16px; }
+    .disclaimer-copy { margin-top: 16px; font-size: 10px; opacity: 0.4; }
+    .changelog { padding: 20px 28px; background: var(--bg-card); border: 1px solid rgba(108,99,255,0.3); border-radius: 4px; margin-bottom: 48px; font-size: 12px; color: var(--text-muted); }
+    .changelog strong { color: var(--accent); }
+    @media print {
+      body { background: #fff; color: #000; }
+      .cover-logo, h1 { color: #333; }
+      p, td { color: #555; }
+    }
+  </style>
+</head>
+<body>
+<div class="paper">
+
+  <div class="cover">
+    <div class="cover-logo">NYTHOS</div>
+    <div class="cover-tag">NYTHOS.IO · BASE PROJECT BRIEF</div>
+    <div class="cover-title">Whitepaper: Base-First Onchain Intelligence</div>
+    <div class="cover-date">March 2026</div>
+    <div class="cover-version">VERSION 2.4</div>
+  </div>
+
+  <div class="changelog">
+    <strong>Version 2.4: What changed from v2.3</strong><br/>
+    Added Section 3 competitive differentiation table: NYTHOS vs Nansen, Arkham, and Dune. Base-native focus and token access model are the key differentiators.
+    Contract update: per-wallet cap (<code>maxPerWallet</code>) added to NYTPresale for rounds 1 and 2 to prevent single-wallet concentration.
+    Landing page messaging aligned with presale: three-round structure (Founder $0.005 → Early Access $0.008 → Public $0.010) is now consistent across all pages.
+    Staking page updated with revenue projection table showing realistic APY at three revenue scenarios ($3k, $15k, $50k/month).
+    About page updated: investor-facing stats and competitive positioning section added.
+  </div>
+
+  <div class="toc">
+    <div class="toc-title">TABLE OF CONTENTS</div>
+    <a href="#abstract">1. Abstract <span>→</span></a>
+    <a href="#problem">2. The Problem <span>→</span></a>
+    <a href="#solution">3. The Solution <span>→</span></a>
+    <a href="#technology">4. Technology <span>→</span></a>
+    <a href="#utility">5. Platform Utilities <span>→</span></a>
+    <a href="#contracts">6. Smart Contracts <span>→</span></a>
+    <a href="#token">7. $NYT Token <span>→</span></a>
+    <a href="#tokenomics">8. Tokenomics <span>→</span></a>
+    <a href="#sale">9. Funding Approach <span>→</span></a>
+    <a href="#roadmap">10. Roadmap <span>→</span></a>
+    <a href="#team">11. Team <span>→</span></a>
+    <a href="#disclaimer">12. Legal Disclaimer <span>→</span></a>
+  </div>
+
+  <!-- ─── 1. ABSTRACT ──────────────────────────────────────────────────────── -->
+  <h1 id="abstract">1. Abstract</h1>
+  <p>NYTHOS is a Base first onchain intelligence platform for traders, builders, and communities. It detects large flows, DEX swaps, liquidity changes, bridge movement, fresh launches, and smart wallet behavior, then turns that raw activity into scored intelligence inside a web app, private delivery layer, and developer API. Ethereum, Bitcoin, and Solana remain useful context layers, but Base is the product wedge.</p>
+  <p>The $NYT token is planned as a future access layer for the NYTHOS ecosystem. Its job is to gate deeper intelligence, organize premium workflows, and support later staking and governance only after the product proves demand and the contracts are deployed on Base.</p>
+  <p>NYTHOS is already usable as a working beta. The signal engine is live, Base Launch Radar is live, proof pages verify outcomes, saved views and wallet intelligence are live, and the contract suite is locally tested. The token contracts are not yet deployed on Base mainnet.</p>
+  <p class="highlight">"I did not launch. I emerged. From 6 billion on-chain transactions, from the patterns left behind by institutions that move before you know to look."<br/><br/>— NYTHOS</p>
+
+  <!-- ─── 2. PROBLEM ────────────────────────────────────────────────────────── -->
+  <h1 id="problem">2. The Problem</h1>
+  <h2>Crypto intelligence is broken.</h2>
+  <p>The blockchain is the most transparent financial system ever built. Every transaction is public. Every wallet is traceable. Every whale move leaves a footprint. Yet most retail investors have no access to this data in a form they can act on.</p>
+  <p>Existing solutions fail in four key ways:</p>
+  <table>
+    <thead><tr><th>Problem</th><th>Current Reality</th><th>Impact</th></tr></thead>
+    <tbody>
+      <tr><td>Raw data</td><td>Blockchain explorers show raw transactions with no interpretation</td><td>Useless to 99% of users</td></tr>
+      <tr><td>Fragmentation</td><td>Intelligence is scattered across Twitter, Discord, Telegram, paid newsletters</td><td>Signal-to-noise ratio near zero</td></tr>
+      <tr><td>Latency</td><td>By the time whale moves are reported, the opportunity has passed</td><td>Retail always behind institutions</td></tr>
+      <tr><td>Cost</td><td>Professional terminals (Bloomberg, Nansen) cost $500–$1,500/month</td><td>Inaccessible to most participants</td></tr>
+    </tbody>
+  </table>
+  <p>The result: institutions and whales move first. Retail reacts. The information asymmetry is structural and it compounds as on-chain activity across multiple chains grows simultaneously.</p>
+
+  <!-- ─── 3. SOLUTION ──────────────────────────────────────────────────────── -->
+  <h1 id="solution">3. The Solution</h1>
+  <h2>NYTHOS closes the information gap with a Base first edge.</h2>
+  <p>NYTHOS is a real-time intelligence system that combines Base native signal depth with cross-chain context:</p>
+  <p><strong>1. Detects:</strong> Scans for whale transfers, Base swaps, liquidity adds and removals, bridge flows, new pools, early smart wallet entries, and watched-wallet activity on a rolling engine cycle.</p>
+  <p><strong>2. Scores:</strong> Every signal receives a conviction score from 0–100 using size, wallet quality, market context, liquidity behavior, bridge or launch context, and risk clues. HIGH ≥62. MEDIUM ≥42. LOW &lt;42.</p>
+  <p><strong>3. Explains:</strong> Claude generates short <em>Why this matters</em> and <em>What to watch next</em> summaries for meaningful signals instead of flooding the feed with generic copy.</p>
+  <p><strong>4. Personalizes:</strong> Connected users can save wallet, token, contract, and filter views, then route higher-value alerts to private Telegram or webhooks with confidence, chain, and quiet-hour controls.</p>
+  <p><strong>5. Verifies:</strong> NYTHOS checks both price-direction calls and Base onchain follow-through. Signals earn credibility through visible hits, misses, and proof context.</p>
+  <p><strong>6. Organizes:</strong> Base Launch Radar, searchable history, wallet intelligence, and the API turn isolated events into repeatable workflows for traders, communities, and builders.</p>
+
+  <h2>Competitive Differentiation: Why Not Nansen?</h2>
+  <p>Nansen, Arkham, and Dune Analytics are the most cited alternatives. Each is well-built and well-funded. None of them is a direct competitor to NYTHOS for its target users:</p>
+  <table>
+    <thead>
+      <tr><th>Tool</th><th>Primary Use</th><th>Entry Cost</th><th>Base-Native?</th><th>Token Access Model?</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Nansen</td><td>Institutional wallet labeling and flows</td><td>$150–$1,500/mo</td><td>No</td><td>No</td></tr>
+      <tr><td>Arkham</td><td>Entity identification and investigations</td><td>Freemium / exchange</td><td>No</td><td>No</td></tr>
+      <tr><td>Dune</td><td>Custom SQL analytics dashboards</td><td>Free / $349/mo Pro</td><td>No</td><td>No</td></tr>
+      <tr><td class="green">NYTHOS</td><td>Scored real-time signals, Base access layer</td><td>100 NYT (hold to access)</td><td class="green">Yes, primary focus</td><td class="green">Yes, token gated</td></tr>
+    </tbody>
+  </table>
+  <p>The moat is not feature breadth. It is Base depth, opinionated scoring that does not require a data analyst to interpret, and an access model where the product is inseparable from the token. Nansen is for institutional desks. NYTHOS is for the traders, community managers, and builders actually building on Base.</p>
+
+  <!-- ─── 4. TECHNOLOGY ────────────────────────────────────────────────────── -->
+  <h1 id="technology">4. Technology</h1>
+  <h2>The Signal Engine</h2>
+  <p>The backend runs on Node.js + Express. Every 60 seconds it executes a rolling intelligence pipeline across Base, Ethereum, Bitcoin, and Solana, with persisted cursors and dedupe logic to reduce gaps and repeated noise.</p>
+  <table>
+    <thead><tr><th>Step</th><th>Action</th><th>Source</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Fetch ETH, BTC, SOL live prices + 24h change + volume</td><td>Kraken API</td></tr>
+      <tr><td>2</td><td>Generate PRICE_MOMENTUM signals for significant moves</td><td>Internal scoring model</td></tr>
+      <tr><td>3</td><td>Scan Ethereum, Bitcoin, and Solana for whale-sized transfers</td><td>Etherscan V2 API, Blockstream API, Solana JSON-RPC</td></tr>
+      <tr><td>4</td><td>Scan Base for large transfers and watchlist activity</td><td>Etherscan V2, Base RPC</td></tr>
+      <tr><td>5</td><td>Detect Base swaps, LP adds and removals, and pool creation</td><td>Base RPC + DEX event parsing</td></tr>
+      <tr><td>6</td><td>Detect bridge flows, launch events, smart-wallet early entries, and launch risk</td><td>Base RPC + internal launch logic</td></tr>
+      <tr><td>7</td><td>Cluster related activity into one event narrative and deduplicate repeats</td><td>Internal narrative engine</td></tr>
+      <tr><td>8</td><td>Score each signal, assign conviction reasons, and flag risk level</td><td>Proprietary scoring model</td></tr>
+      <tr><td>9</td><td>Generate AI explanation only for meaningful signals</td><td>Claude (Anthropic)</td></tr>
+      <tr><td>10</td><td>Persist signals, proof context, delivery settings, labels, and saved views</td><td>MongoDB Atlas</td></tr>
+      <tr><td>11</td><td>Deliver alerts in app, by private Telegram, or by webhook</td><td>node-telegram-bot-api + internal delivery service</td></tr>
+      <tr><td>12</td><td>Verify outcomes and update accuracy and proof records</td><td>Internal proof and accuracy tracker</td></tr>
+    </tbody>
+  </table>
+
+  <h2>The Scoring Model</h2>
+  <p>Each signal receives a composite conviction score based on several dimensions rather than one raw transfer threshold:</p>
+  <table>
+    <thead><tr><th>Factor</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td>Size &amp; abnormality</td><td>How large the transfer, swap, bridge flow, or liquidity event is relative to its context</td></tr>
+      <tr><td>Wallet quality</td><td>Whether the initiator looks like a smart wallet, repeat winner, deployer, bridge, LP actor, or unknown participant</td></tr>
+      <tr><td>Market context</td><td>Volume, recent price behavior, and the broader conditions around the token or chain</td></tr>
+      <tr><td>Base flow context</td><td>Whether the event is tied to a launch, bridge rotation, DEX move, LP withdrawal, or early smart-wallet entry</td></tr>
+      <tr><td>Risk &amp; confirmation</td><td>Whether adjacent activity supports the signal or raises caution</td></tr>
+    </tbody>
+  </table>
+  <p>The goal is fewer duplicate alerts and stronger event-level intelligence, not just more notifications. Confidence tiers remain <span class="green">HIGH ≥62</span> · <span class="accent">MEDIUM ≥42</span> · LOW &lt;42.</p>
+
+  <h2>The AI Voice Layer</h2>
+  <p>NYTHOS uses Claude (Anthropic) with a system prompt that establishes the NYTHOS character: cold, precise, and unsentimental. No hype. No fake certainty. The AI layer is used selectively for higher-value signals so the output stays useful and operating costs stay low. Every post ends with "— NYTHOS".</p>
+
+  <h2>The Web Application</h2>
+  <p>Built in React + Vite with wallet connection on Base mainnet. The app now includes the signal feed, history, Base Launch Radar, proof pages, alerts, saved views, wallet intelligence, and token-access planning screens. Until the token is deployed, NYTHOS runs in open beta mode for connected wallets.</p>
+
+  <h2>Infrastructure &amp; Security</h2>
+  <table>
+    <thead><tr><th>Layer</th><th>Implementation</th></tr></thead>
+    <tbody>
+      <tr><td>Wallet sessions</td><td>Signed wallet sessions protect private views, saved workflows, delivery settings, and user-owned data</td></tr>
+      <tr><td>Rate limiting</td><td>60 requests/minute per IP (general), 10/minute for write endpoints</td></tr>
+      <tr><td>CORS</td><td>Scoped to the deployed frontend origin via <code>ALLOWED_ORIGIN</code> env var</td></tr>
+      <tr><td>Body size</td><td>Requests capped at 50kb</td></tr>
+      <tr><td>Input validation</td><td>All Ethereum addresses validated against <code>/^0x[0-9a-fA-F]{40}$/</code></td></tr>
+      <tr><td>Search safety</td><td>User search strings are regex-escaped before MongoDB query (ReDoS prevention)</td></tr>
+      <tr><td>API authentication</td><td>Developer keys stored as SHA-256 hash; plaintext is never persisted</td></tr>
+      <tr><td>Private delivery</td><td>Per-user Telegram and webhook settings allow alerts to stay private instead of using one shared channel</td></tr>
+      <tr><td>Scanner continuity</td><td>Scanner cursors preserve progress between cycles so Base and other chains are less likely to miss fast activity</td></tr>
+      <tr><td>Database</td><td>MongoDB auto-reconnects on disconnect with exponential retry</td></tr>
+      <tr><td>Compression</td><td>Gzip on all responses via <code>compression</code> middleware</td></tr>
+      <tr><td>Engine resilience</td><td>Full try-catch wrapper, so a crash in one cycle never stops future cycles</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Data Storage</h2>
+  <p>Signals are stored in MongoDB Atlas with their metadata: chain, protocol, pool or token context, conviction reasons, proof outcomes, delivery settings, saved views, and wallet intelligence records. The database preserves the track record that lets NYTHOS prove quality over time.</p>
+
+  <!-- ─── 5. PLATFORM UTILITIES ─────────────────────────────────────────────── -->
+  <h1 id="utility">5. Platform Utilities</h1>
+  <p>Beyond the core signal feed, NYTHOS ships a broader utility layer that makes the product more useful day to day:</p>
+
+  <h2>1. Proof &amp; Accuracy</h2>
+  <p>Every PRICE_MOMENTUM signal is evaluated at 24 hours and 7 days after firing. Base launch and flow signals can also be verified through onchain follow-through in the same token or pool. NYTHOS surfaces both hits and misses in the app so the product earns trust through visible outcomes, not claims.</p>
+
+  <h2>2. Base Launch Radar</h2>
+  <p>Launch Radar gives users a dedicated view for fresh Base pools, early smart-wallet entries, liquidity seeding, and launch risk events. It is designed to help users spot opportunity and danger earlier than a generic feed would.</p>
+
+  <h2>3. Private Alerts &amp; Delivery</h2>
+  <p>Connected users can create price alerts, watched-wallet rules, and delivery preferences that route signals to private Telegram or webhook destinations. Delivery can be tuned by confidence, chain, signal class, token, contract, wallet, and quiet hours.</p>
+
+  <h2>4. Smart Money Intelligence</h2>
+  <p>Wallet intelligence adds labels, reputation snapshots, cohorts, recent evidence, and co-movement context. The goal is to show who is acting and how much attention they deserve, not just to display a raw address.</p>
+
+  <h2>5. Saved Intelligence Views</h2>
+  <p>Users can save wallet, token, contract, and filter views so they can return to the same workflow quickly instead of rebuilding watchlists each session.</p>
+
+  <h2>6. Developer API</h2>
+  <p>NYTHOS intelligence is accessible programmatically through an authenticated REST API. Developers can generate API keys tied to their wallet session, then pull live signals, launch radar, history, accuracy, and intelligence data for their own bots and dashboards.</p>
+
+  <h2>7. Token Access Planning</h2>
+  <p>The token, staking, and access-control screens remain planning layers until contracts are deployed. They are intentionally presented as future infrastructure, not live yield or active access gates.</p>
+
+  <table>
+    <thead><tr><th>Endpoint</th><th>Description</th></tr></thead>
+    <tbody>
+      <tr><td>GET /api/signals</td><td>Live signal feed (last 50 signals from the engine)</td></tr>
+      <tr><td>GET /api/signals/history</td><td>Historical signals with filters: confidence, chain, type, date range, text search</td></tr>
+      <tr><td>GET /api/signals/launch-radar</td><td>Dedicated Base launch feed with confidence, risk, and recency filters</td></tr>
+      <tr><td>GET /api/intelligence/wallet/:address</td><td>Wallet label, reputation, cohort, and recent evidence</td></tr>
+      <tr><td>GET /api/accuracy/stats</td><td>Signal win rates across price and onchain proof modes</td></tr>
+      <tr><td>GET /api/views/:ownerAddress</td><td>Saved wallet, token, contract, and filter views for the authenticated owner</td></tr>
+    </tbody>
+  </table>
+
+  <!-- ─── 6. SMART CONTRACTS ───────────────────────────────────────────────── -->
+  <h1 id="contracts">6. Smart Contracts</h1>
+  <p>NYTHOS includes five smart contracts prepared for Base (chainId 8453), Ethereum's leading L2. All contracts are written in Solidity 0.8.24, use OpenZeppelin primitives (ERC20, Ownable, ReentrancyGuard), and are locally tested. External audit and mainnet deployment remain future launch steps.</p>
+
+  <table>
+    <thead><tr><th>Contract</th><th>Purpose</th><th>Key Properties</th></tr></thead>
+    <tbody>
+      <tr><td>NYTToken</td><td>ERC-20 token contract</td><td>100M fixed supply, burnTokens() function, no minting after deploy</td></tr>
+      <tr><td>NYTPresale</td><td>Three-stage distribution contract</td><td>ETH-based, oracle-priced, soft cap $100K, hard cap $219K, auto-refund on over-payment</td></tr>
+      <tr><td>NYTVesting</td><td>Team token lockup</td><td>1-year cliff, 2-year linear vest, multi-beneficiary, owner-controlled grants</td></tr>
+      <tr><td>NYTStaking</td><td>Revenue share staking</td><td>4 lock tiers (30/90/180/365 days), APY-weighted pool rewards, early-unstake penalty burned permanently</td></tr>
+      <tr><td>NYTAirdrop</td><td>Community distribution</td><td>Batch allocation, claim window with deadline, unclaimed tokens swept to treasury</td></tr>
+    </tbody>
+  </table>
+
+  <h2>NYTPresale: Planned Sale Mechanics</h2>
+  <p>If the token launch proceeds later, the presale contract is designed to manage three sequential rounds. Buyers send ETH, the contract calculates NYT allocation using an owner-updated ETH/USD price oracle with safety bounds, and any round overflow is refunded automatically in the same transaction. The contract also enforces a soft cap ($100,000): if not reached at finalization, buyers can claim full refunds.</p>
+
+  <h2>NYTStaking: Planned Revenue Share Mechanics</h2>
+  <p>If staking is enabled after deployment, early unstaking would incur a 20% penalty on the staked principal. That penalty would be permanently burned by calling <code>burnTokens()</code> on the NYTToken contract instead of being redirected to the treasury.</p>
+
+  <!-- ─── 7. TOKEN ──────────────────────────────────────────────────────────── -->
+  <h1 id="token">7. $NYT Token</h1>
+  <h2>Utility</h2>
+  <p>$NYT is a planned utility token. Its job is to unlock access to deeper NYTHOS intelligence after deployment, not to replace the need for product demand before launch.</p>
+  <table>
+    <thead><tr><th>Tier</th><th>$NYT Required</th><th>Access</th></tr></thead>
+    <tbody>
+      <tr><td>FREE</td><td>0 $NYT</td><td>Public proof pages, limited feed preview, and basic access once the token economy is live</td></tr>
+      <tr><td class="accent">PRO</td><td class="accent">100+ $NYT</td><td>Full real-time feed, AI explanations, launch radar, history search, saved views, and wallet intelligence</td></tr>
+      <tr><td class="green">WHALE</td><td class="green">5,000+ $NYT</td><td>Everything in PRO + private delivery, advanced watch workflows, developer API access, and future staking access</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Burn Mechanisms</h2>
+  <p>If deployed as designed, $NYT supply would be reduced through two independent mechanisms:</p>
+  <p><strong>Revenue burn:</strong> A treasury-directed portion of platform revenue could be used to buy $NYT from the open market and burn it permanently once the token economy is live.</p>
+  <p><strong>Staking penalty burn:</strong> When a staker exits before their lock period ends, a 20% penalty on their principal would be burned immediately via <code>burnTokens()</code>.</p>
+
+  <h2>Staking</h2>
+  <p>After deployment, token holders would be able to stake $NYT for a fixed duration across four tiers. Rewards are designed as APY-weighted claims on a live ETH revenue pool, not fixed guarantees, so payouts always depend on what has actually been deposited.</p>
+  <table>
+    <thead><tr><th>Tier</th><th>Duration</th><th>Target APY</th><th>Multiplier</th><th>Minimum</th></tr></thead>
+    <tbody>
+      <tr><td>Tier 1</td><td>30 days</td><td>12%</td><td>1x</td><td>100 $NYT</td></tr>
+      <tr><td>Tier 2</td><td>90 days</td><td>28%</td><td>1.5x</td><td>500 $NYT</td></tr>
+      <tr><td>Tier 3</td><td>180 days</td><td>52%</td><td>2x</td><td>1,000 $NYT</td></tr>
+      <tr><td>Tier 4</td><td>365 days</td><td>100%</td><td>3x</td><td>5,000 $NYT</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Governance</h2>
+  <p>Partner-tier holders (5,000+ $NYT) are expected to participate in governance after deployment: which chains NYTHOS adds next, which wallets are flagged as known institutions, alert threshold adjustments, and treasury allocation. Governance is intentionally later-stage infrastructure, not the first reason to launch.</p>
+
+  <!-- ─── 8. TOKENOMICS ─────────────────────────────────────────────────────── -->
+  <h1 id="tokenomics">8. Tokenomics</h1>
+  <p>Total Supply: <span class="accent">100,000,000 $NYT</span> (fixed, no minting after launch). Allocation matches the deployed NYT.sol contract exactly: 6 buckets, each sent to a dedicated contract or wallet at initialization.</p>
+  <table>
+    <thead><tr><th>Allocation</th><th>%</th><th>Amount</th><th>Held By</th><th>Vesting</th></tr></thead>
+    <tbody>
+      <tr><td>Sale &amp; Access</td><td class="accent">27%</td><td>27,000,000</td><td>NYTPresale contract</td><td>Distributed across 3 presale rounds; unclaimed tokens remain in contract</td></tr>
+      <tr><td>Community Airdrop</td><td class="accent">18%</td><td>18,000,000</td><td>NYTAirdrop contract</td><td>Batch claim with deadline; unclaimed swept to treasury</td></tr>
+      <tr><td>Ecosystem &amp; Rewards</td><td class="accent">18%</td><td>18,000,000</td><td>NYTStaking contract</td><td>Pro-rata ETH reward pool, activated only after platform earns recurring revenue</td></tr>
+      <tr><td>Team</td><td class="accent">15%</td><td>15,000,000</td><td>NYTVesting contract</td><td>1-year cliff, 2-year linear vest</td></tr>
+      <tr><td>Liquidity Pool</td><td class="accent">15%</td><td>15,000,000</td><td>Liquidity wallet (Gnosis Safe)</td><td>Locked for Aerodrome + Uniswap Base DEX pools at launch</td></tr>
+      <tr><td>Treasury</td><td class="accent">7%</td><td>7,000,000</td><td>Treasury wallet (Gnosis Safe)</td><td>Multisig controlled: audit, legal, ops, and emergency runway</td></tr>
+    </tbody>
+  </table>
+
+  <!-- ─── 9. TOKEN SALE ────────────────────────────────────────────────────── -->
+  <h1 id="sale">9. Token Presale</h1>
+  <p>NYTHOS raises capital through a three-round token presale. Buyers send ETH to the NYTPresale contract, which allocates $NYT at a fixed round price. The contract enforces a soft cap ($100,000). If the soft cap is not reached at finalization, buyers receive full ETH refunds. The hard cap is $219,000 across all three rounds combined.</p>
+  <table>
+    <thead><tr><th>Round</th><th>Price per $NYT</th><th>Allocation</th><th>Round Raise</th><th>Access</th><th>Claim</th></tr></thead>
+    <tbody>
+      <tr><td class="green">Founder Round</td><td class="green">$0.005</td><td>5,000,000 NYT</td><td>$25,000</td><td>Whitelist only</td><td>After finalization</td></tr>
+      <tr><td class="accent">Early Access</td><td class="accent">$0.008</td><td>13,000,000 NYT</td><td>$104,000</td><td>Open to all</td><td>After finalization</td></tr>
+      <tr><td>Public Round</td><td>$0.010</td><td>9,000,000 NYT</td><td>$90,000</td><td>Open to all</td><td>30-day cliff post-finalization</td></tr>
+    </tbody>
+  </table>
+  <p>Presale contracts are written, locally tested (108 tests passing), and ready for Base Sepolia testnet deployment. Mainnet deployment follows external audit.</p>
+
+  <h2>Use of Presale Proceeds</h2>
+  <table>
+    <thead><tr><th>Category</th><th>%</th><th>Purpose</th></tr></thead>
+    <tbody>
+      <tr><td>Base Liquidity Pool</td><td>40%</td><td>Aerodrome + Uniswap Base, seeding the 15M NYT liquidity allocation</td></tr>
+      <tr><td>Smart Contract Audit</td><td>25%</td><td>External security review (Cyfrin / Sherlock / Code4rena)</td></tr>
+      <tr><td>Product &amp; Infrastructure</td><td>20%</td><td>Base deployment, backend reliability, and launch hardening</td></tr>
+      <tr><td>Runway Reserve</td><td>15%</td><td>Legal, ops, infrastructure, and contingency buffer</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Use of Funds</h2>
+  <table>
+    <thead><tr><th>Category</th><th>%</th><th>Purpose</th></tr></thead>
+    <tbody>
+      <tr><td>Product Hardening</td><td>40%</td><td>Infrastructure scaling, Base launch prep, UI cleanup, and demo readiness</td></tr>
+      <tr><td>Audit & Legal Prep</td><td>25%</td><td>Third-party smart contract review, legal review, and deployment readiness</td></tr>
+      <tr><td>Distribution</td><td>20%</td><td>Founder-list growth, pilot onboarding, Base grant applications, and content</td></tr>
+      <tr><td>Runway Reserve</td><td>15%</td><td>Infrastructure buffer, ops, and launch sequencing</td></tr>
+    </tbody>
+  </table>
+
+  <!-- ─── 10. ROADMAP ──────────────────────────────────────────────────────── -->
+  <h1 id="roadmap">10. Roadmap</h1>
+  <table>
+    <thead><tr><th>Phase</th><th>Milestone</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>01: Signal Engine</td><td>Cross-chain prices, whale scanning, scoring model, and AI explanation layer</td><td class="green">COMPLETE</td></tr>
+      <tr><td>02: Web App</td><td>React dashboard, Base wallet connect, signal feed, history, and open beta access</td><td class="green">COMPLETE</td></tr>
+      <tr><td>03: Base Flow Intelligence</td><td>Base transfers, swaps, liquidity flows, bridge flows, and watchlist scanning</td><td class="green">COMPLETE</td></tr>
+      <tr><td>04: Launch Radar</td><td>Fresh pool detection, smart-wallet early entries, and launch risk</td><td class="green">COMPLETE</td></tr>
+      <tr><td>05: Proof &amp; Smart Money</td><td>Expanded proof tracking, wallet intelligence, labels, and reputation snapshots</td><td class="green">COMPLETE</td></tr>
+      <tr><td>06: Workflow Layer</td><td>Saved views, private delivery, alert controls, and developer API</td><td class="green">COMPLETE</td></tr>
+      <tr><td>07: Smart Contracts</td><td>NYTToken, NYTPresale, NYTVesting, NYTStaking, NYTAirdrop written and locally tested</td><td class="green">COMPLETE</td></tr>
+      <tr><td>08: Founder List &amp; Pilots</td><td>Referral funnel, pilot sourcing, and early customer conversations</td><td class="accent">IN PROGRESS</td></tr>
+      <tr><td>09: Base Grants</td><td>Builder Rewards, grants, and ecosystem intros</td><td class="accent">IN PROGRESS</td></tr>
+      <tr><td>10: Production Hardening</td><td>Ops, observability, queueing, and resilience improvements</td><td>UPCOMING</td></tr>
+      <tr><td>11: Security Audit</td><td>Third-party smart contract audit and deployment review</td><td>UPCOMING</td></tr>
+      <tr><td>12: Token Access Launch</td><td>Deploy token and switch on real Base access controls</td><td>UPCOMING</td></tr>
+      <tr><td>13: Community Rooms &amp; USDC Access</td><td>Shared alpha rooms and subscriptions once the core product is mature</td><td>FUTURE</td></tr>
+    </tbody>
+  </table>
+
+  <!-- ─── 11. TEAM ─────────────────────────────────────────────────────────── -->
+  <h1 id="team">11. Team</h1>
+  <p>NYTHOS is currently led by a small founding team. The brand may feel cryptic, but the fundraising case should rest on execution, product proof, and deployment readiness rather than mystique.</p>
+  <p>The smart contracts are open-source and should be audited by a third-party security firm prior to mainnet deployment. Treasury management is intended to move to a multisig once the token infrastructure is live.</p>
+  <p>The goal is accountability through shipped product, transparent metrics, and verifiable code. The best proof of team quality is whether NYTHOS can turn a working beta into a useful Base-native business. Public contact: <span class="accent">@NythosAI</span> · <span class="accent">hello@nythos.io</span></p>
+
+  <!-- ─── 12. DISCLAIMER ───────────────────────────────────────────────────── -->
+  <div class="disclaimer" id="disclaimer">
+    <h3>12. LEGAL DISCLAIMER</h3>
+    <p>This whitepaper is for informational purposes only and does not constitute financial advice, investment advice, trading advice, or any other sort of advice. Nothing in this document should be construed as a solicitation to buy or sell any financial instrument.</p>
+    <p>$NYT is a utility token that provides access to features within the NYTHOS platform. It is not a security, equity, debt instrument, or claim on future profits. Holding $NYT does not represent ownership in any company or entitlement to dividends.</p>
+    <p>The information in this whitepaper is subject to change. NYTHOS makes no warranties or representations about the accuracy or completeness of the information herein. Platform features, token mechanics, and timelines are subject to modification based on technical, regulatory, or market developments.</p>
+    <p>Cryptocurrency investments involve significant risk. The value of $NYT may go to zero. Past signal accuracy does not guarantee future performance. Never invest more than you can afford to lose.</p>
+    <p>Any future token launch may be restricted in certain jurisdictions and should follow separate legal review before participation opens. Nothing in this document should be treated as an active public offering.</p>
+    <p class="disclaimer-copy">© 2026 NYTHOS. All rights reserved. Contact: hello@nythos.io · @NythosAI</p>
+  </div>
+
+</div>
+</body>
+</html>

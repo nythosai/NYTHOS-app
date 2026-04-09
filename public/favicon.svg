@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#0d0e1e"/>
+      <stop offset="100%" style="stop-color:#07080f"/>
+    </radialGradient>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#9b93ff;stop-opacity:1"/>
+      <stop offset="100%" style="stop-color:#5a52e0;stop-opacity:1"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background circle -->
+  <circle cx="50" cy="50" r="50" fill="url(#bg)"/>
+
+  <!-- Circuit rays - 24 lines radiating from center, with terminal dots -->
+  <!-- Each ray: line from ~r18 out to ~r38, dot at end -->
+
+  <!-- 0° -->
+  <line x1="50" y1="32" x2="50" y2="20" stroke="url(#glow)" stroke-width="0.9" opacity="0.85"/>
+  <circle cx="50" cy="19" r="1.4" fill="#8b7fff"/>
+
+  <!-- 15° -->
+  <line x1="54.7" y1="32.7" x2="59.8" y2="21.8" stroke="url(#glow)" stroke-width="0.9" opacity="0.85"/>
+  <circle cx="60.4" cy="20.6" r="1.4" fill="#8b7fff"/>
+
+  <!-- 30° -->
+  <line x1="59" y1="34.9" x2="68.8" y2="25.6" stroke="url(#glow)" stroke-width="0.9" opacity="0.85"/>
+  <circle cx="69.6" cy="24.9" r="1.4" fill="#8b7fff"/>
+
+  <!-- 45° -->
+  <line x1="62.3" y1="38.5" x2="75.2" y2="31.3" stroke="url(#glow)" stroke-width="0.9" opacity="0.85"/>
+  <circle cx="76.2" cy="30.7" r="1.4" fill="#8b7fff"/>
+
+  <!-- 60° -->
+  <line x1="64.3" y1="43.4" x2="79.2" y2="39.3" stroke="url(#glow)" stroke-width="0.9" opacity="0.85"/>
+  <circle cx="80.3" cy="39" r="1.4" fill="#8b7fff"/>
+
+  <!-- 75° -->
+  <line x1="64.9" y1="48.6" x2="80.4" y2="47.8" stroke="url(#glow)" stroke-width="0.9" opacity="0.85"/>
+  <circle cx="81.6" cy="47.7" r="1.4" fill="#8b7fff"/>
+
+  <!-- 90° -->
+  <line x1="64.3" y1="53.5" x2="79.3" y2="56.6" stroke="url(#glow)" stroke-width="0.9" opacity="0.85"/>
+  <circle cx="80.4" cy="56.9" r="1.4" fill="#8b7fff"/>
+
+  <!-- 105° -->
+  <line x1="62.3" y1="58.1" x2="75.3" y2="64.9" stroke="url(#glow)" stroke-width="0.9" opacity="0.85"/>
+  <circle cx="76.3" cy="65.5" r="1.4" fill="#8b7fff"/>
+
+  <!-- 120° -->
+  <line x1="59" y1="61.8" x2="68.8" y2="71.4" stroke="url(#glow)" stroke-width="0.9" opacity="0.85"/>
+  <circle cx="69.5" cy="72.2" r="1.4" fill="#8b7fff"/>
+
+  <!-- 135° -->
+  <line x1="54.7" y1="64.3" x2="60" y2="75.8" stroke="url(#glow)" stroke-width="0.9" opacity="0.85"/>
+  <circle cx="60.5" cy="77" r="1.4" fill="#8b7fff"/>
+
+  <!-- 150° -->
+  <line x1="50" y1="65.5" x2="50" y2="78.2" stroke="url(#glow)" stroke-width="0.9" opacity="0.85"/>
+  <circle cx="50" cy="79.4" r="1.4" fill="#8b7fff"/>
+
+  <!-- 165° -->
+  <line x1="45.3" y1="64.3" x2="40" y2="75.8" stroke="url(#glow)" stroke-width="0.9" opacity="0.85"/>
+  <circle cx="39.5" cy="77" r="1.4" fill="#8b7fff"/>
+
+  <!-- 180° -->
+  <line x1="41" y1="61.8" x2="31.2" y2="71.4" stroke="url(#glow)" stroke-width="0.9" opacity="0.85"/>
+  <circle cx="30.5" cy="72.2" r="1.4" fill="#8b7fff"/>
+
+  <!-- 195° -->
+  <line x1="37.7" y1="58.1" x2="24.7" y2="64.9" stroke="url(#glow)" stroke-width="0.9" opacity="0.85"/>
+  <circle cx="23.7" cy="65.5" r="1.4" fill="#8b7fff"/>
+
+  <!-- 210° -->
+  <line x1="35.7" y1="53.5" x2="20.7" y2="56.6" stroke="url(#glow)" stroke-width="0.9" opacity="0.85"/>
+  <circle cx="19.6" cy="56.9" r="1.4" fill="#8b7fff"/>
+
+  <!-- 225° -->
+  <line x1="35.1" y1="48.6" x2="19.6" y2="47.8" stroke="url(#glow)" stroke-width="0.9" opacity="0.85"/>
+  <circle cx="18.4" cy="47.7" r="1.4" fill="#8b7fff"/>
+
+  <!-- 240° -->
+  <line x1="35.7" y1="43.4" x2="20.8" y2="39.3" stroke="url(#glow)" stroke-width="0.9" opacity="0.85"/>
+  <circle cx="19.7" cy="39" r="1.4" fill="#8b7fff"/>
+
+  <!-- 255° -->
+  <line x1="37.7" y1="38.5" x2="24.8" y2="31.3" stroke="url(#glow)" stroke-width="0.9" opacity="0.85"/>
+  <circle cx="23.8" cy="30.7" r="1.4" fill="#8b7fff"/>
+
+  <!-- 270° -->
+  <line x1="41" y1="34.9" x2="31.2" y2="25.6" stroke="url(#glow)" stroke-width="0.9" opacity="0.85"/>
+  <circle cx="30.4" cy="24.9" r="1.4" fill="#8b7fff"/>
+
+  <!-- 285° -->
+  <line x1="45.3" y1="32.7" x2="40.2" y2="21.8" stroke="url(#glow)" stroke-width="0.9" opacity="0.85"/>
+  <circle cx="39.6" cy="20.6" r="1.4" fill="#8b7fff"/>
+
+  <!-- Center void -->
+  <circle cx="50" cy="50" r="15" fill="#07080f"/>
+  <circle cx="50" cy="50" r="13" fill="#04050b"/>
+
+  <!-- Subtle inner glow ring -->
+  <circle cx="50" cy="50" r="15" fill="none" stroke="#6c63ff" stroke-width="0.5" opacity="0.4"/>
+</svg>

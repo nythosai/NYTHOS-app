@@ -1,0 +1,134 @@
+.ob-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(5, 7, 15, 0.85);
+  backdrop-filter: blur(6px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+}
+
+.ob-modal {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 40px 36px;
+  max-width: 440px;
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  box-shadow: var(--shadow-md), 0 0 0 1px rgba(108, 99, 255, 0.06);
+  animation: obSlideIn 0.25s ease-out;
+}
+
+@keyframes obSlideIn {
+  from { opacity: 0; transform: translateY(16px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0)    scale(1); }
+}
+
+.ob-skip {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  font-family: var(--font-body);
+  font-size: 11px;
+  letter-spacing: 2px;
+  cursor: pointer;
+  opacity: 0.5;
+  transition: opacity 0.15s;
+}
+
+.ob-skip:hover { opacity: 1; }
+
+.ob-step-num {
+  font-size: 10px;
+  letter-spacing: 3px;
+  color: var(--text-muted);
+  opacity: 0.5;
+}
+
+.ob-progress {
+  display: flex;
+  gap: 6px;
+}
+
+.ob-pip {
+  width: 24px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--border);
+  transition: background 0.2s;
+}
+
+.ob-pip.active { background: var(--accent); }
+
+.ob-symbol {
+  margin: 8px 0 4px;
+  opacity: 0.9;
+}
+
+.ob-title {
+  font-size: 20px;
+  letter-spacing: 4px;
+  color: var(--text);
+  text-align: center;
+  margin: 0;
+}
+
+.ob-body {
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.8;
+  text-align: center;
+  margin: 0;
+  max-width: 360px;
+}
+
+.ob-cta {
+  margin-top: 8px;
+  background: transparent;
+  border: 1px solid var(--accent);
+  color: var(--accent);
+  font-family: var(--font-body);
+  font-size: 11px;
+  letter-spacing: 3px;
+  padding: 12px 32px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+  width: 100%;
+}
+
+.ob-cta:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+.ob-cta-final {
+  border-color: var(--green);
+  color: var(--green);
+}
+
+.ob-cta-final:hover {
+  background: var(--green);
+  color: #000;
+}
+
+@media (max-width: 480px) {
+  .ob-modal {
+    padding: 32px 20px;
+  }
+
+  .ob-title {
+    font-size: 16px;
+    letter-spacing: 2px;
+  }
+}
