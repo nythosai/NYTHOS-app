@@ -126,7 +126,7 @@
 .tier-perk.locked {
   color: var(--text-dim);
 }
-.tier-perk.locked::before { content: '—'; }
+.tier-perk.locked::before { content: '-'; }
 
 .tier-upgrade {
   font-size: 11px;

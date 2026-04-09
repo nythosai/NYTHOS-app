@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import api from '../api';
 import './WalletGraphPage.css';
 
-// Simple force-directed layout in pure React/Canvas — no external library needed.
+// Simple force-directed layout in pure React/Canvas - no external library needed.
 // Nodes repel each other, edges act as springs pulling connected nodes together.
 
 const W = 800;

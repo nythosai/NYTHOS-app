@@ -17,7 +17,7 @@ export const wagmiAdapter = new WagmiAdapter({
   ssr: false,
 });
 
-// AppKit powers the wallet modal — supports:
+// AppKit powers the wallet modal - supports:
 //  • Coinbase Smart Wallet (Base-native, passkey login, no seed phrase)
 //  • WalletConnect v2 (Rainbow, Trust, MetaMask mobile, 200+ wallets)
 //  • Injected wallets (MetaMask, Rabby, etc. browser extensions)

@@ -187,7 +187,7 @@ export default function Dashboard() {
           <button className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)}>☰</button>
         </div>
 
-        {/* Bottom row: nav tabs — grouped by function */}
+        {/* Bottom row: nav tabs - grouped by function */}
         <nav className="dash-nav">
           {/* Intelligence */}
           <button className={`nav-btn ${tab === 'feed'      ? 'active' : ''}`} onClick={() => setTab('feed')}>SIGNALS</button>

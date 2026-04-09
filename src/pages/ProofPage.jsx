@@ -44,14 +44,14 @@ function ProofOutcome({ signal }) {
       <div className="proof-price-item">
         <span className="proof-price-label">Entry</span>
         <span className="proof-price-val">
-          ${signal.priceUSD ? Number(signal.priceUSD).toLocaleString('en-US', { maximumFractionDigits: 4 }) : '—'}
+          ${signal.priceUSD ? Number(signal.priceUSD).toLocaleString('en-US', { maximumFractionDigits: 4 }) : '-'}
         </span>
       </div>
       <div className="proof-arrow">→</div>
       <div className="proof-price-item">
         <span className="proof-price-label">24h later</span>
         <span className="proof-price-val">
-          ${signal.priceCheck24h ? Number(signal.priceCheck24h).toLocaleString('en-US', { maximumFractionDigits: 4 }) : '—'}
+          ${signal.priceCheck24h ? Number(signal.priceCheck24h).toLocaleString('en-US', { maximumFractionDigits: 4 }) : '-'}
         </span>
       </div>
       <PctBadge pct={signal.pctMove} />
@@ -177,7 +177,7 @@ export default function ProofPage() {
       {!loading && total > 0 && (
         <div className="proof-headline">
           <div className="proof-hl-stat">
-            <span className="proof-hl-num proof-hl-green">{rate !== null ? `${rate}%` : '—'}</span>
+            <span className="proof-hl-num proof-hl-green">{rate !== null ? `${rate}%` : '-'}</span>
             <span className="proof-hl-label">24h accuracy</span>
           </div>
           <div className="proof-hl-div" />

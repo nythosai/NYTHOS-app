@@ -7,7 +7,7 @@ const steps = [
   {
     num: '01',
     title: 'Live Signal Feed',
-    body: 'NYTHOS watches whale wallets, Base swaps, bridge flows, and price momentum across ETH, BTC, SOL, and Base — 24/7. Every signal is scored by confidence level so you know what to act on.',
+    body: 'NYTHOS watches whale wallets, Base swaps, bridge flows, and price momentum across ETH, BTC, SOL, and Base - 24/7. Every signal is scored by confidence level so you know what to act on.',
     cta: 'Next',
   },
   {
@@ -18,7 +18,7 @@ const steps = [
   },
   {
     num: '03',
-    title: 'Beta Mode — Everything Is Open',
+    title: 'Beta Mode - Everything Is Open',
     body: 'NYTHOS is in open beta. Contracts are not yet deployed, so all features are unlocked for every connected wallet. Join the founder list to lock in your pilot rate when token-gating goes live on Base.',
     cta: 'Enter NYTHOS',
   },

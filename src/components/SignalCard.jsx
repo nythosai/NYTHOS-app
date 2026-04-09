@@ -82,7 +82,7 @@ export default function SignalCard({ signal, tier, onWhaleClick }) {
           {signal.riskLevel && <span className={`sc-risk ${riskCls}`}>{signal.riskLevel} RISK</span>}
         </div>
 
-        {/* Trade button — always visible when token address is known */}
+        {/* Trade button - always visible when token address is known */}
         {tradeUrl && (
           <a
             className="sc-trade-visible"

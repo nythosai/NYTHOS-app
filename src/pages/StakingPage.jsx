@@ -210,15 +210,15 @@ export default function StakingPage() {
       {/* Global stats */}
       <div className="staking-stats">
         <div className="ss">
-          <span className="ss-num">{isDeployed ? totalStaked.toLocaleString() : '—'}</span>
+          <span className="ss-num">{isDeployed ? totalStaked.toLocaleString() : '-'}</span>
           <span className="ss-label">Total Weighted Stake</span>
         </div>
         <div className="ss">
-          <span className="ss-num">{isDeployed ? totalStakersCnt.toLocaleString() : '—'}</span>
+          <span className="ss-num">{isDeployed ? totalStakersCnt.toLocaleString() : '-'}</span>
           <span className="ss-label">Total Stakes Created</span>
         </div>
         <div className="ss">
-          <span className="ss-num">{isDeployed && rewardPoolETH > 0 ? rewardPoolETH.toFixed(4) + ' ETH' : '—'}</span>
+          <span className="ss-num">{isDeployed && rewardPoolETH > 0 ? rewardPoolETH.toFixed(4) + ' ETH' : '-'}</span>
           <span className="ss-label">Reward Pool</span>
         </div>
         <div className="ss">
@@ -272,7 +272,7 @@ export default function StakingPage() {
         })}
       </div>
 
-      {/* Stake form — appears when a tier is selected */}
+      {/* Stake form - appears when a tier is selected */}
       {isDeployed && address && selectedTier !== null && (
         <div className="stake-form-wrap">
             <div className="stake-form">

@@ -320,7 +320,7 @@
   font-family: var(--font-mono);
 }
 
-/* Right column — time + chevron */
+/* Right column - time + chevron */
 .sc-right-col {
   display: flex;
   flex-direction: column;
@@ -350,7 +350,7 @@
   color: var(--accent);
 }
 
-/* Preview line — single line shown when collapsed */
+/* Preview line - single line shown when collapsed */
 .sc-preview {
   font-size: 13px;
   color: var(--text-muted);

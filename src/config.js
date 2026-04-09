@@ -265,7 +265,7 @@ export const NYT_STAKING_ABI = [
   },
   // ── Write ──
   {
-    // stake(amount, tierIndex) — requires prior NYT approval
+    // stake(amount, tierIndex) - requires prior NYT approval
     inputs: [
       { name: 'amount',    type: 'uint256' },
       { name: 'tierIndex', type: 'uint256' },

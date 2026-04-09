@@ -64,7 +64,7 @@ function formatAge(ts) {
 }
 
 export default function Landing() {
-  // AppKit manages its own modal — handles Coinbase Smart Wallet, WalletConnect,
+  // AppKit manages its own modal - handles Coinbase Smart Wallet, WalletConnect,
   // MetaMask, Rainbow, Trust, and 200+ mobile wallets via QR / deep link.
   const { open } = useAppKit();
 
@@ -159,7 +159,7 @@ export default function Landing() {
             <div className="how-step">
               <div className="how-step-num">01</div>
               <div className="how-step-title">Connect your wallet</div>
-              <div className="how-step-desc">Your wallet is your login. No email. No password. Connect from mobile or desktop — Coinbase Wallet, MetaMask, Rainbow, or any WalletConnect wallet.</div>
+              <div className="how-step-desc">Your wallet is your login. No email. No password. Connect from mobile or desktop - Coinbase Wallet, MetaMask, Rainbow, or any WalletConnect wallet.</div>
             </div>
             <div className="how-step">
               <div className="how-step-num">02</div>
