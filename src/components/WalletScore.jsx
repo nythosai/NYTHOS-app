@@ -33,7 +33,7 @@ export default function WalletScore({ address, chain = 'BASE', onPortfolioLoad }
           setRequestState({
             key: requestKey,
             portfolio: null,
-            score: null,
+            score: { score: null, label: 'UNAVAILABLE', insight: 'Wallet scoring is temporarily unavailable. Check back shortly.', chain },
           });
           if (onPortfolioLoad) onPortfolioLoad(null);
         }
@@ -52,13 +52,18 @@ export default function WalletScore({ address, chain = 'BASE', onPortfolioLoad }
   if (!score) return null;
 
   const tier = score.score >= 70 ? 'high' : score.score >= 45 ? 'medium' : 'low';
+  const isUnavailable = score.score === null;
 
   return (
-    <div className={`wallet-score-card ${tier}`}>
+    <div className={`wallet-score-card ${isUnavailable ? 'unavailable' : tier}`}>
       <div className="ws-left">
         <div className="ws-label">WALLET SCORE</div>
-        <div className={`ws-score ${tier}`}>{score.score}</div>
-        <div className={`ws-tier ${tier}`}>{score.label}</div>
+        {isUnavailable ? (
+          <div className="ws-score low">—</div>
+        ) : (
+          <div className={`ws-score ${tier}`}>{score.score}</div>
+        )}
+        <div className={`ws-tier ${isUnavailable ? 'low' : tier}`}>{score.label}</div>
       </div>
       <div className="ws-right">
         <p className="ws-insight">{score.insight}</p>
