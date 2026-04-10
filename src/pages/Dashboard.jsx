@@ -253,8 +253,8 @@ export default function Dashboard() {
               <span className="stat-label">High Confidence</span>
             </div>
             <div className="stat">
-              <span className="stat-num">{signals.filter(s => s.post).length}</span>
-              <span className="stat-label">AI Posts</span>
+              <span className="stat-num">{signals.filter(s => s.proofMode).length}</span>
+              <span className="stat-label">Verified Outcomes</span>
             </div>
             <div className="stat">
               <span className="stat-num">{signals.filter(s => s.type === 'WHALE_ACTIVITY').length}</span>
