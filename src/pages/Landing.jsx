@@ -25,7 +25,7 @@ function LiveSignalPreview() {
   const rate = accuracy?.overall?.rate24h;
   const total = accuracy?.overall?.total24h;
 
-  const chainColor = { ETH: '#6c63ff', BTC: '#f7931a', SOL: '#9945ff', BASE: '#0052ff' };
+  const chainColor = { ETH: '#6c63ff', BTC: '#f7931a', BASE: '#0052ff' };
 
   return (
     <div className="live-proof">
@@ -119,7 +119,7 @@ export default function Landing() {
               <div className="hero-prop-icon">◈</div>
               <div className="hero-prop-text">
                 <strong>See smart money move</strong>
-                <span>Track large wallet activity, score what matters, and get a usable signal feed across ETH, BTC, SOL, and Base.</span>
+                <span>Track large wallet activity, score what matters, and get a usable signal feed across ETH, BTC, and Base.</span>
               </div>
             </div>
             <div className="hero-prop">

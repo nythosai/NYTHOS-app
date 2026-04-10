@@ -4,7 +4,7 @@ import api from '../api';
 import { useWalletSession } from '../hooks/useWalletSession';
 import './AlertsPage.css';
 
-const TOKENS = ['ETH', 'BTC', 'SOL'];
+const TOKENS = ['ETH', 'BTC'];
 const DIRECTIONS = ['above', 'below'];
 const CONFIDENCE_LEVELS = ['LOW', 'MEDIUM', 'HIGH'];
 const DELIVERY_TYPES = [
@@ -17,7 +17,7 @@ const DELIVERY_TYPES = [
   { value: 'LAUNCH_SMART_ENTRY', label: 'Smart entries' },
   { value: 'LAUNCH_RISK', label: 'Launch risk' },
 ];
-const DELIVERY_CHAINS = ['ETH', 'BTC', 'SOL', 'BASE'];
+const DELIVERY_CHAINS = ['ETH', 'BTC', 'BASE'];
 
 function splitCommaValues(value) {
   return String(value || '')
@@ -199,15 +199,13 @@ export default function AlertsPage({ prices }) {
   const active = alerts.filter(alert => alert.active);
   const triggered = alerts.filter(alert => !alert.active && alert.triggeredAt);
 
-  const currentPrice = token === 'ETH' ? prices?.ETH?.price
-    : token === 'BTC' ? prices?.BTC?.price
-      : prices?.SOL?.price;
+  const currentPrice = token === 'ETH' ? prices?.ETH?.price : prices?.BTC?.price;
 
   return (
     <div className="alerts-page">
       <div className="alerts-hero">
         <div className="alerts-title">Price Alerts</div>
-        <p>Get private NYTHOS alerts the moment ETH, BTC or SOL hits your target, then route launch radar, Base flow, and watched-wallet intelligence to Telegram or your own webhook.</p>
+        <p>Get private NYTHOS alerts the moment ETH or BTC hits your target, then route launch radar, Base flow, and watched-wallet intelligence to Telegram or your own webhook.</p>
       </div>
 
       <form className="alert-form" onSubmit={addAlert}>

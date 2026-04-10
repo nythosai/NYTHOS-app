@@ -263,7 +263,7 @@ export default function Dashboard() {
           </div>
 
           <div className="chain-row">
-            {['ALL', 'ETH', 'BTC', 'SOL', 'BASE'].map(c => (
+            {['ALL', 'ETH', 'BTC', 'BASE'].map(c => (
               <button
                 key={c}
                 className={`chain-btn ${chainFilter === c ? 'active' : ''} ${holdingTokens.includes(c) ? 'held' : ''}`}

@@ -7,7 +7,7 @@ const steps = [
   {
     num: '01',
     title: 'Live Signal Feed',
-    body: 'NYTHOS watches whale wallets, Base swaps, bridge flows, and price momentum across ETH, BTC, SOL, and Base - 24/7. Every signal is scored by confidence level so you know what to act on.',
+    body: 'NYTHOS watches whale wallets, Base swaps, bridge flows, and price momentum across ETH, BTC, and Base - 24/7. Every signal is scored by confidence level so you know what to act on.',
     cta: 'Next',
   },
   {

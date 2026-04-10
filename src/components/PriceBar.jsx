@@ -22,18 +22,6 @@ export default function PriceBar({ prices }) {
           {change(prices.BTC.change24h)}
         </span>
       </div>
-      {prices.SOL && prices.SOL.price > 0 && (
-        <>
-          <div className="price-divider" />
-          <div className="price-item">
-            <span className="price-label">SOL</span>
-            <span className="price-value">{fmt(prices.SOL.price)}</span>
-            <span className={`price-change ${prices.SOL.change24h >= 0 ? 'pos' : 'neg'}`}>
-              {change(prices.SOL.change24h)}
-            </span>
-          </div>
-        </>
-      )}
     </div>
   );
 }

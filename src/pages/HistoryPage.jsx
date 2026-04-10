@@ -8,7 +8,7 @@ import { useWalletSession } from '../hooks/useWalletSession';
 import './HistoryPage.css';
 
 const SIGNAL_TYPES = ['ALL', 'WHALE_ACTIVITY', 'PRICE_MOMENTUM', 'BRIDGE_FLOW', 'DEX_SWAP', 'LIQUIDITY_FLOW', 'POOL_LAUNCH', 'LAUNCH_SMART_ENTRY', 'LAUNCH_RISK', 'WATCHED_WALLET', 'PRICE_ALERT'];
-const CHAINS       = ['ALL', 'ETH', 'BTC', 'SOL', 'BASE'];
+const CHAINS       = ['ALL', 'ETH', 'BTC', 'BASE'];
 const CONFIDENCES  = ['ALL', 'HIGH', 'MEDIUM', 'LOW'];
 const RISKS        = ['ALL', 'HIGH', 'MEDIUM', 'LOW'];
 
