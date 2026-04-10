@@ -22,7 +22,11 @@ export default function SignalCard({ signal, tier, onWhaleClick }) {
   function buildTradeUrl() {
     const addr = signal.tokenOutAddress || signal.tokenInAddress;
     if (!addr || !/^0x[0-9a-fA-F]{40}$/.test(addr)) return null;
+    const protocol = signal.protocol?.toUpperCase();
     if (signal.chain === 'BASE') {
+      if (protocol === 'AERODROME') return `https://aerodrome.finance/swap?to=${addr}`;
+      if (protocol === 'PANCAKESWAP') return `https://pancakeswap.finance/swap?outputCurrency=${addr}&chain=base`;
+      if (protocol === 'BASESWAP') return `https://baseswap.fi/#/swap?outputCurrency=${addr}`;
       return `https://app.uniswap.org/swap?outputCurrency=${addr}&chain=base`;
     }
     if (signal.chain === 'ETH') {
@@ -30,7 +34,15 @@ export default function SignalCard({ signal, tier, onWhaleClick }) {
     }
     return null;
   }
+  function getTradeLabel() {
+    const protocol = signal.protocol?.toUpperCase();
+    if (protocol === 'AERODROME') return 'TRADE ON AERODROME ↗';
+    if (protocol === 'PANCAKESWAP') return 'TRADE ON PANCAKESWAP ↗';
+    if (protocol === 'BASESWAP') return 'TRADE ON BASESWAP ↗';
+    return 'TRADE ON UNISWAP ↗';
+  }
   const tradeUrl = buildTradeUrl();
+  const tradeLabel = getTradeLabel();
 
   const cls = signal.confidence === 'HIGH' ? 'high' : signal.confidence === 'MEDIUM' ? 'medium' : 'low';
   const riskCls = signal.riskLevel ? signal.riskLevel.toLowerCase() : '';
@@ -91,7 +103,7 @@ export default function SignalCard({ signal, tier, onWhaleClick }) {
             rel="noreferrer"
             onClick={e => e.stopPropagation()}
           >
-            TRADE ON UNISWAP ↗
+            {tradeLabel}
           </a>
         )}
 
