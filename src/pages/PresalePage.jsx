@@ -1,7 +1,12 @@
 import { useState, useEffect } from 'react';
-import { useAccount } from 'wagmi';
+import { useAccount, useReadContracts, useWriteContract, useWaitForTransactionReceipt } from 'wagmi';
+import { parseEther, formatEther, formatUnits } from 'viem';
 import api from '../api';
+import { NYT_PRESALE_ADDRESS, NYT_PRESALE_ABI } from '../config';
 import './PresalePage.css';
+
+const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
+const ROUND_NAMES = ['Founder Round', 'Early Access', 'Public Round'];
 
 const ROUNDS = [
   {
@@ -59,6 +64,99 @@ export default function PresalePage() {
   const [whitelistCount, setWhitelistCount] = useState(null);
   const [referralData, setReferralData]     = useState(null);
   const [refCopied, setRefCopied]           = useState(false);
+
+  const [buyEth, setBuyEth] = useState('');
+  const [buyError, setBuyError] = useState('');
+
+  const contractDeployed = NYT_PRESALE_ADDRESS !== ZERO_ADDRESS;
+
+  // ── On-chain reads ──────────────────────────────────────────────────────────
+  const { data: contractReads, refetch: refetchContract } = useReadContracts({
+    contracts: contractDeployed ? [
+      { address: NYT_PRESALE_ADDRESS, abi: NYT_PRESALE_ABI, functionName: 'saleOpen' },
+      { address: NYT_PRESALE_ADDRESS, abi: NYT_PRESALE_ABI, functionName: 'finalized' },
+      { address: NYT_PRESALE_ADDRESS, abi: NYT_PRESALE_ABI, functionName: 'softCapReached' },
+      { address: NYT_PRESALE_ADDRESS, abi: NYT_PRESALE_ABI, functionName: 'raisedUSD' },
+      { address: NYT_PRESALE_ADDRESS, abi: NYT_PRESALE_ABI, functionName: 'currentRound' },
+      { address: NYT_PRESALE_ADDRESS, abi: NYT_PRESALE_ABI, functionName: 'ethPriceUSD' },
+      ...(address ? [
+        { address: NYT_PRESALE_ADDRESS, abi: NYT_PRESALE_ABI, functionName: 'nytPurchased', args: [address] },
+        { address: NYT_PRESALE_ADDRESS, abi: NYT_PRESALE_ABI, functionName: 'ethPaid',       args: [address] },
+      ] : []),
+    ] : [],
+    query: { enabled: contractDeployed, refetchInterval: 15000 },
+  });
+
+  const saleOpen      = contractReads?.[0]?.result;
+  const isFinalized   = contractReads?.[1]?.result;
+  const softCapHit    = contractReads?.[2]?.result;
+  const raisedUSD     = contractReads?.[3]?.result;      // 8-decimal USD
+  const currentRound  = contractReads?.[4]?.result;
+  const ethPriceUSD   = contractReads?.[5]?.result;      // 8-decimal USD
+  const userNYT       = address ? contractReads?.[6]?.result : undefined; // 18-decimal
+  const userETHPaid   = address ? contractReads?.[7]?.result : undefined; // 18-decimal
+
+  // ── Write hooks ─────────────────────────────────────────────────────────────
+  const { writeContractAsync: execBuy,    isPending: buyPending    } = useWriteContract();
+  const { writeContractAsync: execClaim,  isPending: claimPending  } = useWriteContract();
+  const { writeContractAsync: execRefund, isPending: refundPending } = useWriteContract();
+
+  const [txHash, setTxHash] = useState(null);
+  const { isLoading: txConfirming, isSuccess: txSuccess } = useWaitForTransactionReceipt({ hash: txHash });
+
+  useEffect(() => {
+    if (txSuccess) { refetchContract(); setTxHash(null); }
+  }, [txSuccess, refetchContract]);
+
+  async function handleBuy() {
+    setBuyError('');
+    if (!buyEth || isNaN(buyEth) || Number(buyEth) <= 0) {
+      setBuyError('Enter a valid ETH amount');
+      return;
+    }
+    try {
+      const hash = await execBuy({
+        address: NYT_PRESALE_ADDRESS,
+        abi: NYT_PRESALE_ABI,
+        functionName: 'buy',
+        value: parseEther(buyEth),
+      });
+      setTxHash(hash);
+      setBuyEth('');
+    } catch (err) {
+      setBuyError(err.shortMessage || err.message || 'Transaction failed');
+    }
+  }
+
+  async function handleClaim() {
+    try {
+      const hash = await execClaim({ address: NYT_PRESALE_ADDRESS, abi: NYT_PRESALE_ABI, functionName: 'claim' });
+      setTxHash(hash);
+    } catch (err) {
+      setBuyError(err.shortMessage || err.message || 'Claim failed');
+    }
+  }
+
+  async function handleRefund() {
+    try {
+      const hash = await execRefund({ address: NYT_PRESALE_ADDRESS, abi: NYT_PRESALE_ABI, functionName: 'refund' });
+      setTxHash(hash);
+    } catch (err) {
+      setBuyError(err.shortMessage || err.message || 'Refund failed');
+    }
+  }
+
+  // Helper: estimate NYT for an ETH amount
+  function estimateNYT(ethAmount) {
+    if (!ethPriceUSD || !ethAmount || isNaN(ethAmount) || Number(ethAmount) <= 0) return null;
+    const ROUND_PRICE_USD_8 = [500000n, 800000n, 1000000n]; // $0.005, $0.008, $0.010 in 8-decimal
+    const roundIdx = typeof currentRound === 'number' ? currentRound : 0;
+    const roundPrice = ROUND_PRICE_USD_8[roundIdx] ?? ROUND_PRICE_USD_8[0];
+    const ethWei = parseEther(String(ethAmount));
+    const usdValue8 = (ethWei * ethPriceUSD) / BigInt(1e18);
+    const nyt18 = (usdValue8 * BigInt(1e18)) / roundPrice;
+    return Number(formatUnits(nyt18, 18)).toLocaleString('en-US', { maximumFractionDigits: 0 });
+  }
 
   const storedRef = localStorage.getItem('nythos_ref') || '';
 
@@ -155,6 +253,99 @@ export default function PresalePage() {
           </div>
         ))}
       </div>
+
+      {/* ── On-chain interaction panel ── */}
+      {contractDeployed && (
+        <div className="presale-onchain">
+          <div className="poc-header">
+            <span className="poc-live-dot" />
+            <span className="poc-live-label">LIVE ON BASE SEPOLIA</span>
+            {raisedUSD != null && (
+              <span className="poc-raised">
+                ${Number(formatUnits(raisedUSD, 8)).toLocaleString('en-US', { maximumFractionDigits: 0 })} raised
+              </span>
+            )}
+            {currentRound != null && (
+              <span className="poc-round">{ROUND_NAMES[currentRound] ?? `Round ${currentRound}`}</span>
+            )}
+          </div>
+
+          {/* User position */}
+          {address && userNYT != null && userNYT > 0n && (
+            <div className="poc-position">
+              <span className="poc-pos-label">Your allocation</span>
+              <span className="poc-pos-val">
+                {Number(formatUnits(userNYT, 18)).toLocaleString('en-US', { maximumFractionDigits: 0 })} $NYT
+              </span>
+              {userETHPaid != null && userETHPaid > 0n && (
+                <span className="poc-pos-eth">
+                  for {Number(formatEther(userETHPaid)).toFixed(4)} ETH
+                </span>
+              )}
+            </div>
+          )}
+
+          {/* TX status */}
+          {txConfirming && <div className="poc-tx-status">Confirming transaction...</div>}
+          {txSuccess    && <div className="poc-tx-status poc-tx-ok">Transaction confirmed!</div>}
+          {buyError     && <div className="poc-error">{buyError}</div>}
+
+          {/* Buy */}
+          {saleOpen && !isFinalized && (
+            <div className="poc-buy">
+              <div className="poc-buy-row">
+                <input
+                  className="poc-eth-input"
+                  type="number"
+                  min="0"
+                  step="0.001"
+                  placeholder="ETH amount"
+                  value={buyEth}
+                  onChange={e => { setBuyEth(e.target.value); setBuyError(''); }}
+                />
+                <button
+                  className="poc-btn poc-btn-buy"
+                  onClick={handleBuy}
+                  disabled={buyPending || txConfirming || !buyEth}
+                >
+                  {buyPending || txConfirming ? 'BUYING...' : 'BUY $NYT'}
+                </button>
+              </div>
+              {buyEth && Number(buyEth) > 0 && estimateNYT(buyEth) && (
+                <div className="poc-estimate">≈ {estimateNYT(buyEth)} $NYT</div>
+              )}
+              {!address && <div className="poc-connect-note">Connect wallet to buy</div>}
+            </div>
+          )}
+
+          {/* Claim */}
+          {isFinalized && softCapHit && userNYT != null && userNYT > 0n && (
+            <button
+              className="poc-btn poc-btn-claim"
+              onClick={handleClaim}
+              disabled={claimPending || txConfirming}
+            >
+              {claimPending || txConfirming ? 'CLAIMING...' : `CLAIM ${Number(formatUnits(userNYT, 18)).toLocaleString('en-US', { maximumFractionDigits: 0 })} $NYT`}
+            </button>
+          )}
+
+          {/* Refund */}
+          {isFinalized && !softCapHit && userETHPaid != null && userETHPaid > 0n && (
+            <button
+              className="poc-btn poc-btn-refund"
+              onClick={handleRefund}
+              disabled={refundPending || txConfirming}
+            >
+              {refundPending || txConfirming ? 'REFUNDING...' : `REFUND ${Number(formatEther(userETHPaid)).toFixed(4)} ETH`}
+            </button>
+          )}
+
+          {/* Sale closed but not finalized */}
+          {!saleOpen && !isFinalized && (
+            <div className="poc-notice">Sale is paused. Waiting for finalization.</div>
+          )}
+        </div>
+      )}
 
       {/* How it works */}
       <div className="presale-how">

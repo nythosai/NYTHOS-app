@@ -32,7 +32,7 @@ Working beta. The frontend is live as a working build, the signal engine runs, t
 
 ## What proof exists today?
 
-We have a working frontend beta, a live signal engine, Base-aligned contract configuration, founder-list capture, `108` local smart-contract tests passing, and a passing production frontend build.
+NYTHOS is live at nythos.io. The signal engine runs in production, detecting whale activity, DEX and bridge flows, launch events, and smart money moves on Base and Ethereum. Wallet intelligence includes cohort benchmarks, hold-time analysis, and relationship graphs. A public and private proof feed tracks verified signal outcomes with follow-through data. Founder-list and referral capture are live. Delivery to Telegram, webhook, and email digest works per user. Privacy policy, terms, and GDPR cookie consent are in place. The backend is production-hardened with rate limiting, Redis caching, and a full test suite. Contracts are configured for Base and locally tested.
 
 ## What will the grant help you do?
 

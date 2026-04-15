@@ -1,0 +1,279 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=1200"/>
+<title>NYTHOS OG Image</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    width: 1200px;
+    height: 630px;
+    overflow: hidden;
+    background: #060912;
+    font-family: 'Inter', -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .card {
+    position: relative;
+    width: 1200px;
+    height: 630px;
+    background: #060912;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    overflow: hidden;
+  }
+
+  /* Subtle grid */
+  .grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(108,99,255,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(108,99,255,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  /* Purple radial glow behind logo */
+  .glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -54%);
+    width: 560px;
+    height: 420px;
+    background: radial-gradient(ellipse at center, rgba(108,99,255,0.22) 0%, rgba(108,99,255,0.06) 45%, transparent 70%);
+    pointer-events: none;
+  }
+
+  /* Bottom edge fade */
+  .fade-bottom {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 120px;
+    background: linear-gradient(to bottom, transparent, rgba(6,9,18,0.7));
+  }
+
+  /* Top-left corner accent */
+  .corner-tl {
+    position: absolute;
+    top: 0; left: 0;
+    width: 2px; height: 48px;
+    background: linear-gradient(to bottom, #6c63ff, transparent);
+  }
+  .corner-tl::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 48px; height: 2px;
+    background: linear-gradient(to right, #6c63ff, transparent);
+  }
+  /* Bottom-right corner accent */
+  .corner-br {
+    position: absolute;
+    bottom: 0; right: 0;
+    width: 2px; height: 48px;
+    background: linear-gradient(to top, #6c63ff, transparent);
+  }
+  .corner-br::after {
+    content: '';
+    position: absolute;
+    bottom: 0; right: 0;
+    width: 48px; height: 2px;
+    background: linear-gradient(to left, #6c63ff, transparent);
+  }
+
+  .content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+  }
+
+  .logo-wrap {
+    width: 88px;
+    height: 88px;
+    margin-bottom: 28px;
+  }
+
+  .wordmark {
+    font-size: 88px;
+    font-weight: 900;
+    letter-spacing: 0.22em;
+    color: #e8eaf0;
+    line-height: 1;
+    margin-bottom: 18px;
+    /* Subtle text glow */
+    text-shadow: 0 0 60px rgba(108,99,255,0.35);
+  }
+
+  .tagline {
+    font-size: 15px;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    color: #8892a4;
+    text-transform: uppercase;
+    margin-bottom: 44px;
+  }
+
+  .pills {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    margin-bottom: 44px;
+  }
+
+  .pill {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 18px;
+    border-radius: 999px;
+    border: 1px solid #1e2d45;
+    background: rgba(13,21,37,0.9);
+    font-size: 13px;
+    font-weight: 600;
+    color: #e8eaf0;
+    letter-spacing: 0.02em;
+  }
+
+  .pill-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #00e5a0;
+    box-shadow: 0 0 6px rgba(0,229,160,0.7);
+    flex-shrink: 0;
+  }
+
+  .pill-dot.purple {
+    background: #6c63ff;
+    box-shadow: 0 0 6px rgba(108,99,255,0.7);
+  }
+
+  .pill-dot.orange {
+    background: #f7931a;
+    box-shadow: 0 0 6px rgba(247,147,26,0.7);
+  }
+
+  .divider {
+    width: 1px;
+    height: 14px;
+    background: #1e2d45;
+  }
+
+  .domain {
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    color: #5a6478;
+  }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="grid"></div>
+  <div class="glow"></div>
+  <div class="corner-tl"></div>
+  <div class="corner-br"></div>
+  <div class="fade-bottom"></div>
+
+  <div class="content">
+    <!-- Logo: the real favicon SVG inline -->
+    <div class="logo-wrap">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="88" height="88">
+        <defs>
+          <radialGradient id="bg" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" style="stop-color:#0d0e1e"/>
+            <stop offset="100%" style="stop-color:#07080f"/>
+          </radialGradient>
+          <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" style="stop-color:#9b93ff;stop-opacity:1"/>
+            <stop offset="100%" style="stop-color:#5a52e0;stop-opacity:1"/>
+          </radialGradient>
+        </defs>
+        <circle cx="50" cy="50" r="50" fill="url(#bg)"/>
+        <line x1="50" y1="32" x2="50" y2="20" stroke="url(#glow)" stroke-width="0.9" opacity="0.85"/>
+        <circle cx="50" cy="19" r="1.4" fill="#8b7fff"/>
+        <line x1="54.7" y1="32.7" x2="59.8" y2="21.8" stroke="url(#glow)" stroke-width="0.9" opacity="0.85"/>
+        <circle cx="60.4" cy="20.6" r="1.4" fill="#8b7fff"/>
+        <line x1="59" y1="34.9" x2="68.8" y2="25.6" stroke="url(#glow)" stroke-width="0.9" opacity="0.85"/>
+        <circle cx="69.6" cy="24.9" r="1.4" fill="#8b7fff"/>
+        <line x1="62.3" y1="38.5" x2="75.2" y2="31.3" stroke="url(#glow)" stroke-width="0.9" opacity="0.85"/>
+        <circle cx="76.2" cy="30.7" r="1.4" fill="#8b7fff"/>
+        <line x1="64.3" y1="43.4" x2="79.2" y2="39.3" stroke="url(#glow)" stroke-width="0.9" opacity="0.85"/>
+        <circle cx="80.3" cy="39" r="1.4" fill="#8b7fff"/>
+        <line x1="64.9" y1="48.6" x2="80.4" y2="47.8" stroke="url(#glow)" stroke-width="0.9" opacity="0.85"/>
+        <circle cx="81.6" cy="47.7" r="1.4" fill="#8b7fff"/>
+        <line x1="64.3" y1="53.5" x2="79.3" y2="56.6" stroke="url(#glow)" stroke-width="0.9" opacity="0.85"/>
+        <circle cx="80.4" cy="56.9" r="1.4" fill="#8b7fff"/>
+        <line x1="62.3" y1="58.1" x2="75.3" y2="64.9" stroke="url(#glow)" stroke-width="0.9" opacity="0.85"/>
+        <circle cx="76.3" cy="65.5" r="1.4" fill="#8b7fff"/>
+        <line x1="59" y1="61.8" x2="68.8" y2="71.4" stroke="url(#glow)" stroke-width="0.9" opacity="0.85"/>
+        <circle cx="69.5" cy="72.2" r="1.4" fill="#8b7fff"/>
+        <line x1="54.7" y1="64.3" x2="60" y2="75.8" stroke="url(#glow)" stroke-width="0.9" opacity="0.85"/>
+        <circle cx="60.5" cy="77" r="1.4" fill="#8b7fff"/>
+        <line x1="50" y1="65.5" x2="50" y2="78.2" stroke="url(#glow)" stroke-width="0.9" opacity="0.85"/>
+        <circle cx="50" cy="79.4" r="1.4" fill="#8b7fff"/>
+        <line x1="45.3" y1="64.3" x2="40" y2="75.8" stroke="url(#glow)" stroke-width="0.9" opacity="0.85"/>
+        <circle cx="39.5" cy="77" r="1.4" fill="#8b7fff"/>
+        <line x1="41" y1="61.8" x2="31.2" y2="71.4" stroke="url(#glow)" stroke-width="0.9" opacity="0.85"/>
+        <circle cx="30.5" cy="72.2" r="1.4" fill="#8b7fff"/>
+        <line x1="37.7" y1="58.1" x2="24.7" y2="64.9" stroke="url(#glow)" stroke-width="0.9" opacity="0.85"/>
+        <circle cx="23.7" cy="65.5" r="1.4" fill="#8b7fff"/>
+        <line x1="35.7" y1="53.5" x2="20.7" y2="56.6" stroke="url(#glow)" stroke-width="0.9" opacity="0.85"/>
+        <circle cx="19.6" cy="56.9" r="1.4" fill="#8b7fff"/>
+        <line x1="35.1" y1="48.6" x2="19.6" y2="47.8" stroke="url(#glow)" stroke-width="0.9" opacity="0.85"/>
+        <circle cx="18.4" cy="47.7" r="1.4" fill="#8b7fff"/>
+        <line x1="35.7" y1="43.4" x2="20.8" y2="39.3" stroke="url(#glow)" stroke-width="0.9" opacity="0.85"/>
+        <circle cx="19.7" cy="39" r="1.4" fill="#8b7fff"/>
+        <line x1="37.7" y1="38.5" x2="24.8" y2="31.3" stroke="url(#glow)" stroke-width="0.9" opacity="0.85"/>
+        <circle cx="23.8" cy="30.7" r="1.4" fill="#8b7fff"/>
+        <line x1="41" y1="34.9" x2="31.2" y2="25.6" stroke="url(#glow)" stroke-width="0.9" opacity="0.85"/>
+        <circle cx="30.4" cy="24.9" r="1.4" fill="#8b7fff"/>
+        <line x1="45.3" y1="32.7" x2="40.2" y2="21.8" stroke="url(#glow)" stroke-width="0.9" opacity="0.85"/>
+        <circle cx="39.6" cy="20.6" r="1.4" fill="#8b7fff"/>
+        <circle cx="50" cy="50" r="15" fill="#07080f"/>
+        <circle cx="50" cy="50" r="13" fill="#04050b"/>
+        <circle cx="50" cy="50" r="15" fill="none" stroke="#6c63ff" stroke-width="0.5" opacity="0.4"/>
+      </svg>
+    </div>
+
+    <div class="wordmark">NYTHOS</div>
+
+    <div class="tagline">The Dark Intelligence of the Blockchain</div>
+
+    <div class="pills">
+      <div class="pill">
+        <span class="pill-dot"></span>
+        Live Whale Signals
+      </div>
+      <div class="divider"></div>
+      <div class="pill">
+        <span class="pill-dot purple"></span>
+        AI-Scored On-Chain
+      </div>
+      <div class="divider"></div>
+      <div class="pill">
+        <span class="pill-dot orange"></span>
+        ETH · BTC · Base
+      </div>
+    </div>
+
+    <div class="domain">nythos.io</div>
+  </div>
+</div>
+</body>
+</html>

@@ -44,7 +44,7 @@ Typical backend env vars:
 - `MONGODB_URI`
 - `ETHERSCAN_API_KEY`
 - `ANTHROPIC_API_KEY`
-- `ALLOWED_ORIGIN`
+- `ALLOWED_ORIGINS`
 - `AUTH_SESSION_SECRET`
 - `BASE_RPC_URL`
 - `ADMIN_SECRET`
@@ -86,6 +86,5 @@ This repo now reflects a cleaner fundraising story:
 - `src/pages/TokenPage.jsx` - token plan, allocations, and Base launch framing
 - `public/whitepaper.html` - project brief / whitepaper
 - `src/config.js` - frontend contract placeholders that must be replaced after deployment
-- `docs/06-product-expansion-todo.md` - temporary execution backlog for the next major product buildout. Delete it after implementation and roll the final state into the permanent docs
 - `docs/10-api-ops-notes.md` - current API, proof, and operations endpoints
 - `docs/11-schema-migration-notes.md` - migration notes for the latest schema and delivery setting additions

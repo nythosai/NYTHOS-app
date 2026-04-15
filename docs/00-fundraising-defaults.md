@@ -50,13 +50,19 @@ Recommended sequence:
 
 ## Verified traction we can safely use
 
-- Working frontend beta
+- Working frontend live at nythos.io (Vite/React, deployed)
 - Founder-list and referral funnel live
-- Signal engine live
-- Base included in the live product story
-- Contracts configured for Base
-- `108` local smart-contract tests passing
-- Frontend production build passes
+- Signal engine live: whale tracking, DEX/bridge signals, launch radar, smart money scoring
+- Base event-driven ingestion: block-aware debounced runner with fallback loop
+- Wallet intelligence: cohort benchmarks, hold-time analysis, relationship graphs, coordination flags
+- Proof feed: public and private verified outcomes with follow-through data
+- Delivery: Telegram, webhook, and optional email digest per user
+- API key layer for developer access
+- Privacy policy, terms, cookie consent, OG image, sitemap, robots.txt all live
+- Redis-backed cache (Upstash) with memory fallback
+- All backend performance and reliability improvements shipped (16/16 audit items complete)
+- Test suite covering signal engine, dedup, cache, scanner, tier resolution, delivery, and route auth
+- Contracts configured for Base, locally tested
 
 ## Do not claim yet
 

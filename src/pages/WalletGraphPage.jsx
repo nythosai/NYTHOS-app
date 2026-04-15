@@ -79,6 +79,7 @@ export default function WalletGraphPage({ onWhaleClick }) {
   const [error, setError] = useState(null);
   const [hovered, setHovered] = useState(null);
   const layoutRef = useRef(null);
+  const hoveredRef = useRef(null);
 
   function drawGraph(nodes, edges, pos, hoveredIdx) {
     const canvas = canvasRef.current;
@@ -151,24 +152,28 @@ export default function WalletGraphPage({ onWhaleClick }) {
     drawGraph(nodes, edges, pos, null);
   }, [graphData]);
 
+  function hitTest(mx, my) {
+    const pos = layoutRef.current;
+    for (let i = 0; i < pos.length; i++) {
+      const dx = pos[i].x - mx;
+      const dy = pos[i].y - my;
+      if (Math.sqrt(dx * dx + dy * dy) <= NODE_RADIUS + 6) return i;
+    }
+    return null;
+  }
+
   function handleMouseMove(e) {
     if (!graphData?.nodes?.length || !layoutRef.current) return;
     const canvas = canvasRef.current;
     const rect = canvas.getBoundingClientRect();
     const mx = (e.clientX - rect.left) * (W / rect.width);
     const my = (e.clientY - rect.top)  * (H / rect.height);
-    const pos = layoutRef.current;
-
-    let found = null;
-    for (let i = 0; i < pos.length; i++) {
-      const dx = pos[i].x - mx;
-      const dy = pos[i].y - my;
-      if (Math.sqrt(dx * dx + dy * dy) <= NODE_RADIUS + 6) { found = i; break; }
-    }
+    const found = hitTest(mx, my);
 
     if (found !== hovered) {
+      hoveredRef.current = found;
       setHovered(found);
-      drawGraph(graphData.nodes, graphData.edges, pos, found);
+      drawGraph(graphData.nodes, graphData.edges, layoutRef.current, found);
       canvas.style.cursor = found != null ? 'pointer' : 'default';
     }
   }
@@ -176,9 +181,34 @@ export default function WalletGraphPage({ onWhaleClick }) {
   function handleClick() {
     if (!graphData?.nodes?.length || !layoutRef.current || hovered == null) return;
     const node = graphData.nodes[hovered];
-    if (node && onWhaleClick) {
-      onWhaleClick({ address: node.id, chain: 'BASE' });
-    }
+    if (node && onWhaleClick) onWhaleClick({ address: node.id, chain: 'BASE' });
+  }
+
+  function getTouchPos(e) {
+    const canvas = canvasRef.current;
+    const rect = canvas.getBoundingClientRect();
+    const touch = e.touches[0] || e.changedTouches[0];
+    return {
+      mx: (touch.clientX - rect.left) * (W / rect.width),
+      my: (touch.clientY - rect.top)  * (H / rect.height),
+    };
+  }
+
+  function handleTouchMove(e) {
+    e.preventDefault();
+    if (!graphData?.nodes?.length || !layoutRef.current) return;
+    const { mx, my } = getTouchPos(e);
+    const found = hitTest(mx, my);
+    hoveredRef.current = found;
+    setHovered(found);
+    drawGraph(graphData.nodes, graphData.edges, layoutRef.current, found);
+  }
+
+  function handleTouchEnd(e) {
+    e.preventDefault();
+    if (!graphData?.nodes?.length || !layoutRef.current || hoveredRef.current == null) return;
+    const node = graphData.nodes[hoveredRef.current];
+    if (node && onWhaleClick) onWhaleClick({ address: node.id, chain: 'BASE' });
   }
 
   const hasData = graphData?.nodes?.length > 0;
@@ -186,7 +216,6 @@ export default function WalletGraphPage({ onWhaleClick }) {
   return (
     <div className="graph-page">
       <div className="graph-header">
-        <h2 className="graph-title">WALLET RELATIONSHIP GRAPH</h2>
         <p className="graph-sub">
           Smart wallets that moved together in the last 7 days. Clusters reveal coordination before narratives go public.
           {hasData && ` ${graphData.nodes.length} wallets, ${graphData.edges.length} connections.`}
@@ -209,14 +238,18 @@ export default function WalletGraphPage({ onWhaleClick }) {
             width={W}
             height={H}
             className="graph-canvas"
+            style={{ touchAction: 'none' }}
             onMouseMove={handleMouseMove}
             onMouseLeave={() => {
+              hoveredRef.current = null;
               setHovered(null);
               if (graphData?.nodes?.length && layoutRef.current) {
                 drawGraph(graphData.nodes, graphData.edges, layoutRef.current, null);
               }
             }}
             onClick={handleClick}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
           />
           <p className="graph-hint">Click a node to view wallet profile. Brighter nodes have more signals.</p>
         </div>

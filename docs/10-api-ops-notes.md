@@ -78,8 +78,9 @@ The backend now includes:
 - optional Redis-compatible cache support through Upstash REST env vars with memory fallback
 - a debounced Base block ingestion coordinator with a timed fallback loop for faster signal freshness
 
-## Remaining Infra Work
+## Next Infrastructure Work
 
-Still intentionally open:
+Intentionally deferred:
 
-- permanent replacement of the temporary expansion TODO once the paused product work is finished
+- Community Alpha Rooms — shared watchlists, room-level alert feeds, and scoreboards for trading groups
+- USDC subscriptions — subscription tiers payable in USDC, gating premium delivery features

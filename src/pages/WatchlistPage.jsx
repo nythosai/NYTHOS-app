@@ -92,7 +92,6 @@ export default function WatchlistPage({ address, tier }) {
   const content = (
     <div className="watchlist-page">
       <div className="wl-hero">
-        <div className="wl-title">Wallet Watchlist</div>
         <p>
           Add up to 10 wallets. NYTHOS will alert you in the signal feed every
           time they move funds on ETH or Base.

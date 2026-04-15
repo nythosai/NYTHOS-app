@@ -6,7 +6,7 @@ import {
   useWriteContract,
   useWaitForTransactionReceipt,
 } from 'wagmi';
-import { baseSepolia as base } from 'wagmi/chains';
+import { base } from 'wagmi/chains';
 import { parseEther } from 'viem';
 import {
   NYT_STAKING_ADDRESS,

@@ -8,9 +8,18 @@ import { TIERS } from '../config';
  */
 export default function TierBadge({ tier, balanceNYT }) {
   const [open, setOpen] = React.useState(false);
+  const wrapRef = React.useRef(null);
+
+  React.useEffect(() => {
+    function handleOutside(e) {
+      if (open && wrapRef.current && !wrapRef.current.contains(e.target)) setOpen(false);
+    }
+    document.addEventListener('mousedown', handleOutside);
+    return () => document.removeEventListener('mousedown', handleOutside);
+  }, [open]);
 
   return (
-    <div className="tier-badge-wrap">
+    <div className="tier-badge-wrap" ref={wrapRef}>
       <button
         className={`tier-badge tier-${tier.name.toLowerCase()}`}
         onClick={() => setOpen(o => !o)}

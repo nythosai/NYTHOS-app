@@ -634,8 +634,7 @@
   .revenue-inner { grid-template-columns: 1fr; gap: 32px; }
   .revenue-card { min-width: auto; }
   .presale-cta h2 { font-size: 26px; }
-  .wallet-modal { padding: 22px; }
-  .wallet-option { padding: 13px 15px; }
+
 }
 
 @media (max-width: 480px) {

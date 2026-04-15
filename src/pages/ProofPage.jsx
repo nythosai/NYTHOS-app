@@ -145,7 +145,6 @@ export default function ProofPage() {
     <div className="proof-page">
       <div className="proof-hero">
         <div className="proof-hero-tag">VERIFIED ON CHAIN</div>
-        <div className="proof-title">Proof of Work</div>
         <p>
           NYTHOS tracks what happened after a signal fired. Public proof shows verified wins and misses across the live feed.
           Private proof is available when your wallet session is active.

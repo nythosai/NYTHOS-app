@@ -59,7 +59,7 @@ export default function WalletScore({ address, chain = 'BASE', onPortfolioLoad }
       <div className="ws-left">
         <div className="ws-label">WALLET SCORE</div>
         {isUnavailable ? (
-          <div className="ws-score low">—</div>
+          <div className="ws-score low"></div>
         ) : (
           <div className={`ws-score ${tier}`}>{score.score}</div>
         )}

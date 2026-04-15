@@ -100,7 +100,6 @@ export default function HistoryPage({ tier }) {
   return (
     <div className="history-page">
       <div className="history-hero">
-        <div className="history-title">Signal History</div>
         <p>Every pattern NYTHOS has observed. Searchable, filterable, permanent.</p>
       </div>
 

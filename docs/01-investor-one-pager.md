@@ -51,14 +51,20 @@ Base is the best chain fit for NYTHOS right now because:
 
 ## Product proof today
 
-Verified today inside the repo:
+Verified in the live product:
 
-- Working frontend beta
-- Founder-list and referral flow live
-- Signal engine live
-- Contracts configured for Base
-- `108` local smart-contract tests passing
-- Frontend production build passes
+- Frontend live at nythos.io — wallet connect, signal feed, tier gating, dashboard
+- Signal engine live: whale tracking, DEX/bridge signals, Base launch radar, smart money scoring with conviction reasons
+- Wallet intelligence: cohort benchmarks, hold-time analysis, relationship graphs, coordination flags
+- Proof feed: public and private verified outcomes with follow-through and who-else-followed context
+- Delivery layer: per-user Telegram, webhook, and email digest
+- API key layer for developer access
+- Founder-list and referral capture live
+- Legal: privacy policy, terms, GDPR cookie consent all live
+- SEO: OG tags, sitemap, robots.txt, Google Search Console and Bing verification files in place
+- Backend hardened: Redis cache, rate limiting, graceful shutdown, security headers, 16/16 audit items complete
+- Test suite covering core services, route auth, scanner, dedup, and delivery
+- Contracts configured for Base, locally tested
 
 ## Business model
 

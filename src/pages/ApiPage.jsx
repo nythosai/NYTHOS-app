@@ -77,7 +77,6 @@ export default function ApiPage({ tier }) {
   return (
     <div className="api-page">
       <div className="api-hero">
-        <div className="api-title">Developer API</div>
         <p>Access NYTHOS signals from your own apps, bots and scripts via API key.</p>
       </div>
 

@@ -195,6 +195,7 @@ export default function Dashboard() {
           <button className={`nav-btn ${tab === 'history'   ? 'active' : ''}`} onClick={() => setTab('history')}>HISTORY</button>
           <button className={`nav-btn ${tab === 'proof'     ? 'active' : ''}`} onClick={() => setTab('proof')}>PROOF</button>
           <button className={`nav-btn ${tab === 'graph'     ? 'active' : ''}`} onClick={() => setTab('graph')}>GRAPH</button>
+          <button className={`nav-btn ${tab === 'query'     ? 'active' : ''}`} onClick={() => setTab('query')}>QUERY</button>
           <span className="nav-sep" />
           {/* My Setup */}
           <button className={`nav-btn ${tab === 'watchlist' ? 'active' : ''}`} onClick={() => setTab('watchlist')}>WATCHLIST</button>
@@ -219,6 +220,7 @@ export default function Dashboard() {
           <button onClick={() => { setTab('history'); setMenuOpen(false); }}>History</button>
           <button onClick={() => { setTab('proof'); setMenuOpen(false); }}>Proof</button>
           <button onClick={() => { setTab('graph'); setMenuOpen(false); }}>Wallet Graph</button>
+          <button onClick={() => { setTab('query'); setMenuOpen(false); }}>Query</button>
           <div className="mobile-menu-group-label">MY SETUP</div>
           <button onClick={() => { setTab('watchlist'); setMenuOpen(false); }}>Watchlist</button>
           <button onClick={() => { setTab('alerts'); setMenuOpen(false); }}>Alerts</button>
@@ -358,6 +360,11 @@ export default function Dashboard() {
 
       <footer className="dash-footer">
         NYTHOS - The Dark Intelligence of the Blockchain · @NythosAI · $NYT · Pattern observation, not prediction.
+        <div className="dash-footer-links">
+          <a href="/privacy.html" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
+          <span>·</span>
+          <a href="/terms.html" target="_blank" rel="noopener noreferrer">Terms of Service</a>
+        </div>
       </footer>
     </div>
   );

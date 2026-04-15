@@ -220,7 +220,7 @@ export default function TokenPage({ onJoinPresale }) {
                   <div className="alloc-pct">{a.pct}%</div>
                   <div className="alloc-amount">{a.amount}</div>
                   <div className="alloc-bar-wrap">
-                    <div className={`alloc-bar ${a.color}`} style={{ width: `${a.pct * 3}px` }} />
+                    <div className={`alloc-bar ${a.color}`} style={{ width: `${a.pct}%` }} />
                   </div>
                 </div>
               </div>

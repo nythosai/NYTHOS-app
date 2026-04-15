@@ -415,6 +415,25 @@
   font-family: var(--font-mono);
 }
 
+.dash-footer-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+  letter-spacing: 0.5px;
+}
+
+.dash-footer-links a {
+  color: var(--text-dim);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.dash-footer-links a:hover {
+  color: var(--text);
+}
+
 /* ── Responsive ─────────────────────────────────────────────────────────── */
 @media (max-width: 1024px) {
   .dash-main { max-width: 100%; padding: 28px 24px; }

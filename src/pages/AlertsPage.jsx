@@ -204,7 +204,6 @@ export default function AlertsPage({ prices }) {
   return (
     <div className="alerts-page">
       <div className="alerts-hero">
-        <div className="alerts-title">Price Alerts</div>
         <p>Get private NYTHOS alerts the moment ETH or BTC hits your target, then route launch radar, Base flow, and watched-wallet intelligence to Telegram or your own webhook.</p>
       </div>
 

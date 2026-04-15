@@ -57,7 +57,6 @@ export default function LaunchRadarPage({ tier, onWhaleClick }) {
   return (
     <div className="launch-radar-page">
       <div className="launch-radar-hero">
-        <div className="launch-radar-title">Base Launch Radar</div>
         <p>Fresh Base pools, early smart-wallet entries, and launch risk signals in one feed.</p>
       </div>
 
