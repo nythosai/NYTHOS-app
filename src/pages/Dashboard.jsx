@@ -27,7 +27,6 @@ const RoadmapPage = lazyWithChunkRecovery(() => import('./RoadmapPage'));
 const ProofPage = lazyWithChunkRecovery(() => import('./ProofPage'));
 const LaunchRadarPage = lazyWithChunkRecovery(() => import('./LaunchRadarPage'));
 const WalletGraphPage = lazyWithChunkRecovery(() => import('./WalletGraphPage'));
-const QueryPage = lazyWithChunkRecovery(() => import('./QueryPage'));
 
 export default function Dashboard() {
   const { address } = useAccount();
@@ -163,8 +162,6 @@ export default function Dashboard() {
         return <AboutPage onViewRoadmap={() => setTab('roadmap')} />;
       case 'graph':
         return <WalletGraphPage onWhaleClick={setWhaleTarget} />;
-      case 'query':
-        return <QueryPage tier={tier} onWhaleClick={setWhaleTarget} />;
       default:
         return null;
     }
@@ -195,7 +192,7 @@ export default function Dashboard() {
           <button className={`nav-btn ${tab === 'history'   ? 'active' : ''}`} onClick={() => setTab('history')}>HISTORY</button>
           <button className={`nav-btn ${tab === 'proof'     ? 'active' : ''}`} onClick={() => setTab('proof')}>PROOF</button>
           <button className={`nav-btn ${tab === 'graph'     ? 'active' : ''}`} onClick={() => setTab('graph')}>GRAPH</button>
-          <button className={`nav-btn ${tab === 'query'     ? 'active' : ''}`} onClick={() => setTab('query')}>QUERY</button>
+
           <span className="nav-sep" />
           {/* My Setup */}
           <button className={`nav-btn ${tab === 'watchlist' ? 'active' : ''}`} onClick={() => setTab('watchlist')}>WATCHLIST</button>

@@ -22,7 +22,7 @@ export const API_URL = ENV_API_URL || (
     ? 'http://localhost:3001'
     : 'https://nythos-backend.onrender.com'
 );
-export const BETA_DEFAULT_TIER = normalizeTierName(import.meta.env.VITE_BETA_DEFAULT_TIER) || 'SMART_MONEY';
+export const BETA_DEFAULT_TIER = normalizeTierName(import.meta.env.VITE_BETA_DEFAULT_TIER) || 'OBSERVER';
 
 // ─── Contract Addresses ───────────────────────────────────────────────────────
 // Deploy order: NYT → NYTVesting → NYTPresale → NYTStaking → NYTAirdrop
