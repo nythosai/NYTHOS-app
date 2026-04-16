@@ -117,82 +117,88 @@ export default function HistoryPage({ tier }) {
         </form>
 
         <div className="history-filters">
-          <div className="hf-group">
-            <span className="hf-label">CHAIN</span>
-            <div className="hf-btns">
-              {CHAINS.map(c => (
-                <button
-                  key={c}
-                  className={`hf-btn ${chain === c ? 'active' : ''}`}
-                  onClick={() => setChain(c)}
-                >{c}</button>
-              ))}
+          {/* Row 1: pill filters + date range */}
+          <div className="hf-row">
+            <div className="hf-pill-group">
+              <span className="hf-label">CHAIN</span>
+              <div className="hf-btns">
+                {CHAINS.map(c => (
+                  <button
+                    key={c}
+                    className={`hf-btn ${chain === c ? 'active' : ''}`}
+                    onClick={() => setChain(c)}
+                  >{c}</button>
+                ))}
+              </div>
+            </div>
+
+            <div className="hf-pill-group">
+              <span className="hf-label">CONFIDENCE</span>
+              <div className="hf-btns">
+                {CONFIDENCES.map(c => (
+                  <button
+                    key={c}
+                    className={`hf-btn ${confidence === c ? 'active' : ''}`}
+                    onClick={() => setConfidence(c)}
+                  >{c}</button>
+                ))}
+              </div>
+            </div>
+
+            <div className="hf-pill-group">
+              <span className="hf-label">RISK</span>
+              <div className="hf-btns">
+                {RISKS.map(level => (
+                  <button
+                    key={level}
+                    className={`hf-btn ${risk === level ? 'active' : ''}`}
+                    onClick={() => setRisk(level)}
+                  >{level}</button>
+                ))}
+              </div>
+            </div>
+
+            <div className="hf-pill-group hf-pill-group--dates">
+              <span className="hf-label">DATE RANGE</span>
+              <div className="hf-dates">
+                <input
+                  type="date"
+                  className="hf-date"
+                  value={dateFrom}
+                  onChange={e => setDateFrom(e.target.value)}
+                />
+                <span className="hf-date-sep">→</span>
+                <input
+                  type="date"
+                  className="hf-date"
+                  value={dateTo}
+                  onChange={e => setDateTo(e.target.value)}
+                />
+              </div>
             </div>
           </div>
 
-          <div className="hf-group">
-            <span className="hf-label">CONFIDENCE</span>
-            <div className="hf-btns">
-              {CONFIDENCES.map(c => (
-                <button
-                  key={c}
-                  className={`hf-btn ${confidence === c ? 'active' : ''}`}
-                  onClick={() => setConfidence(c)}
-                >{c}</button>
-              ))}
+          {/* Row 2: type dropdown + clear */}
+          <div className="hf-row hf-row--bottom">
+            <div className="hf-pill-group">
+              <span className="hf-label">TYPE</span>
+              <select
+                className="hf-select"
+                value={type}
+                onChange={e => setType(e.target.value)}
+              >
+                {SIGNAL_TYPES.map(t => (
+                  <option key={t} value={t}>
+                    {t === 'ALL' ? 'ALL TYPES' : t.replace(/_/g, ' ')}
+                  </option>
+                ))}
+              </select>
             </div>
-          </div>
 
-          <div className="hf-group">
-            <span className="hf-label">TYPE</span>
-            <div className="hf-btns">
-              {SIGNAL_TYPES.map(t => (
-                <button
-                  key={t}
-                  className={`hf-btn ${type === t ? 'active' : ''}`}
-                  onClick={() => setType(t)}
-                >{t === 'ALL' ? 'ALL' : t.replace(/_/g, ' ')}</button>
-              ))}
-            </div>
+            {hasFilters && (
+              <button className="hf-clear" onClick={clearFilters}>✕ CLEAR</button>
+            )}
           </div>
-
-          <div className="hf-group">
-            <span className="hf-label">RISK</span>
-            <div className="hf-btns">
-              {RISKS.map(level => (
-                <button
-                  key={level}
-                  className={`hf-btn ${risk === level ? 'active' : ''}`}
-                  onClick={() => setRisk(level)}
-                >
-                  {level}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div className="hf-group">
-            <span className="hf-label">DATE RANGE</span>
-            <div className="hf-dates">
-              <input
-                type="date"
-                className="hf-date"
-                value={dateFrom}
-                onChange={e => setDateFrom(e.target.value)}
-              />
-              <span className="hf-date-sep">→</span>
-              <input
-                type="date"
-                className="hf-date"
-                value={dateTo}
-                onChange={e => setDateTo(e.target.value)}
-              />
-            </div>
-          </div>
-
-          {hasFilters && (
-            <button className="hf-clear" onClick={clearFilters}>CLEAR FILTERS</button>
-          )}
         </div>
 
         <div className="history-meta">

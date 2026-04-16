@@ -63,31 +63,46 @@
 /* Filter groups */
 .history-filters {
   display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  padding: 20px;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px 20px;
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
   margin-bottom: 16px;
 }
 
-.hf-group {
+/* Each row of filter controls */
+.hf-row {
   display: flex;
-  flex-direction: column;
-  gap: 8px;
+  align-items: flex-end;
+  gap: 20px;
+  flex-wrap: wrap;
 }
 
+.hf-row--bottom {
+  align-items: center;
+}
+
+/* Individual filter group (label + control) */
+.hf-pill-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.hf-pill-group--dates { margin-left: auto; }
+
 .hf-label {
-  font-size: 12px;
-  letter-spacing: 3px;
+  font-size: 10px;
+  letter-spacing: 2px;
   color: var(--text-muted);
+  opacity: 0.6;
 }
 
 .hf-btns {
   display: flex;
   gap: 4px;
-  flex-wrap: wrap;
 }
 
 .hf-btn {
@@ -95,9 +110,9 @@
   border: 1px solid var(--border);
   color: var(--text-muted);
   font-family: var(--font-body);
-  font-size: 12px;
+  font-size: 11px;
   letter-spacing: 1px;
-  padding: 4px 10px;
+  padding: 3px 9px;
   cursor: pointer;
   border-radius: var(--radius-sm);
   transition: all 0.2s;
@@ -107,10 +122,34 @@
 .hf-btn:hover { border-color: var(--text-muted); color: var(--text); }
 .hf-btn.active { border-color: var(--accent); color: var(--accent); background: var(--accent-dim); }
 
+/* Type dropdown */
+.hf-select {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 11px;
+  letter-spacing: 1px;
+  padding: 4px 28px 4px 10px;
+  border-radius: var(--radius-sm);
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.2s;
+  -webkit-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23666'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  min-width: 160px;
+}
+
+.hf-select:focus { border-color: var(--accent); }
+.hf-select option { background: var(--bg-card); color: var(--text); }
+
 .hf-dates {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
 }
 
 .hf-date {
@@ -139,13 +178,13 @@
   border: 1px solid var(--border);
   color: var(--text-muted);
   font-family: var(--font-body);
-  font-size: 12px;
-  letter-spacing: 2px;
-  padding: 6px 14px;
+  font-size: 11px;
+  letter-spacing: 1px;
+  padding: 4px 12px;
   cursor: pointer;
   border-radius: var(--radius-sm);
-  align-self: flex-end;
   transition: all 0.2s;
+  margin-left: auto;
 }
 
 .hf-clear:hover { border-color: var(--red); color: var(--red); }
