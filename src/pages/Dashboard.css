@@ -40,7 +40,7 @@
   letter-spacing: 6px;
   color: var(--text);
   font-weight: 700;
-  font-family: var(--font-mono);
+  font-family: var(--font-display);
 }
 
 .tag {
@@ -50,7 +50,7 @@
   border: 1px solid rgba(108, 99, 255, 0.4);
   padding: 3px 8px;
   border-radius: var(--radius-sm);
-  font-family: var(--font-mono);
+  font-family: var(--font-display);
   background: var(--accent-dim);
 }
 
@@ -107,7 +107,7 @@
   border: none;
   border-bottom: 2px solid transparent;
   color: var(--text-dim);
-  font-family: var(--font-body);
+  font-family: var(--font-display);
   font-size: 11px;
   font-weight: 500;
   letter-spacing: 1.2px;
@@ -249,6 +249,7 @@
   color: var(--text-dim);
   text-transform: uppercase;
   font-weight: 500;
+  font-family: var(--font-display);
 }
 
 /* ── Filter / chain rows ─────────────────────────────────────────────────── */
@@ -339,6 +340,7 @@
   color: var(--text-dim);
   text-transform: uppercase;
   font-weight: 600;
+  font-family: var(--font-display);
 }
 
 .signal-count {

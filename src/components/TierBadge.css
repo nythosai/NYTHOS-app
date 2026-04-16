@@ -3,8 +3,9 @@
 }
 
 .tier-badge {
-  font-family: var(--font-mono);
+  font-family: var(--font-display);
   font-size: 10px;
+  font-weight: 600;
   letter-spacing: 2px;
   padding: 5px 12px;
   border-radius: var(--radius-sm);
@@ -17,9 +18,10 @@
 
 .tier-badge:hover { opacity: 0.8; }
 
-.tier-badge.tier-observer    { color: var(--text-dim);  border-color: var(--border); }
-.tier-badge.tier-participant { color: var(--accent);    border-color: rgba(108, 99, 255, 0.5); background: var(--accent-dim); }
-.tier-badge.tier-smart_money { color: var(--green);     border-color: rgba(0, 229, 160, 0.4); background: var(--green-dim); }
+/* OBSERVER: use text-muted + border-light so it's actually visible on dark bg */
+.tier-badge.tier-observer    { color: var(--text-muted); border-color: var(--border-light); }
+.tier-badge.tier-participant { color: var(--accent);     border-color: rgba(108, 99, 255, 0.5); background: var(--accent-dim); }
+.tier-badge.tier-smart_money { color: var(--green);      border-color: rgba(0, 229, 160, 0.4); background: var(--green-dim); }
 
 /* Tooltip */
 .tier-tooltip {

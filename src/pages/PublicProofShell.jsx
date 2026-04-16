@@ -6,7 +6,7 @@ export default function PublicProofShell() {
   const { open } = useAppKit();
 
   return (
-    <div style={{ background: '#080b12', minHeight: '100vh', color: '#e8e6f0', fontFamily: "'Courier New', monospace" }}>
+    <div style={{ background: '#080b12', minHeight: '100vh', color: '#e8e6f0' }}>
 
       {/* ── Header ── */}
       <header style={{

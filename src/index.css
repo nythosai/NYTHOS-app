@@ -18,8 +18,9 @@
   --orange:       #f7931a;
 
   /* ── Typography ── */
-  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-mono: 'Courier New', Courier, monospace;
+  --font-body:    'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-display: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono:    'Space Mono', 'Courier New', monospace;
 
   /* ── Elevation ── */
   --shadow-sm:  0 1px 3px rgba(0, 0, 0, 0.4);
@@ -49,6 +50,12 @@ body {
   min-height: 100vh;
   min-height: 100dvh;
 }
+
+/* UI chrome defaults: Space Grotesk on all interactive elements and headings.
+   Body text (paragraphs, descriptions) stays Inter via body rule above.
+   Data-specific elements explicitly declare --font-mono (Space Mono). */
+h1, h2, h3, h4, h5, h6 { font-family: var(--font-display); }
+button { font-family: var(--font-display); }
 
 /* Monospace class for data/labels that should stay mono */
 .mono { font-family: var(--font-mono); }
