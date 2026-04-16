@@ -1,5 +1,6 @@
 .dashboard {
   min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
 }
@@ -161,6 +162,7 @@
   border-bottom: 1px solid var(--border);
   background: var(--bg-card);
   max-height: 80vh;
+  max-height: 80dvh;
   overflow-y: auto;
 }
 

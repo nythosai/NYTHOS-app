@@ -39,12 +39,16 @@ body {
   color: var(--text);
   font-family: var(--font-body);
   min-height: 100vh;
+  min-height: 100dvh;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#root { min-height: 100vh; }
+#root {
+  min-height: 100vh;
+  min-height: 100dvh;
+}
 
 /* Monospace class for data/labels that should stay mono */
 .mono { font-family: var(--font-mono); }
@@ -71,6 +75,8 @@ body {
    these paddings stop content from being hidden behind the notch or home bar. */
 .landing-header,
 .dash-header {
+  /* Top: status bar / Dynamic Island on full-screen (home screen) mode */
+  padding-top:   env(safe-area-inset-top);
   padding-left:  max(24px, env(safe-area-inset-left));
   padding-right: max(24px, env(safe-area-inset-right));
 }

@@ -24,7 +24,8 @@ function LoadingScreen() {
   return (
     <div style={{
       background: '#080b12',
-      height: '100vh',
+      minHeight: '100vh',
+      minHeight: '100dvh',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
@@ -47,7 +48,8 @@ function SigningScreen({ signing, signError, onRetry }) {
   return (
     <div style={{
       background: '#080b12',
-      height: '100vh',
+      minHeight: '100vh',
+      minHeight: '100dvh',
       display: 'flex',
       flexDirection: 'column',
       alignItems: 'center',
