@@ -33,7 +33,7 @@
 }
 
 .ws-score {
-  font-size: 52px;
+  font-size: 46px;
   font-weight: 700;
   line-height: 1;
   font-family: var(--font-mono);
@@ -107,6 +107,66 @@
   font-weight: 600;
 }
 
+/* ── Progress bar ─────────────────────────────────────────────────────────── */
+.ws-bar-track {
+  position: relative;
+  width: 80px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.07);
+  border-radius: 3px;
+  margin: 6px 0 4px;
+  overflow: visible;
+}
+
+.ws-bar-fill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 0.6s ease;
+}
+
+.ws-bar-fill.high   { background: var(--green); }
+.ws-bar-fill.medium { background: var(--yellow); }
+.ws-bar-fill.low    { background: rgba(108, 99, 255, 0.5); }
+
+/* Tier threshold markers at 45% and 70% */
+.ws-bar-marker {
+  position: absolute;
+  top: -2px;
+  width: 1px;
+  height: 9px;
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* ── Stat pills ───────────────────────────────────────────────────────────── */
+.ws-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.ws-stat {
+  font-size: 11px;
+  letter-spacing: 0.5px;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+
+.ws-stat + .ws-stat::before {
+  content: '·';
+  margin-right: 8px;
+  color: var(--text-dim);
+}
+
+/* ── Next tier prompt ─────────────────────────────────────────────────────── */
+.ws-next {
+  font-size: 11px;
+  color: var(--text-dim);
+  letter-spacing: 0.3px;
+  font-family: var(--font-body);
+  line-height: 1.5;
+  margin: 0;
+}
+
 .ws-loading {
   font-size: 11px;
   letter-spacing: 2px;
@@ -135,5 +195,6 @@
     padding-left: 0;
     padding-top: 18px;
   }
-  .ws-score { font-size: 40px; }
+  .ws-score { font-size: 36px; }
+  .ws-bar-track { width: 60px; }
 }
