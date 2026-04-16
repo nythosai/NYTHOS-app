@@ -208,6 +208,16 @@ export default function AlertsPage({ prices }) {
       </div>
 
       <form className="alert-form" onSubmit={addAlert}>
+        <div className="af-card-header">
+          <span className="af-card-title">NEW PRICE ALERT</span>
+          {currentPrice && (
+            <span className="af-live-price">
+              <span className="af-live-dot" />
+              {token} ${currentPrice.toLocaleString()}
+            </span>
+          )}
+        </div>
+
         <div className="af-row">
           <div className="af-group">
             <label>Token</label>
@@ -232,7 +242,7 @@ export default function AlertsPage({ prices }) {
                 <button
                   key={item}
                   type="button"
-                  className={direction === item ? 'active' : ''}
+                  className={`${direction === item ? 'active' : ''} af-dir-${item}`}
                   onClick={() => setDirection(item)}
                 >
                   {item === 'above' ? '▲ Above' : '▼ Below'}
@@ -241,11 +251,8 @@ export default function AlertsPage({ prices }) {
             </div>
           </div>
 
-          <div className="af-group">
-            <label>
-              Target Price
-              {currentPrice && <span className="af-current"> (now ${currentPrice.toLocaleString()})</span>}
-            </label>
+          <div className="af-group af-group--price">
+            <label>Target Price</label>
             <input
               type="number"
               placeholder="e.g. 4000"
@@ -256,17 +263,30 @@ export default function AlertsPage({ prices }) {
               className="af-input"
             />
           </div>
-
-          <button type="submit" className="af-submit" disabled={adding || !address || !hasSession}>
-            {adding ? '...' : 'SET ALERT'}
-          </button>
         </div>
+
+        {targetPrice && parseFloat(targetPrice) > 0 && (
+          <div className="af-preview">
+            Alert when <strong>{token}</strong> {direction === 'above' ? 'rises above' : 'drops below'} <strong>${parseFloat(targetPrice).toLocaleString()}</strong>
+            {currentPrice && (
+              <span className="af-preview-gap">
+                {' '}— {direction === 'above'
+                  ? `+${(((parseFloat(targetPrice) - currentPrice) / currentPrice) * 100).toFixed(1)}% from now`
+                  : `${(((parseFloat(targetPrice) - currentPrice) / currentPrice) * 100).toFixed(1)}% from now`}
+              </span>
+            )}
+          </div>
+        )}
+
+        <button type="submit" className="af-submit af-submit--full" disabled={adding || !address || !hasSession}>
+          {adding ? 'SETTING...' : 'SET ALERT'}
+        </button>
 
         {error && <div className="af-error">{error}</div>}
         {success && <div className="af-success">{success}</div>}
         {!address && <div className="af-error">Connect your wallet to set alerts.</div>}
         {address && !hasSession && (
-          <button type="button" className="af-submit" onClick={verifyWallet}>
+          <button type="button" className="af-submit af-submit--full" onClick={verifyWallet}>
             VERIFY WALLET
           </button>
         )}
