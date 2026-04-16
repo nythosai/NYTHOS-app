@@ -67,6 +67,14 @@ export default function Landing() {
   // AppKit manages its own modal - handles Coinbase Smart Wallet, WalletConnect,
   // MetaMask, Rainbow, Trust, and 200+ mobile wallets via QR / deep link.
   const { open } = useAppKit();
+  const [connecting, setConnecting] = useState(false);
+
+  const handleConnect = () => {
+    setConnecting(true);
+    open();
+    // Reset after 4s in case the user dismisses the modal without connecting
+    setTimeout(() => setConnecting(false), 4000);
+  };
 
   return (
     <div className="landing">
@@ -79,7 +87,9 @@ export default function Landing() {
         </div>
         <div className="landing-header-right">
           <a className="header-whitelist-link" href="#whitelist-anchor">JOIN FOUNDER LIST</a>
-          <button className="header-connect-btn" onClick={() => open()}>Connect Wallet</button>
+          <button className="header-connect-btn" onClick={handleConnect} disabled={connecting}>
+            {connecting ? 'Opening...' : 'Connect Wallet'}
+          </button>
         </div>
       </header>
 
@@ -139,11 +149,14 @@ export default function Landing() {
           </div>
 
           <div className="hero-cta-row">
-            <button className="connect-btn-main" onClick={() => open()}>
-              Connect Wallet to Explore Beta
+            <button className="connect-btn-main" onClick={handleConnect} disabled={connecting}>
+              {connecting ? 'Opening Wallet...' : 'Connect Wallet to Explore Beta'}
             </button>
             <a className="hero-presale-link" href="#whitelist-anchor">
               Founder list is open. Request early access
+            </a>
+            <a className="hero-presale-link" href="/proof">
+              View live proof feed ↗
             </a>
           </div>
           <p className="landing-hint">Works with Coinbase Wallet, MetaMask, Rainbow, and any WalletConnect wallet.</p>
@@ -267,8 +280,8 @@ export default function Landing() {
             <div className="pcr-arrow">→</div>
             <div className="pcr highlight"><span>Base Live</span><strong>After Audit</strong></div>
           </div>
-          <button className="connect-btn-main" onClick={() => open()}>
-            Connect Wallet to Join Founder List
+          <button className="connect-btn-main" onClick={handleConnect} disabled={connecting}>
+            {connecting ? 'Opening Wallet...' : 'Connect Wallet to Join Founder List'}
           </button>
           <p className="landing-hint">Connect above to access the dashboard and founder list form.</p>
         </div>

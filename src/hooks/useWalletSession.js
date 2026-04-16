@@ -8,10 +8,16 @@ import {
   saveWalletSession,
 } from '../authSession';
 
+// Mobile wallets need more time to handle deep-link round-trips
+const isMobile = typeof navigator !== 'undefined' && /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+const SIGN_TIMEOUT_MS = isMobile ? 60000 : 30000;
+
 export function useWalletSession() {
   const { address } = useAccount();
   const { signMessageAsync } = useSignMessage();
   const [session, setSession] = useState(() => loadWalletSession());
+  const [signing, setSigning] = useState(false);
+  const [signError, setSignError] = useState(null);
 
   const syncStoredSession = useEffectEvent(() => {
     const stored = loadWalletSession();
@@ -48,25 +54,48 @@ export function useWalletSession() {
       return existing;
     }
 
-    const nonceRes = await api.post('/api/auth/nonce', { address });
-    const signature = await signMessageAsync({ message: nonceRes.data.message });
-    const verifyRes = await api.post('/api/auth/verify', {
-      address,
-      challengeToken: nonceRes.data.challengeToken,
-      signature,
-    });
+    setSigning(true);
+    setSignError(null);
 
-    const nextSession = {
-      address: verifyRes.data.address,
-      expiresAt: verifyRes.data.expiresAt,
-      tier: verifyRes.data.tier,
-      token: verifyRes.data.token,
-    };
+    try {
+      const nonceRes = await api.post('/api/auth/nonce', { address });
 
-    saveWalletSession(nextSession);
-    syncWalletSessionHeader(nextSession);
-    setSession(nextSession);
-    return nextSession;
+      // Race the signature against a timeout — prevents indefinite hang on mobile
+      // when the wallet deep-link fails to open or the user doesn't respond
+      const signature = await Promise.race([
+        signMessageAsync({ message: nonceRes.data.message }),
+        new Promise((_, reject) =>
+          setTimeout(
+            () => reject(new Error('Wallet did not respond in time. Please try again.')),
+            SIGN_TIMEOUT_MS,
+          )
+        ),
+      ]);
+
+      const verifyRes = await api.post('/api/auth/verify', {
+        address,
+        challengeToken: nonceRes.data.challengeToken,
+        signature,
+      });
+
+      const nextSession = {
+        address: verifyRes.data.address,
+        expiresAt: verifyRes.data.expiresAt,
+        tier: verifyRes.data.tier,
+        token: verifyRes.data.token,
+      };
+
+      saveWalletSession(nextSession);
+      syncWalletSessionHeader(nextSession);
+      setSession(nextSession);
+      setSigning(false);
+      return nextSession;
+    } catch (err) {
+      setSigning(false);
+      const msg = err?.shortMessage || err?.message || 'Signature failed. Please try again.';
+      setSignError(msg);
+      throw err;
+    }
   }, [address, signMessageAsync]);
 
   const clearSession = useCallback(() => {
@@ -80,5 +109,7 @@ export function useWalletSession() {
     ensureSession,
     hasSession: isWalletSessionValid(session, address),
     session,
+    signing,
+    signError,
   };
 }
