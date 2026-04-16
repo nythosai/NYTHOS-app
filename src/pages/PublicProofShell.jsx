@@ -58,7 +58,7 @@ export default function PublicProofShell() {
       </header>
 
       {/* ── Proof Page ── */}
-      <ProofPage />
+      <ProofPage publicOnly />
 
       {/* ── CTA Footer ── */}
       <div style={{

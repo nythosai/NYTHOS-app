@@ -59,7 +59,7 @@ function ProofOutcome({ signal }) {
   );
 }
 
-export default function ProofPage() {
+export default function ProofPage({ publicOnly = false }) {
   const { address } = useAccount();
   const { hasSession } = useWalletSession();
   const [scope, setScope] = useState('PUBLIC');
@@ -151,26 +151,30 @@ export default function ProofPage() {
         </p>
       </div>
 
-      <div className="proof-scope-tabs">
-        <button
-          className={`proof-scope-btn ${scope === 'PUBLIC' ? 'active' : ''}`}
-          onClick={() => setScope('PUBLIC')}
-        >
-          PUBLIC PROOF
-        </button>
-        <button
-          className={`proof-scope-btn ${scope === 'PRIVATE' ? 'active' : ''}`}
-          onClick={() => hasSession && address ? setScope('PRIVATE') : null}
-          disabled={!hasSession || !address}
-        >
-          PRIVATE PROOF
-        </button>
-      </div>
+      {!publicOnly && (
+        <>
+          <div className="proof-scope-tabs">
+            <button
+              className={`proof-scope-btn ${scope === 'PUBLIC' ? 'active' : ''}`}
+              onClick={() => setScope('PUBLIC')}
+            >
+              PUBLIC PROOF
+            </button>
+            <button
+              className={`proof-scope-btn ${scope === 'PRIVATE' ? 'active' : ''}`}
+              onClick={() => hasSession && address ? setScope('PRIVATE') : null}
+              disabled={!hasSession || !address}
+            >
+              PRIVATE PROOF
+            </button>
+          </div>
 
-      {scope === 'PRIVATE' && !canViewPrivate && (
-        <div className="proof-banner">
-          Verify your wallet to load private proof for personal signals and monitored workflows.
-        </div>
+          {scope === 'PRIVATE' && !canViewPrivate && (
+            <div className="proof-banner">
+              Verify your wallet to load private proof for personal signals and monitored workflows.
+            </div>
+          )}
+        </>
       )}
 
       {!loading && total > 0 && (
