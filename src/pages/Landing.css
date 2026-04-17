@@ -30,7 +30,8 @@
   color: var(--text-muted);
   line-height: 1.8;
   max-width: 560px;
-  margin-bottom: 52px;
+  margin: 0 auto 52px;
+  text-align: center;
 }
 
 /* ── Header ─────────────────────────────────────────────────────────────── */

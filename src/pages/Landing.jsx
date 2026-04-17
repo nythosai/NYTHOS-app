@@ -162,7 +162,7 @@ export default function Landing() {
             <div className="hero-stat-divider" />
             <div className="hero-stat">
               <span className="hero-stat-val">Live Now</span>
-              <span className="hero-stat-label">Beta — free access</span>
+              <span className="hero-stat-label">Beta · free access</span>
             </div>
             <div className="hero-stat-divider" />
             <div className="hero-stat">
@@ -212,7 +212,7 @@ export default function Landing() {
               <div className="how-step-num">01</div>
               <div className="how-step-content">
                 <div className="how-step-title">Connect your wallet</div>
-                <div className="how-step-desc">Your wallet is your login. No email, no password. Coinbase Wallet, MetaMask, Rainbow — or any WalletConnect wallet on mobile.</div>
+                <div className="how-step-desc">Your wallet is your login. No email, no password. Coinbase Wallet, MetaMask, Rainbow, or any WalletConnect wallet on mobile.</div>
               </div>
             </div>
             <div className="how-step-connector" aria-hidden="true" />
@@ -220,7 +220,7 @@ export default function Landing() {
               <div className="how-step-num">02</div>
               <div className="how-step-content">
                 <div className="how-step-title">Explore the beta</div>
-                <div className="how-step-desc">Live signals, wallet scoring, history, alerts, and API — the full product runs now. Test it before you ever spend a token.</div>
+                <div className="how-step-desc">Live signals, wallet scoring, history, alerts, and API. The full product runs now. Test it before you ever spend a token.</div>
               </div>
             </div>
             <div className="how-step-connector" aria-hidden="true" />
@@ -319,7 +319,7 @@ export default function Landing() {
             </div>
 
             <a className="connect-btn-main connect-btn-large" href="/presale">Join Founder List →</a>
-            <p className="landing-hint">No wallet connection needed — just email and your wallet address.</p>
+            <p className="landing-hint">No wallet connection needed. Just email and your wallet address.</p>
           </div>
         </section>
 
@@ -378,7 +378,7 @@ export default function Landing() {
           <blockquote className="manifesto-quote">
             "The fastest way to kill a good crypto product is to sell the token before the product has earned trust."
           </blockquote>
-          <cite className="manifesto-attr">— NYTHOS launch principle</cite>
+          <cite className="manifesto-attr">NYTHOS launch principle</cite>
           <div className="manifesto-line" aria-hidden="true" />
         </section>
 
