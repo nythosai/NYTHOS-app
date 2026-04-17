@@ -1,43 +1,80 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import api from '../api';
 import './WalletScore.css';
 
-// Compute a one-line prompt telling the user what gets them to the next tier.
-// Uses the same scoring formula as the backend so numbers are accurate.
+// ── Score breakdown calculator (mirrors backend formula) ──────────────────────
+function getBreakdown(score, chain, txCount, balanceETH, ageMonths) {
+  if (score == null) return null;
+  const base = 30;
+
+  if (chain === 'BASE' || chain === 'ETH') {
+    const txScore      = Math.min((txCount ?? 0) * 3, 45);
+    const balanceScore = (balanceETH ?? 0) >= 1   ? 20
+                       : (balanceETH ?? 0) >= 0.1 ? 12
+                       : (balanceETH ?? 0) > 0    ? 6
+                       : 0;
+    const ageScore     = Math.min((ageMonths ?? 0) * 1, 5);
+    return [
+      { label: 'Base',         value: base,         max: 30 },
+      { label: 'TX Activity',  value: txScore,       max: 45 },
+      { label: 'Balance',      value: balanceScore,  max: 20 },
+      { label: 'Wallet Age',   value: ageScore,      max: 5  },
+    ];
+  }
+  return null;
+}
+
 function getNextMilestone(score, label, chain, txCount, balanceETH, ageMonths) {
   if (label === 'SMART MONEY') return null;
-
   if (chain === 'BASE') {
-    const balanceScore = balanceETH >= 1 ? 20 : balanceETH >= 0.1 ? 12 : balanceETH > 0 ? 6 : 0;
-
+    const balanceScore = (balanceETH ?? 0) >= 1 ? 20 : (balanceETH ?? 0) >= 0.1 ? 12 : (balanceETH ?? 0) > 0 ? 6 : 0;
     if (label === 'NEWCOMER') {
-      // Need score 45: 30 + txCount*3 + balanceScore >= 45  →  txCount >= ceil((15 - balanceScore) / 3)
       const needed = Math.max(1, Math.ceil((15 - balanceScore) / 3));
-      return `${needed} tx${needed === 1 ? '' : 's'} on Base reaches PARTICIPANT.`;
+      return { text: `${needed} tx${needed === 1 ? '' : 's'} on Base reaches PARTICIPANT.`, from: score, to: 45 };
     }
-
     if (score < 70) {
-      // Need score 70: 30 + min(txCount*3, 45) + balanceScore >= 70  →  txCount*3 >= 40 - balanceScore
       const needed = Math.ceil(Math.max(0, 40 - balanceScore) / 3);
       const more = Math.max(0, needed - (txCount ?? 0));
-      if (more === 0) return 'Building towards SMART MONEY.';
-      return `${more} more tx${more === 1 ? '' : 's'} on Base reaches SMART MONEY.`;
+      if (more === 0) return { text: 'Building towards SMART MONEY.', from: score, to: 70 };
+      return { text: `${more} more tx${more === 1 ? '' : 's'} on Base reaches SMART MONEY.`, from: score, to: 70 };
     }
   }
-
-  // ETH — score-based only (no simple tx formula exposed)
-  if (score < 45) return 'More on-chain activity needed to reach PARTICIPANT.';
-  if (score < 70) return 'Continued activity builds towards SMART MONEY.';
+  if (score < 45) return { text: 'More on-chain activity needed to reach PARTICIPANT.', from: score, to: 45 };
+  if (score < 70) return { text: 'Continued activity builds towards SMART MONEY.', from: score, to: 70 };
   return null;
+}
+
+// ── Count-up hook ─────────────────────────────────────────────────────────────
+function useCountUp(target, duration = 900) {
+  const [displayed, setDisplayed] = useState(0);
+  const raf = useRef(null);
+
+  useEffect(() => {
+    if (target == null) { setDisplayed(0); return; }
+    const start     = performance.now();
+    const startVal  = 0;
+
+    function tick(now) {
+      const elapsed  = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      // ease-out cubic
+      const eased    = 1 - Math.pow(1 - progress, 3);
+      setDisplayed(Math.round(startVal + (target - startVal) * eased));
+      if (progress < 1) raf.current = requestAnimationFrame(tick);
+    }
+
+    raf.current = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf.current);
+  }, [target, duration]);
+
+  return displayed;
 }
 
 export default function WalletScore({ address, chain = 'BASE', onPortfolioLoad }) {
   const requestKey = address ? `${address.toLowerCase()}:${chain}` : '';
-  const [requestState, setRequestState] = useState({
-    key: '',
-    portfolio: null,
-    score: null,
-  });
+  const [requestState, setRequestState] = useState({ key: '', portfolio: null, score: null });
+  const [barWidth, setBarWidth]         = useState(0);
+  const [showBreakdown, setShowBreakdown] = useState(false);
 
   useEffect(() => {
     if (!address) return;
@@ -50,18 +87,13 @@ export default function WalletScore({ address, chain = 'BASE', onPortfolioLoad }
       .then(([scoreRes, portfolioRes]) => {
         if (cancelled) return;
         const nextPortfolio = portfolioRes.data.portfolio;
-        setRequestState({
-          key: requestKey,
-          portfolio: nextPortfolio,
-          score: scoreRes.data,
-        });
+        setRequestState({ key: requestKey, portfolio: nextPortfolio, score: scoreRes.data });
         if (onPortfolioLoad) onPortfolioLoad(nextPortfolio);
       })
       .catch(() => {
         if (!cancelled) {
           setRequestState({
-            key: requestKey,
-            portfolio: null,
+            key: requestKey, portfolio: null,
             score: { score: null, label: 'UNAVAILABLE', insight: 'Wallet scoring is temporarily unavailable. Check back shortly.', chain },
           });
           if (onPortfolioLoad) onPortfolioLoad(null);
@@ -75,58 +107,111 @@ export default function WalletScore({ address, chain = 'BASE', onPortfolioLoad }
   const portfolio = requestState.key === requestKey ? requestState.portfolio : null;
   const loading   = Boolean(address) && requestState.key !== requestKey;
 
+  // Animate bar after score arrives — delay one frame so CSS transition fires
+  useEffect(() => {
+    if (score?.score != null) {
+      setBarWidth(0);
+      const id = setTimeout(() => setBarWidth(score.score), 60);
+      return () => clearTimeout(id);
+    } else {
+      setBarWidth(0);
+    }
+  }, [score?.score]);
+
+  const displayedScore = useCountUp(score?.score ?? null);
+
   if (loading) return <div className="ws-loading">NYTHOS is reading your wallet...</div>;
   if (!score)  return null;
 
-  const tier        = score.score >= 70 ? 'high' : score.score >= 45 ? 'medium' : 'low';
+  const tier          = score.score >= 70 ? 'high' : score.score >= 45 ? 'medium' : 'low';
   const isUnavailable = score.score === null;
-  const milestone   = isUnavailable ? null : getNextMilestone(
-    score.score, score.label, score.chain,
-    score.txCount, score.balanceETH, score.ageMonths,
-  );
+  const milestone     = isUnavailable ? null : getNextMilestone(score.score, score.label, score.chain, score.txCount, score.balanceETH, score.ageMonths);
+  const breakdown     = isUnavailable ? null : getBreakdown(score.score, score.chain, score.txCount, score.balanceETH, score.ageMonths);
 
-  // Stat pills — only show values that exist
+  // Milestone bar: progress from tier-floor to tier-ceiling
+  const milestoneMin  = milestone?.from  ?? score.score;
+  const milestoneTo   = milestone?.to    ?? 100;
+  const tierFloor     = milestoneTo === 45 ? 0 : milestoneTo === 70 ? 45 : 70;
+  const milestoneRange = milestoneTo - tierFloor;
+  const milestonePct  = milestoneRange > 0 ? Math.min(100, Math.round(((score.score - tierFloor) / milestoneRange) * 100)) : 100;
+
   const stats = [];
-  if (score.txCount != null) stats.push(`${score.txCount} TXs`);
+  if (score.txCount  != null) stats.push(`${score.txCount} TXs`);
   if (score.balanceETH != null) stats.push(`${score.balanceETH} ETH`);
   if (score.ageMonths  != null && score.ageMonths > 0) stats.push(`${score.ageMonths}mo on-chain`);
 
   return (
     <div className={`wallet-score-card ${isUnavailable ? 'unavailable' : tier}`}>
 
+      {/* ── LEFT: score ring area ── */}
       <div className="ws-left">
         <div className="ws-label">WALLET SCORE</div>
+
         {isUnavailable ? (
-          <div className="ws-score low"></div>
+          <div className="ws-score low">—</div>
         ) : (
-          <div className={`ws-score ${tier}`}>{score.score}</div>
+          <button
+            className={`ws-score ${tier} ws-score-btn`}
+            onClick={() => setShowBreakdown(s => !s)}
+            title="Click to see score breakdown"
+            aria-expanded={showBreakdown}
+          >
+            {displayedScore}
+            <span className="ws-score-hint">{showBreakdown ? '▲' : '▼'}</span>
+          </button>
         )}
+
         {!isUnavailable && (
           <div className="ws-bar-track">
-            <div
-              className={`ws-bar-fill ${tier}`}
-              style={{ width: `${score.score}%` }}
-            />
-            <div className="ws-bar-marker" style={{ left: '45%' }} />
-            <div className="ws-bar-marker" style={{ left: '70%' }} />
+            <div className={`ws-bar-fill ${tier}`} style={{ width: `${barWidth}%` }} />
+            <div className="ws-bar-marker" style={{ left: '45%' }} data-tier="PARTICIPANT 45+" />
+            <div className="ws-bar-marker" style={{ left: '70%' }} data-tier="SMART MONEY 70+" />
           </div>
         )}
+
         <div className={`ws-tier ${isUnavailable ? 'low' : tier}`}>{score.label}</div>
       </div>
 
+      {/* ── RIGHT: insight + stats + milestone ── */}
       <div className="ws-right">
         <p className="ws-insight">{score.insight}</p>
 
         {stats.length > 0 && (
           <div className="ws-stats">
-            {stats.map((s, i) => (
-              <span key={i} className="ws-stat">{s}</span>
+            {stats.map((s, i) => <span key={i} className="ws-stat">{s}</span>)}
+          </div>
+        )}
+
+        {/* Score breakdown drawer */}
+        {showBreakdown && breakdown && (
+          <div className="ws-breakdown">
+            <div className="ws-breakdown-title">SCORE BREAKDOWN</div>
+            {breakdown.map(row => (
+              <div key={row.label} className="ws-breakdown-row">
+                <span className="ws-breakdown-label">{row.label}</span>
+                <div className="ws-breakdown-bar-track">
+                  <div
+                    className={`ws-breakdown-bar-fill ${tier}`}
+                    style={{ width: `${(row.value / row.max) * 100}%` }}
+                  />
+                </div>
+                <span className="ws-breakdown-val">{row.value}<span className="ws-breakdown-max">/{row.max}</span></span>
+              </div>
             ))}
           </div>
         )}
 
+        {/* Milestone progress */}
         {milestone && (
-          <p className="ws-next">{milestone}</p>
+          <div className="ws-milestone">
+            <div className="ws-milestone-bar-track">
+              <div className={`ws-milestone-bar-fill ${tier}`} style={{ width: `${milestonePct}%` }} />
+            </div>
+            <p className="ws-next">
+              <span className="ws-milestone-pct">{milestonePct}%</span>
+              {' '}{milestone.text}
+            </p>
+          </div>
         )}
 
         {portfolio && portfolio.holdings.length > 0 && (
