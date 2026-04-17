@@ -82,8 +82,9 @@ button { font-family: var(--font-display); }
    these paddings stop content from being hidden behind the notch or home bar. */
 .landing-header,
 .dash-header {
-  /* Top: status bar / Dynamic Island on full-screen (home screen) mode */
-  padding-top:   env(safe-area-inset-top);
+  /* Top: status bar / Dynamic Island. Use max() so the padding never collapses
+     to zero on non-notched devices — Landing.css sets 20px, dash-header 14px. */
+  padding-top:   max(20px, env(safe-area-inset-top));
   padding-left:  max(24px, env(safe-area-inset-left));
   padding-right: max(24px, env(safe-area-inset-right));
 }

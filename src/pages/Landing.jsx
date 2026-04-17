@@ -3,7 +3,7 @@ import api from '../api';
 import './Landing.css';
 
 const STATIC_SIGNALS = [
-  { id: 's1', token: 'ETH', description: 'Large wallet accumulation detected — 3 addresses added 820 ETH in 4h window.', valueUSD: 2_900_000, timestamp: Math.floor(Date.now() / 1000) - 420 },
+  { id: 's1', token: 'ETH', description: 'Large wallet accumulation detected. 3 addresses added 820 ETH in a 4h window.', valueUSD: 2_900_000, timestamp: Math.floor(Date.now() / 1000) - 420 },
   { id: 's2', token: 'BASE', description: 'Smart money cluster moved into Base DeFi. 12 coordinated entries within 90min.', valueUSD: 1_400_000, timestamp: Math.floor(Date.now() / 1000) - 1080 },
   { id: 's3', token: 'BTC', description: 'Dormant wallet (4yr) sent 6.2 BTC to new address before price spike.', valueUSD: 520_000, timestamp: Math.floor(Date.now() / 1000) - 2700 },
 ];
@@ -43,7 +43,7 @@ function LiveSignalPreview() {
           <span className="live-accuracy">
             {isLive && rate !== null && rate !== undefined && total >= 3
               ? `${rate}% accuracy · ${total} signals tracked`
-              : 'Example feed — launch the app for live access'}
+              : 'Example feed. Launch the app for live access.'}
           </span>
         </div>
         <div className="live-signals-grid">
@@ -146,7 +146,7 @@ export default function Landing() {
           </h1>
 
           <p className="landing-sub">
-            NYTHOS monitors ETH, BTC, and Base for large-wallet activity, scores each signal by confidence, and delivers a live feed you can act on — right now, no token needed.
+            NYTHOS monitors ETH, BTC, and Base for large-wallet activity, scores each signal by confidence, and delivers a live feed you can act on. Right now. No token needed.
           </p>
 
           <div className="hero-stats">
@@ -180,7 +180,7 @@ export default function Landing() {
           </div>
 
           <p className="landing-hint">
-            Connect your wallet inside the app — Coinbase Wallet, MetaMask, Rainbow, or any WalletConnect wallet.
+            Connect inside the app: Coinbase Wallet, MetaMask, Rainbow, or any WalletConnect wallet.
           </p>
         </section>
 
@@ -335,14 +335,14 @@ export default function Landing() {
                   <span className="rp-icon">✓</span>
                   <div>
                     <strong>Trader beta access</strong>
-                    <span>Live signals, scoring, and history — available now, no token required.</span>
+                    <span>Live signals, scoring, and history. Available now, no token required.</span>
                   </div>
                 </div>
                 <div className="revenue-point">
                   <span className="rp-icon">✓</span>
                   <div>
                     <strong>Builder API access</strong>
-                    <span>REST API for bots and custom dashboards — plug in on day one.</span>
+                    <span>REST API for bots and custom dashboards. Plug in on day one.</span>
                   </div>
                 </div>
                 <div className="revenue-point">

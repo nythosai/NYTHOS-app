@@ -8,6 +8,7 @@ import { useWalletSession } from './hooks/useWalletSession';
 
 const PublicProofShell = lazyWithChunkRecovery(() => import('./pages/PublicProofShell'));
 const Dashboard = lazyWithChunkRecovery(() => import('./pages/Dashboard'));
+const PresalePage = lazyWithChunkRecovery(() => import('./pages/PresalePage'));
 
 // Capture ?ref=CODE from URL and persist to localStorage so the presale
 // signup form can credit the referrer automatically.
@@ -199,6 +200,18 @@ export default function App() {
   // Show a silent loading screen while wagmi restores session from localStorage.
   if (status === 'reconnecting') {
     return <LoadingScreen />;
+  }
+
+  // Presale / founder list — accessible without wallet connect.
+  if (window.location.pathname.startsWith('/presale')) {
+    return (
+      <>
+        <Suspense fallback={<LoadingScreen />}>
+          <PresalePage />
+        </Suspense>
+        <CookieBanner />
+      </>
+    );
   }
 
   // Public proof feed — accessible without wallet connect.
