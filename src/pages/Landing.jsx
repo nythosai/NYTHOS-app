@@ -3,24 +3,31 @@ import { useAppKit } from '@reown/appkit/react';
 import api from '../api';
 import './Landing.css';
 
+const STATIC_SIGNALS = [
+  { id: 's1', token: 'ETH', description: 'Large wallet accumulation detected — 3 addresses added 820 ETH in 4h window.', valueUSD: 2_900_000, timestamp: Math.floor(Date.now() / 1000) - 420 },
+  { id: 's2', token: 'BASE', description: 'Smart money cluster moved into Base DeFi. 12 coordinated entries within 90min.', valueUSD: 1_400_000, timestamp: Math.floor(Date.now() / 1000) - 1080 },
+  { id: 's3', token: 'BTC', description: 'Dormant wallet (4yr) sent 6.2 BTC to new address before price spike.', valueUSD: 520_000, timestamp: Math.floor(Date.now() / 1000) - 2700 },
+];
+
 function LiveSignalPreview() {
-  const [signals, setSignals] = useState([]);
+  const [signals, setSignals] = useState(null);
   const [accuracy, setAccuracy] = useState(null);
 
   useEffect(() => {
     api.get('/api/signals?limit=10')
       .then(r => {
         const high = (r.data.signals || []).filter(s => s.confidence === 'HIGH').slice(0, 3);
-        setSignals(high);
+        setSignals(high.length >= 2 ? high : null);
       })
-      .catch(() => {});
+      .catch(() => setSignals(null));
 
     api.get('/api/accuracy/stats')
       .then(r => setAccuracy(r.data))
       .catch(() => {});
   }, []);
 
-  if (signals.length === 0) return null;
+  const displaySignals = signals ?? STATIC_SIGNALS;
+  const isLive = signals !== null;
 
   const rate = accuracy?.overall?.rate24h;
   const total = accuracy?.overall?.total24h;
@@ -31,13 +38,15 @@ function LiveSignalPreview() {
     <div className="live-proof">
       <div className="live-proof-header">
         <span className="live-dot" />
-        <span className="live-label">LIVE SIGNALS</span>
-        {rate !== null && rate !== undefined && total >= 3 && (
+        <span className="live-label">{isLive ? 'LIVE SIGNALS' : 'SIGNAL EXAMPLES'}</span>
+        {isLive && rate !== null && rate !== undefined && total >= 3 ? (
           <span className="live-accuracy">{rate}% accuracy · {total} signals tracked</span>
+        ) : (
+          <span className="live-accuracy">Example feed — connect wallet to see live signals</span>
         )}
       </div>
       <div className="live-signals-grid">
-        {signals.map(s => (
+        {displaySignals.map(s => (
           <div key={s.id} className="live-signal-card">
             <div className="lsc-top">
               <span className="lsc-chain" style={{ color: chainColor[s.token] || '#6c63ff' }}>{s.token}</span>
@@ -51,7 +60,7 @@ function LiveSignalPreview() {
           </div>
         ))}
       </div>
-      <div className="live-proof-note">Connected wallets currently get open beta access while the Base token layer is being prepared.</div>
+      <div className="live-proof-note">Connected wallets get open beta access. The Base token layer is being prepared — the product runs now.</div>
     </div>
   );
 }
@@ -97,32 +106,25 @@ export default function Landing() {
 
         {/* ── Hero ── */}
         <div className="hero-section">
-          <div className="landing-symbol">
-            <svg viewBox="0 0 200 200" width="100" height="100">
-              <circle cx="100" cy="100" r="18" fill="#080b12" stroke="#6c63ff" strokeWidth="1.5" />
-              {Array.from({ length: 24 }, (_, i) => {
-                const angle = (i * 360) / 24;
-                const rad = (angle * Math.PI) / 180;
-                const inner = 26;
-                const outer = 48 + (i % 3 === 0 ? 14 : i % 2 === 0 ? 8 : 0);
-                const x1 = 100 + inner * Math.cos(rad);
-                const y1 = 100 + inner * Math.sin(rad);
-                const x2 = 100 + outer * Math.cos(rad);
-                const y2 = 100 + outer * Math.sin(rad);
-                const xDot = 100 + (outer + 6) * Math.cos(rad);
-                const yDot = 100 + (outer + 6) * Math.sin(rad);
-                return (
-                  <g key={i}>
-                    <line x1={x1} y1={y1} x2={x2} y2={y2} stroke="#6c63ff" strokeWidth="1" opacity="0.7" />
-                    <circle cx={xDot} cy={yDot} r="2" fill="none" stroke="#6c63ff" strokeWidth="1" opacity="0.5" />
-                  </g>
-                );
-              })}
-            </svg>
-          </div>
-
           <h1 className="landing-title">NYTHOS</h1>
           <p className="landing-sub">Base-native onchain intelligence. Working product in beta. Three-round token presale opening after audit.</p>
+
+          <div className="hero-stats">
+            <div className="hero-stat">
+              <span className="hero-stat-val">ETH · BTC · BASE</span>
+              <span className="hero-stat-label">Chains monitored</span>
+            </div>
+            <div className="hero-stat-divider" />
+            <div className="hero-stat">
+              <span className="hero-stat-val">HIGH / MED / LOW</span>
+              <span className="hero-stat-label">Confidence scoring</span>
+            </div>
+            <div className="hero-stat-divider" />
+            <div className="hero-stat">
+              <span className="hero-stat-val">Live now</span>
+              <span className="hero-stat-label">No token required yet</span>
+            </div>
+          </div>
 
           <div className="hero-value-props">
             <div className="hero-prop">
