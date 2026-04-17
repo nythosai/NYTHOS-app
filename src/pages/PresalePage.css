@@ -138,7 +138,9 @@
 @media (max-width: 700px) { .sale-rounds { grid-template-columns: 1fr; } }
 
 .round-card {
+  position: relative;
   padding: 24px;
+  padding-top: 32px;
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
   background: var(--bg-card);
