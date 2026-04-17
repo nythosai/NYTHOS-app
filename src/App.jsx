@@ -1,5 +1,6 @@
 import React, { Suspense, useEffect } from 'react';
 import { useAccount } from 'wagmi';
+import { useAppKit } from '@reown/appkit/react';
 import Landing from './pages/Landing';
 import { lazyWithChunkRecovery } from './chunkRecovery';
 import CookieBanner from './components/CookieBanner';
@@ -106,6 +107,60 @@ function SigningScreen({ signing, signError, onRetry }) {
   );
 }
 
+// Shown at /dashboard when wallet is not yet connected.
+function ConnectGate() {
+  const { open } = useAppKit();
+  return (
+    <div style={{
+      background: '#060912',
+      minHeight: '100vh',
+      minHeight: '100dvh',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+      gap: '28px',
+      padding: '24px',
+      textAlign: 'center',
+      fontFamily: "'Inter', -apple-system, sans-serif",
+    }}>
+      <span style={{ color: '#6c63ff', fontFamily: "'Space Grotesk', sans-serif", letterSpacing: '8px', fontSize: '20px', fontWeight: 700 }}>
+        NYTHOS
+      </span>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', maxWidth: '340px' }}>
+        <h2 style={{ color: '#e8eaf0', fontSize: '22px', fontWeight: 700, fontFamily: "'Space Grotesk', sans-serif", lineHeight: 1.3 }}>
+          Connect your wallet to access the app
+        </h2>
+        <p style={{ color: '#8892a4', fontSize: '14px', lineHeight: 1.7 }}>
+          Coinbase Wallet, MetaMask, Rainbow, or any WalletConnect wallet.
+        </p>
+      </div>
+      <button
+        onClick={() => open()}
+        style={{
+          background: 'linear-gradient(135deg, #6c63ff, #5b52e8)',
+          border: 'none',
+          color: '#fff',
+          fontFamily: "'Inter', sans-serif",
+          fontSize: '13px',
+          fontWeight: 700,
+          letterSpacing: '1px',
+          padding: '16px 48px',
+          borderRadius: '4px',
+          cursor: 'pointer',
+          textTransform: 'uppercase',
+          minHeight: '52px',
+        }}
+      >
+        Connect Wallet
+      </button>
+      <a href="/" style={{ color: '#5a6478', fontSize: '12px', textDecoration: 'none', letterSpacing: '0.5px' }}>
+        ← Back to landing
+      </a>
+    </div>
+  );
+}
+
 // Rendered once wallet is connected.
 // Auto-triggers SIWE sign-in immediately — wallet is still "warm" from the
 // connect step, so the signature prompt fires without a second deep-link round-trip.
@@ -153,6 +208,19 @@ export default function App() {
         <Suspense fallback={<LoadingScreen />}>
           <PublicProofShell />
         </Suspense>
+        <CookieBanner />
+      </>
+    );
+  }
+
+  // /dashboard — show connect gate if not yet connected, app if connected.
+  if (window.location.pathname.startsWith('/dashboard')) {
+    return (
+      <>
+        {isConnected
+          ? <Suspense fallback={<LoadingScreen />}><ConnectedApp /></Suspense>
+          : <ConnectGate />
+        }
         <CookieBanner />
       </>
     );
