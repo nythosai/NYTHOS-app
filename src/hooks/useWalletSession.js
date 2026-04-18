@@ -8,9 +8,9 @@ import {
   saveWalletSession,
 } from '../authSession';
 
-// Mobile wallets need more time to handle deep-link round-trips
-const isMobile = typeof navigator !== 'undefined' && /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-const SIGN_TIMEOUT_MS = isMobile ? 60000 : 30000;
+export const isMobile = typeof navigator !== 'undefined' && /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+// 120s on mobile: WalletConnect deep-link round-trips + user switching apps takes much longer than desktop
+const SIGN_TIMEOUT_MS = isMobile ? 120_000 : 30_000;
 
 export function useWalletSession() {
   const { address } = useAccount();
@@ -92,7 +92,14 @@ export function useWalletSession() {
       return nextSession;
     } catch (err) {
       setSigning(false);
-      const msg = err?.shortMessage || err?.message || 'Signature failed. Please try again.';
+      const raw = err?.shortMessage || err?.message || '';
+      const isTimeout   = raw.includes('did not respond');
+      const isRejection = raw.includes('rejected') || raw.includes('denied') || err?.code === 4001;
+      const msg = isRejection
+        ? 'You rejected the signature request. Tap Try Again when ready.'
+        : isTimeout && isMobile
+          ? 'Your wallet didn\'t respond. Open your wallet app, approve the pending sign request, then tap Try Again.'
+          : raw || 'Signature failed. Please try again.';
       setSignError(msg);
       throw err;
     }

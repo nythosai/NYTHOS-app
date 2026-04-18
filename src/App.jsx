@@ -1,6 +1,7 @@
 import React, { Suspense, useEffect } from 'react';
 import { useAccount } from 'wagmi';
 import { useAppKit } from '@reown/appkit/react';
+import { isMobile } from './hooks/useWalletSession';
 import Landing from './pages/Landing';
 import { lazyWithChunkRecovery } from './chunkRecovery';
 import CookieBanner from './components/CookieBanner';
@@ -46,7 +47,8 @@ function LoadingScreen() {
 }
 
 // Shown between wallet connect and successful SIWE sign-in
-function SigningScreen({ signing, signError, onRetry }) {
+function SigningScreen({ signing, signError, onRetry, connectorName }) {
+  const walletLabel = connectorName || 'your wallet';
   return (
     <div style={{
       background: '#080b12',
@@ -57,6 +59,7 @@ function SigningScreen({ signing, signError, onRetry }) {
       alignItems: 'center',
       justifyContent: 'center',
       gap: '20px',
+      padding: '24px',
     }}>
       <span style={{
         color: '#6c63ff',
@@ -66,23 +69,50 @@ function SigningScreen({ signing, signError, onRetry }) {
       }}>
         NYTHOS
       </span>
+
       {signing && (
-        <span style={{
-          color: '#888',
-          fontSize: '13px',
-          fontFamily: 'Inter, -apple-system, sans-serif',
-        }}>
-          Check your wallet to sign in...
-        </span>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', maxWidth: '300px', textAlign: 'center' }}>
+          <span style={{ color: '#8892a4', fontSize: '13px', fontFamily: 'Inter, -apple-system, sans-serif', lineHeight: 1.6 }}>
+            {isMobile
+              ? `A sign request was sent to ${walletLabel}. Open your wallet app and approve it to continue.`
+              : `Check ${walletLabel} to approve the sign request.`
+            }
+          </span>
+          {isMobile && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', alignItems: 'center', marginTop: '4px' }}>
+              <span style={{ color: '#5a6478', fontSize: '11px', fontFamily: 'Inter, -apple-system, sans-serif', letterSpacing: '0.3px' }}>
+                Didn't get a prompt?
+              </span>
+              <button
+                onClick={onRetry}
+                style={{
+                  background: 'transparent',
+                  border: '1px solid rgba(108,99,255,0.4)',
+                  color: '#a89cff',
+                  borderRadius: '6px',
+                  padding: '8px 20px',
+                  fontSize: '12px',
+                  cursor: 'pointer',
+                  fontFamily: 'Inter, -apple-system, sans-serif',
+                  letterSpacing: '0.5px',
+                }}
+              >
+                Resend request
+              </button>
+            </div>
+          )}
+        </div>
       )}
+
       {signError && (
         <>
           <span style={{
             color: '#ff6b6b',
             fontSize: '13px',
             fontFamily: 'Inter, -apple-system, sans-serif',
-            maxWidth: '300px',
+            maxWidth: '320px',
             textAlign: 'center',
+            lineHeight: 1.6,
           }}>
             {signError}
           </span>
@@ -93,11 +123,12 @@ function SigningScreen({ signing, signError, onRetry }) {
               color: '#fff',
               border: 'none',
               borderRadius: '6px',
-              padding: '10px 28px',
+              padding: '12px 32px',
               fontSize: '13px',
               cursor: 'pointer',
               fontFamily: 'Inter, -apple-system, sans-serif',
               letterSpacing: '0.5px',
+              minHeight: '44px',
             }}
           >
             Try Again
@@ -166,6 +197,7 @@ function ConnectGate() {
 // Auto-triggers SIWE sign-in immediately — wallet is still "warm" from the
 // connect step, so the signature prompt fires without a second deep-link round-trip.
 function ConnectedApp() {
+  const { connector } = useAccount();
   const { hasSession, signing, signError, ensureSession } = useWalletSession();
 
   useEffect(() => {
@@ -181,6 +213,7 @@ function ConnectedApp() {
       <SigningScreen
         signing={signing}
         signError={signError}
+        connectorName={connector?.name}
         onRetry={() => ensureSession().catch(() => {})}
       />
     );
