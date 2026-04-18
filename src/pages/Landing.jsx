@@ -8,7 +8,7 @@ const STATIC_SIGNALS = [
   { id: 's3', token: 'BTC', description: 'Dormant wallet (4yr) sent 6.2 BTC to new address before price spike.', valueUSD: 520_000, timestamp: Math.floor(Date.now() / 1000) - 2700 },
 ];
 
-const CHAIN_COLORS = { ETH: '#6c63ff', BTC: '#f7931a', BASE: '#0052ff' };
+const CHAIN_COLORS = { ETH: '#a89cff', BTC: '#f7931a', BASE: '#4d88ff' };
 
 function LiveSignalPreview() {
   const [signals, setSignals] = useState(null);
@@ -209,7 +209,7 @@ export default function Landing() {
           <h2 className="section-title">Three steps. Zero friction.</h2>
           <div className="how-steps">
             <div className="how-step">
-              <div className="how-step-num">01</div>
+              <div className="how-step-num" aria-hidden="true">01</div>
               <div className="how-step-content">
                 <div className="how-step-title">Connect your wallet</div>
                 <div className="how-step-desc">Your wallet is your login. No email, no password. Coinbase Wallet, MetaMask, Rainbow, or any WalletConnect wallet on mobile.</div>
@@ -217,7 +217,7 @@ export default function Landing() {
             </div>
             <div className="how-step-connector" aria-hidden="true" />
             <div className="how-step">
-              <div className="how-step-num">02</div>
+              <div className="how-step-num" aria-hidden="true">02</div>
               <div className="how-step-content">
                 <div className="how-step-title">Explore the beta</div>
                 <div className="how-step-desc">Live signals, wallet scoring, history, alerts, and API. The full product runs now. Test it before you ever spend a token.</div>
@@ -225,7 +225,7 @@ export default function Landing() {
             </div>
             <div className="how-step-connector" aria-hidden="true" />
             <div className="how-step">
-              <div className="how-step-num">03</div>
+              <div className="how-step-num" aria-hidden="true">03</div>
               <div className="how-step-content">
                 <div className="how-step-title">Join the presale when it opens</div>
                 <div className="how-step-desc">Once the Base contracts are audited and deployed, access will be token-gated. Founder list wallets get in first at $0.005.</div>
