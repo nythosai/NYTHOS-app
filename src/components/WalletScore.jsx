@@ -24,6 +24,40 @@ function getBreakdown(score, chain, txCount, balanceETH, ageMonths) {
   return null;
 }
 
+function getActions(score, chain, txCount, balanceETH, ageMonths) {
+  if (score == null || score >= 100) return [];
+  if (chain !== 'BASE' && chain !== 'ETH') return [];
+
+  const currentTx  = txCount    ?? 0;
+  const currentBal = balanceETH ?? 0;
+  const currentAge = ageMonths  ?? 0;
+  const actions = [];
+
+  // TX activity — 3 pts each, cap 45
+  const txScore     = Math.min(currentTx * 3, 45);
+  const txPotential = 45 - txScore;
+  if (txPotential > 0) {
+    const targetScore  = score < 45 ? 45 : score < 70 ? 70 : 100;
+    const needed       = Math.max(1, Math.min(Math.ceil((targetScore - score) / 3), Math.floor(txPotential / 3)));
+    actions.push({ label: `Make ${needed} more tx${needed === 1 ? '' : 's'} on ${chain}`, gain: needed * 3, passive: false });
+  }
+
+  // Balance
+  if (currentBal === 0)       actions.push({ label: 'Hold any ETH in wallet',  gain: 6,  passive: false });
+  else if (currentBal < 0.1)  actions.push({ label: 'Hold at least 0.1 ETH',   gain: 6,  passive: false });
+  else if (currentBal < 1)    actions.push({ label: 'Hold 1 ETH or more',       gain: 8,  passive: false });
+
+  // Wallet age — passive
+  const agePotential = Math.max(0, 5 - Math.min(currentAge, 5));
+  if (agePotential > 0) {
+    const mo = agePotential === 1 ? '1 month' : `${agePotential} months`;
+    actions.push({ label: `Stay active ${mo} more`, gain: agePotential, passive: true });
+  }
+
+  actions.sort((a, b) => (a.passive ? 1 : 0) - (b.passive ? 1 : 0) || b.gain - a.gain);
+  return actions.slice(0, 3);
+}
+
 function getNextMilestone(score, label, chain, txCount, balanceETH, ageMonths) {
   if (label === 'SMART MONEY') return null;
   if (chain === 'BASE') {
@@ -127,6 +161,7 @@ export default function WalletScore({ address, chain = 'BASE', onPortfolioLoad }
   const isUnavailable = score.score === null;
   const milestone     = isUnavailable ? null : getNextMilestone(score.score, score.label, score.chain, score.txCount, score.balanceETH, score.ageMonths);
   const breakdown     = isUnavailable ? null : getBreakdown(score.score, score.chain, score.txCount, score.balanceETH, score.ageMonths);
+  const actions       = isUnavailable ? []   : getActions(score.score, score.chain, score.txCount, score.balanceETH, score.ageMonths);
 
   // Milestone bar: progress from tier-floor to tier-ceiling
   const milestoneMin  = milestone?.from  ?? score.score;
@@ -198,6 +233,19 @@ export default function WalletScore({ address, chain = 'BASE', onPortfolioLoad }
                 <span className="ws-breakdown-val">{row.value}<span className="ws-breakdown-max">/{row.max}</span></span>
               </div>
             ))}
+
+            {actions.length > 0 && (
+              <>
+                <div className="ws-breakdown-divider" />
+                <div className="ws-breakdown-title">HOW TO IMPROVE</div>
+                {actions.map((a, i) => (
+                  <div key={i} className={`ws-action-row${a.passive ? ' passive' : ''}`}>
+                    <span className="ws-action-label">{a.label}</span>
+                    <span className="ws-action-gain">+{a.gain} pts</span>
+                  </div>
+                ))}
+              </>
+            )}
           </div>
         )}
 
