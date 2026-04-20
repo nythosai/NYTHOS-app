@@ -5,7 +5,7 @@ import { base, baseSepolia, mainnet } from '@reown/appkit/networks';
 // Get your free project ID at https://cloud.reown.com
 // Set VITE_WALLETCONNECT_PROJECT_ID in your .env file
 const projectId = import.meta.env.VITE_WALLETCONNECT_PROJECT_ID || '';
-const fallbackAppUrl = import.meta.env.VITE_APP_URL || 'https://nythos.io';
+const fallbackAppUrl = import.meta.env.VITE_APP_URL || 'https://www.nythos.io';
 const appUrl = typeof window !== 'undefined' ? window.location.origin : fallbackAppUrl;
 const appIconUrl = new URL('/favicon.svg', `${appUrl}/`).toString();
 

@@ -3,7 +3,7 @@
  * Simple redirect-chain debugger for Search Console "Redirect error" reports.
  *
  * Usage:
- *   node scripts/checkRedirects.js https://nythos.io/
+ *   node scripts/checkRedirects.js https://www.nythos.io/
  *   node scripts/checkRedirects.js --file urls.txt
  *   cat urls.txt | node scripts/checkRedirects.js
  */
@@ -48,7 +48,7 @@ async function followRedirects(startUrl) {
     const res = await fetch(current, {
       redirect: 'manual',
       headers: {
-        'user-agent': 'NYTHOS-Redirect-Check/1.0 (+https://nythos.io)',
+        'user-agent': 'NYTHOS-Redirect-Check/1.0 (+https://www.nythos.io)',
         accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
       },
     });
@@ -137,4 +137,3 @@ for (const inputUrl of normalized) {
     console.log(`01. ERROR ${inputUrl} -> ${err?.message || String(err)}`);
   }
 }
-
