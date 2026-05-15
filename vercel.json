@@ -1,9 +1,12 @@
 {
   "rewrites": [
-    { "source": "/privacy",   "destination": "/privacy.html" },
-    { "source": "/terms",     "destination": "/terms.html" },
-    { "source": "/whitepaper","destination": "/whitepaper.html" },
-    { "source": "/og-image",  "destination": "/og-image.html" },
+    { "source": "/privacy",                       "destination": "/privacy.html" },
+    { "source": "/terms",                         "destination": "/terms.html" },
+    { "source": "/whitepaper",                    "destination": "/whitepaper.html" },
+    { "source": "/og-image",                      "destination": "/og-image.html" },
+    { "source": "/ethereum-whale-tracker",        "destination": "/ethereum-whale-tracker.html" },
+    { "source": "/crypto-smart-money-signals",    "destination": "/crypto-smart-money-signals.html" },
+    { "source": "/base-chain-intelligence",       "destination": "/base-chain-intelligence.html" },
     { "source": "/((?!.*\\.).*)", "destination": "/index.html" }
   ],
   "headers": [

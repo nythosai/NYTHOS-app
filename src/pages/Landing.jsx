@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import api from '../api';
+import { useSeoHead } from '../hooks/useSeoHead';
 import './Landing.css';
 
 const STATIC_SIGNALS = [
@@ -110,6 +111,12 @@ const FEATURES = [
 ];
 
 export default function Landing() {
+  useSeoHead({
+    title: 'NYTHOS - The Dark Intelligence of the Blockchain',
+    description: 'Real-time whale signal detection across ETH, BTC, and Base. AI-scored on-chain intelligence. Free open beta — no token required.',
+    canonical: 'https://www.nythos.io/',
+  });
+
   return (
     <div className="landing">
 
@@ -372,6 +379,45 @@ export default function Landing() {
           </div>
         </section>
 
+        {/* ── FAQ ── */}
+        <section className="faq-section" id="faq-anchor">
+          <div className="section-label">FAQ</div>
+          <h2 className="section-title">Common questions</h2>
+          <div className="faq-grid">
+            {[
+              {
+                q: 'How is NYTHOS different from Nansen or Arkham?',
+                a: 'Nansen and Arkham are research tools — useful for historical deep-dives but slow for real-time trading. NYTHOS is built signal-first: every whale movement is scored, surfaced instantly, and verified on-chain after the fact so you can audit accuracy before you trust it. And the beta is free.',
+              },
+              {
+                q: 'How is NYTHOS different from Whale Alert?',
+                a: "Whale Alert broadcasts raw transaction sizes on social media with no scoring, no history, and no accuracy record. NYTHOS scores every signal HIGH / MED / LOW, checks the outcome after 24h, and gives you a full 30-day queryable history — so you know which signals actually moved markets.",
+              },
+              {
+                q: 'What blockchains are supported?',
+                a: 'ETH, BTC, and Base today. ETH and Base include DEX activity, bridge flows, and smart contract interactions. BTC covers large-wallet accumulation and dormant-wallet reactivation. SOL support is in development.',
+              },
+              {
+                q: 'Is it really free?',
+                a: 'Yes. Full beta access — live signals, wallet scoring, 30-day history, REST API, and Telegram alerts — requires only a wallet connection. No subscription, no credit card. Token-gated tiers activate after the Base contract audit.',
+              },
+              {
+                q: 'How accurate are the signals?',
+                a: 'Every signal is verified automatically after it fires. The public proof feed shows verified hits and misses with full context. Accuracy is tracked over 24h windows and displayed live at nythos.io/proof.',
+              },
+              {
+                q: 'What is the $NYT token?',
+                a: '$NYT is the NYTHOS access token planned for Base after a professional smart contract audit. It gates Pro (100 $NYT) and Partner (5,000 $NYT) tiers. Founder round price is $0.005. No token is needed during open beta.',
+              },
+            ].map(({ q, a }) => (
+              <div key={q} className="faq-card">
+                <h3 className="faq-q">{q}</h3>
+                <p className="faq-a">{a}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
         {/* ── Manifesto / Quote ── */}
         <section className="manifesto-section">
           <div className="manifesto-line" aria-hidden="true" />
@@ -399,7 +445,7 @@ export default function Landing() {
             <a href="/privacy.html">Privacy</a>
             <a href="/terms.html">Terms</a>
           </nav>
-          <div className="footer-copy">© 2025 NYTHOS. Working product now, token infrastructure after audit.</div>
+          <div className="footer-copy">© 2026 NYTHOS. Working product now, token infrastructure after audit.</div>
         </div>
       </footer>
 

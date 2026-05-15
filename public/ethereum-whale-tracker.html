@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ethereum Whale Tracker — Real-Time ETH Large-Wallet Signals | NYTHOS</title>
+  <meta name="description" content="Track Ethereum whales in real time. NYTHOS monitors large ETH wallet movements, smart-money clusters, and dormant-wallet reactivations. AI-scored signals. Free open beta." />
+  <link rel="canonical" href="https://www.nythos.io/ethereum-whale-tracker" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.nythos.io/ethereum-whale-tracker" />
+  <meta property="og:title" content="Ethereum Whale Tracker — Real-Time ETH Large-Wallet Signals | NYTHOS" />
+  <meta property="og:description" content="Track Ethereum whales in real time. NYTHOS monitors large ETH wallet movements, scored by AI confidence. Free open beta." />
+  <meta property="og:image" content="https://www.nythos.io/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@NythosAI" />
+  <meta name="twitter:title" content="Ethereum Whale Tracker — NYTHOS" />
+  <meta name="twitter:description" content="Track Ethereum whale wallets in real time. AI-scored on-chain signals. Free open beta." />
+  <meta name="twitter:image" content="https://www.nythos.io/og-image.png" />
+  <meta name="theme-color" content="#060912" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Ethereum Whale Tracker",
+    "url": "https://www.nythos.io/ethereum-whale-tracker",
+    "description": "Real-time Ethereum whale wallet tracking with AI-scored confidence signals.",
+    "breadcrumb": {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "NYTHOS", "item": "https://www.nythos.io/" },
+        { "@type": "ListItem", "position": 2, "name": "Ethereum Whale Tracker", "item": "https://www.nythos.io/ethereum-whale-tracker" }
+      ]
+    },
+    "isPartOf": { "@type": "WebSite", "name": "NYTHOS", "url": "https://www.nythos.io" }
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Space+Grotesk:wght@600;700&display=swap" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #060912;
+      color: #e8eaf0;
+      font-family: 'Inter', -apple-system, sans-serif;
+      line-height: 1.6;
+    }
+    a { color: #8a7fff; text-decoration: none; }
+    a:hover { color: #c4bfff; }
+
+    .header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 40px;
+      border-bottom: 1px solid rgba(108,99,255,0.15);
+    }
+    .logo { font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 700; letter-spacing: 4px; color: #e8eaf0; }
+    .logo-tag { font-size: 10px; font-weight: 600; letter-spacing: 2px; color: #6c63ff; border: 1px solid rgba(108,99,255,0.4); padding: 2px 7px; border-radius: 3px; margin-left: 10px; }
+    .cta-btn {
+      background: #6c63ff; color: #fff; border: none; border-radius: 6px;
+      padding: 10px 22px; font-size: 13px; font-weight: 600; cursor: pointer;
+      letter-spacing: 0.5px; font-family: inherit;
+    }
+
+    .hero {
+      max-width: 860px; margin: 0 auto;
+      padding: 80px 40px 60px;
+      text-align: center;
+    }
+    .eyebrow { font-size: 11px; letter-spacing: 4px; color: #6c63ff; font-weight: 700; text-transform: uppercase; margin-bottom: 20px; }
+    h1 { font-family: 'Space Grotesk', sans-serif; font-size: 44px; font-weight: 700; line-height: 1.18; margin-bottom: 22px; }
+    h1 em { color: #8a7fff; font-style: normal; }
+    .sub { font-size: 17px; color: #8892a4; max-width: 640px; margin: 0 auto 36px; }
+
+    .cta-row { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-bottom: 20px; }
+    .btn-primary { display: inline-block; background: #6c63ff; color: #fff; padding: 14px 36px; border-radius: 6px; font-size: 14px; font-weight: 700; letter-spacing: 1px; }
+    .btn-secondary { display: inline-block; border: 1px solid rgba(108,99,255,0.5); color: #a89cff; padding: 14px 28px; border-radius: 6px; font-size: 14px; }
+
+    .signal-preview {
+      max-width: 860px; margin: 0 auto 72px;
+      padding: 0 40px;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px;
+    }
+    .signal-card {
+      background: rgba(108,99,255,0.07);
+      border: 1px solid rgba(108,99,255,0.2);
+      border-radius: 8px; padding: 18px 16px;
+    }
+    .signal-chain { font-size: 11px; font-weight: 700; letter-spacing: 2px; color: #a89cff; margin-bottom: 8px; }
+    .signal-badge { display: inline-block; background: rgba(0,200,140,0.15); color: #00c88c; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; padding: 2px 8px; border-radius: 3px; margin-left: 8px; }
+    .signal-desc { font-size: 13px; color: #c8cad8; line-height: 1.55; margin-bottom: 8px; }
+    .signal-value { font-size: 12px; color: #6c63ff; font-weight: 600; }
+
+    .content { max-width: 860px; margin: 0 auto; padding: 0 40px 80px; }
+    h2 { font-family: 'Space Grotesk', sans-serif; font-size: 26px; font-weight: 700; margin-bottom: 14px; }
+    .content p { color: #8892a4; font-size: 15px; margin-bottom: 16px; }
+    .content ul { color: #8892a4; font-size: 15px; padding-left: 20px; margin-bottom: 24px; }
+    .content ul li { margin-bottom: 8px; }
+    .section { margin-bottom: 56px; }
+
+    .compare-table { width: 100%; border-collapse: collapse; margin-top: 20px; font-size: 14px; }
+    .compare-table th { text-align: left; padding: 10px 14px; font-size: 11px; letter-spacing: 2px; color: #6c63ff; border-bottom: 1px solid rgba(108,99,255,0.2); }
+    .compare-table td { padding: 12px 14px; border-bottom: 1px solid rgba(255,255,255,0.05); color: #8892a4; }
+    .compare-table td:first-child { color: #e8eaf0; font-weight: 600; }
+    .yes { color: #00c88c !important; }
+    .no  { color: #ff6b6b !important; }
+
+    .footer { border-top: 1px solid rgba(108,99,255,0.12); padding: 28px 40px; text-align: center; color: #4a5568; font-size: 12px; }
+    .footer a { color: #6c63ff; margin: 0 10px; }
+
+    @media (max-width: 680px) {
+      .header { padding: 14px 18px; }
+      .hero { padding: 48px 20px 40px; }
+      h1 { font-size: 28px; }
+      .signal-preview { grid-template-columns: 1fr; padding: 0 20px; }
+      .content { padding: 0 20px 56px; }
+      .footer { padding: 24px 18px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <a href="/" style="display:flex;align-items:center;">
+      <span class="logo">NYTHOS</span>
+      <span class="logo-tag">$NYT</span>
+    </a>
+    <a class="cta-btn" href="/dashboard">Launch App</a>
+  </header>
+
+  <main>
+    <div class="hero">
+      <div class="eyebrow">Ethereum On-Chain Intelligence</div>
+      <h1>Track <em>ETH Whale Wallets</em><br>Before the Market Reacts</h1>
+      <p class="sub">
+        NYTHOS monitors Ethereum for large-wallet accumulation, smart-money cluster entries,
+        and dormant-wallet reactivations — then scores each signal by confidence so you know
+        which moves are worth watching.
+      </p>
+      <div class="cta-row">
+        <a class="btn-primary" href="/dashboard">Access Live Signals →</a>
+        <a class="btn-secondary" href="/proof">See the Proof Feed</a>
+      </div>
+    </div>
+
+    <div class="signal-preview" aria-label="Example Ethereum signal cards">
+      <div class="signal-card">
+        <div class="signal-chain">ETH <span class="signal-badge">HIGH</span></div>
+        <div class="signal-desc">Large wallet accumulation detected. 3 addresses added 820 ETH in a 4h window.</div>
+        <div class="signal-value">$2.9M moved</div>
+      </div>
+      <div class="signal-card">
+        <div class="signal-chain">ETH <span class="signal-badge">HIGH</span></div>
+        <div class="signal-desc">Smart money cluster: 7 wallets entered the same ETH position within 60 minutes.</div>
+        <div class="signal-value">$1.1M moved</div>
+      </div>
+      <div class="signal-card">
+        <div class="signal-chain">ETH <span class="signal-badge">HIGH</span></div>
+        <div class="signal-desc">Dormant wallet (3yr inactive) sent 12.4 ETH to a new address ahead of a price spike.</div>
+        <div class="signal-value">$41K moved</div>
+      </div>
+    </div>
+
+    <div class="content">
+
+      <div class="section">
+        <h2>What NYTHOS tracks on Ethereum</h2>
+        <p>Most whale trackers broadcast raw transaction sizes and call it a day. NYTHOS goes further — every Ethereum signal is scored, and verified after the fact so you can audit how reliable it actually is.</p>
+        <ul>
+          <li><strong>Large-wallet accumulation</strong> — coordinated ETH buys across multiple wallets in a short window</li>
+          <li><strong>Dormant wallet reactivation</strong> — wallets silent for months or years suddenly moving funds</li>
+          <li><strong>Smart money clusters</strong> — 3+ known profitable wallets entering the same position together</li>
+          <li><strong>DEX and bridge flows</strong> — large capital movement across Uniswap, Curve, and major bridges</li>
+          <li><strong>Exchange inflow / outflow spikes</strong> — unusual ETH deposits or withdrawals on major CEXes</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h2>How NYTHOS scores confidence</h2>
+        <p>Every signal gets a <strong>HIGH</strong>, <strong>MED</strong>, or <strong>LOW</strong> confidence rating based on cluster size, timing patterns, historical wallet accuracy, and on-chain follow-through. HIGH-confidence signals have the strongest track record.</p>
+        <p>After 24 hours, the engine checks what actually happened and marks each signal as a verified hit or miss. Browse the <a href="/proof">public proof feed</a> to judge accuracy yourself before trusting any signal.</p>
+      </div>
+
+      <div class="section">
+        <h2>NYTHOS vs other Ethereum whale trackers</h2>
+        <table class="compare-table">
+          <thead>
+            <tr>
+              <th>Tool</th>
+              <th>Real-time scoring</th>
+              <th>Outcome verification</th>
+              <th>30-day history</th>
+              <th>REST API</th>
+              <th>Free tier</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>NYTHOS</td>
+              <td class="yes">✓ HIGH/MED/LOW</td>
+              <td class="yes">✓ On-chain proof</td>
+              <td class="yes">✓ Included</td>
+              <td class="yes">✓ Included</td>
+              <td class="yes">✓ Full beta free</td>
+            </tr>
+            <tr>
+              <td>Whale Alert</td>
+              <td class="no">✗ Raw tx only</td>
+              <td class="no">✗ None</td>
+              <td class="no">✗ None</td>
+              <td class="no">✗ Paid only</td>
+              <td class="no">✗ Limited</td>
+            </tr>
+            <tr>
+              <td>Nansen</td>
+              <td class="yes">✓ Labels</td>
+              <td class="no">✗ None</td>
+              <td class="yes">✓ Historical</td>
+              <td class="yes">✓ Paid</td>
+              <td class="no">✗ $149+/mo</td>
+            </tr>
+            <tr>
+              <td>Arkham</td>
+              <td class="yes">✓ Entity labels</td>
+              <td class="no">✗ None</td>
+              <td class="yes">✓ Historical</td>
+              <td class="yes">✓ Paid</td>
+              <td class="no">✗ Subscription</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section">
+        <h2>Get started — free open beta</h2>
+        <p>Connect any EVM wallet (MetaMask, Coinbase Wallet, Rainbow, or any WalletConnect wallet) to access the full live Ethereum signal feed. No token, no subscription, no credit card required during open beta.</p>
+        <div class="cta-row" style="justify-content:flex-start;">
+          <a class="btn-primary" href="/dashboard">Launch the App →</a>
+          <a class="btn-secondary" href="/">Learn more about NYTHOS</a>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div style="margin-bottom:10px;">
+      <a href="/">Home</a>
+      <a href="/proof">Live Proof Feed</a>
+      <a href="/presale">Presale</a>
+      <a href="/crypto-smart-money-signals">Smart Money Signals</a>
+      <a href="/base-chain-intelligence">Base Intelligence</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/terms">Terms</a>
+    </div>
+    © 2026 NYTHOS · @NythosAI · $NYT · Base-first on-chain intelligence
+  </footer>
+
+</body>
+</html>

@@ -1,8 +1,18 @@
 import React from 'react';
 import { useAppKit } from '@reown/appkit/react';
 import ProofPage from './ProofPage';
+import { useSeoHead } from '../hooks/useSeoHead';
 
 export default function PublicProofShell() {
+  useSeoHead({
+    title: 'Live Proof Feed — Verified On-Chain Signals | NYTHOS',
+    description: 'Every NYTHOS signal is verified after it fires. Browse the public proof feed to see verified hits, misses, and 24-hour accuracy across ETH, BTC, and Base.',
+    canonical: 'https://www.nythos.io/proof',
+    breadcrumb: [
+      { name: 'NYTHOS', url: 'https://www.nythos.io/' },
+      { name: 'Live Proof Feed', url: 'https://www.nythos.io/proof' },
+    ],
+  });
   const { open } = useAppKit();
 
   return (

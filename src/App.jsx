@@ -6,6 +6,7 @@ import Landing from './pages/Landing';
 import { lazyWithChunkRecovery } from './chunkRecovery';
 import CookieBanner from './components/CookieBanner';
 import { useWalletSession } from './hooks/useWalletSession';
+import { useSeoHead } from './hooks/useSeoHead';
 
 const PublicProofShell = lazyWithChunkRecovery(() => import('./pages/PublicProofShell'));
 const Dashboard = lazyWithChunkRecovery(() => import('./pages/Dashboard'));
@@ -141,6 +142,7 @@ function SigningScreen({ signing, signError, onRetry, connectorName }) {
 
 // Shown at /dashboard when wallet is not yet connected.
 function ConnectGate() {
+  useSeoHead({ noindex: true });
   const { open } = useAppKit();
   return (
     <div style={{
@@ -197,6 +199,7 @@ function ConnectGate() {
 // Auto-triggers SIWE sign-in immediately — wallet is still "warm" from the
 // connect step, so the signature prompt fires without a second deep-link round-trip.
 function ConnectedApp() {
+  useSeoHead({ noindex: true });
   const { connector } = useAccount();
   const { hasSession, signing, signError, ensureSession } = useWalletSession();
 

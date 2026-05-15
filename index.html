@@ -35,15 +35,22 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="NYTHOS" />
-    <!-- Schema.org structured data (Google logo + sitelinks) -->
+    <!-- Schema.org: WebSite -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "WebSite",
       "name": "NYTHOS",
       "url": "https://www.nythos.io",
-      "logo": "https://www.nythos.io/favicon.svg",
       "description": "Real-time whale signal detection. AI-scored on-chain intelligence. Personalized to your wallet.",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://www.nythos.io/proof?q={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      },
       "publisher": {
         "@type": "Organization",
         "name": "NYTHOS",
@@ -61,6 +68,109 @@
       }
     }
     </script>
+
+    <!-- Schema.org: SoftwareApplication -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "NYTHOS",
+      "url": "https://www.nythos.io",
+      "applicationCategory": "FinanceApplication",
+      "applicationSubCategory": "Blockchain Analytics",
+      "operatingSystem": "Web",
+      "description": "NYTHOS is an on-chain intelligence platform that monitors Ethereum, Bitcoin, and Base for large-wallet movements, scores each signal by confidence level, and delivers a real-time feed traders can act on. No token required in open beta.",
+      "screenshot": "https://www.nythos.io/og-image.png",
+      "featureList": [
+        "Real-time whale wallet tracking across ETH, BTC, and Base",
+        "AI-scored signals rated HIGH / MED / LOW by confidence",
+        "30-day signal history with outcome verification",
+        "Wallet scoring engine for address profitability analysis",
+        "REST API and webhook support for custom integrations",
+        "Telegram alert delivery for signal events",
+        "On-chain proof feed with verified outcomes"
+      ],
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "description": "Free during open beta. Token-gated tiers activate after Base contract deployment."
+      },
+      "author": {
+        "@type": "Organization",
+        "name": "NYTHOS",
+        "url": "https://www.nythos.io"
+      }
+    }
+    </script>
+
+    <!-- Schema.org: FAQPage -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is NYTHOS?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "NYTHOS is a real-time on-chain intelligence platform that monitors Ethereum, Bitcoin, and Base for large-wallet activity. It scores every signal HIGH, MED, or LOW by confidence and delivers a live feed traders can act on. No token or subscription is required during open beta."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How is NYTHOS different from Nansen or Arkham?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Nansen and Arkham focus on entity labeling and historical dashboards — useful for research but slow for real-time trading decisions. NYTHOS is built signal-first: every whale movement is scored and surfaced instantly, with 30-day outcome verification so you can audit accuracy before trusting it. The beta is free, no $149/month subscription required."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How is NYTHOS different from Whale Alert?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Whale Alert broadcasts raw transaction sizes on social media with no scoring, no history, and no accuracy tracking. NYTHOS scores every signal by confidence level, verifies outcomes on-chain, and lets you query the full 30-day history via REST API or the dashboard."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What blockchains does NYTHOS support?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "NYTHOS currently monitors Ethereum (ETH), Bitcoin (BTC), and Base. Ethereum and Base provide full on-chain intelligence including DEX activity, bridge flows, and smart contract interactions. Bitcoin monitoring covers large-wallet accumulation and dormant-wallet reactivation signals."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How accurate are NYTHOS signals?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Every NYTHOS signal is verified automatically after it fires. The public proof feed at nythos.io/proof shows verified hits and misses with full context. Accuracy is tracked over 24-hour windows and displayed live so you can judge performance yourself."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is NYTHOS free to use?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. NYTHOS is in open beta and fully free to use. Connect any EVM wallet (MetaMask, Coinbase Wallet, Rainbow, or any WalletConnect wallet) to access the full signal feed, wallet scoring, 30-day history, REST API, and Telegram alerts. Token-gated tiers are planned after the Base smart contract audit."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the $NYT token?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "$NYT is the NYTHOS access token planned for deployment on Base after a professional smart contract audit. It will gate Pro Access (100 $NYT) and Partner tiers (5,000 $NYT). The presale founder round is priced at $0.005 per token. The token is not required during open beta."
+          }
+        }
+      ]
+    }
+    </script>
+
+    <link rel="canonical" href="https://www.nythos.io/" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

@@ -3,6 +3,7 @@ import { useAccount, useReadContracts, useWriteContract, useWaitForTransactionRe
 import { parseEther, formatEther, formatUnits } from 'viem';
 import api from '../api';
 import { NYT_PRESALE_ADDRESS, NYT_PRESALE_ABI } from '../config';
+import { useSeoHead } from '../hooks/useSeoHead';
 import './PresalePage.css';
 
 const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
@@ -55,6 +56,15 @@ const ROUNDS = [
 ];
 
 export default function PresalePage() {
+  useSeoHead({
+    title: 'NYTHOS Presale — Join the Founder List | $NYT Token',
+    description: 'Lock your $NYT founder price at $0.005 before the Base contract deploys. Three structured rounds open in sequence after audit. Join the NYTHOS founder list now.',
+    canonical: 'https://www.nythos.io/presale',
+    breadcrumb: [
+      { name: 'NYTHOS', url: 'https://www.nythos.io/' },
+      { name: 'Presale', url: 'https://www.nythos.io/presale' },
+    ],
+  });
   const { address } = useAccount();
   const [email, setEmail]           = useState('');
   const [wallet, setWallet]         = useState(address || '');

@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Base Chain On-Chain Intelligence — Real-Time DeFi Signals | NYTHOS</title>
+  <meta name="description" content="Real-time on-chain intelligence for the Base network. NYTHOS tracks DeFi entries, bridge inflows, protocol launches, and smart money activity on Base with AI-scored confidence signals." />
+  <link rel="canonical" href="https://www.nythos.io/base-chain-intelligence" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.nythos.io/base-chain-intelligence" />
+  <meta property="og:title" content="Base Chain On-Chain Intelligence | NYTHOS" />
+  <meta property="og:description" content="Real-time DeFi signals for the Base network. AI-scored. Free open beta." />
+  <meta property="og:image" content="https://www.nythos.io/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@NythosAI" />
+  <meta name="twitter:title" content="Base Chain Intelligence — NYTHOS" />
+  <meta name="twitter:description" content="Real-time DeFi intelligence for Base. AI-scored signals. Free open beta." />
+  <meta name="twitter:image" content="https://www.nythos.io/og-image.png" />
+  <meta name="theme-color" content="#060912" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": "Base Chain On-Chain Intelligence",
+    "url": "https://www.nythos.io/base-chain-intelligence",
+    "description": "Real-time on-chain intelligence for the Base network including DeFi signals, bridge flows, and smart money tracking.",
+    "breadcrumb": {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "NYTHOS", "item": "https://www.nythos.io/" },
+        { "@type": "ListItem", "position": 2, "name": "Base Chain Intelligence", "item": "https://www.nythos.io/base-chain-intelligence" }
+      ]
+    },
+    "isPartOf": { "@type": "WebSite", "name": "NYTHOS", "url": "https://www.nythos.io" }
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Space+Grotesk:wght@600;700&display=swap" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #060912; color: #e8eaf0; font-family: 'Inter', -apple-system, sans-serif; line-height: 1.6; }
+    a { color: #4d88ff; text-decoration: none; }
+    a:hover { color: #85aaff; }
+    .header { display: flex; align-items: center; justify-content: space-between; padding: 16px 40px; border-bottom: 1px solid rgba(77,136,255,0.15); }
+    .logo { font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 700; letter-spacing: 4px; color: #e8eaf0; }
+    .logo-tag { font-size: 10px; font-weight: 600; letter-spacing: 2px; color: #4d88ff; border: 1px solid rgba(77,136,255,0.4); padding: 2px 7px; border-radius: 3px; margin-left: 10px; }
+    .cta-btn { background: #4d88ff; color: #fff; border: none; border-radius: 6px; padding: 10px 22px; font-size: 13px; font-weight: 600; cursor: pointer; letter-spacing: 0.5px; font-family: inherit; }
+    .hero { max-width: 860px; margin: 0 auto; padding: 80px 40px 60px; text-align: center; }
+    .eyebrow { font-size: 11px; letter-spacing: 4px; color: #4d88ff; font-weight: 700; text-transform: uppercase; margin-bottom: 20px; }
+    h1 { font-family: 'Space Grotesk', sans-serif; font-size: 44px; font-weight: 700; line-height: 1.18; margin-bottom: 22px; }
+    h1 em { color: #4d88ff; font-style: normal; }
+    .sub { font-size: 17px; color: #8892a4; max-width: 640px; margin: 0 auto 36px; }
+    .cta-row { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-bottom: 20px; }
+    .btn-primary { display: inline-block; background: #4d88ff; color: #fff; padding: 14px 36px; border-radius: 6px; font-size: 14px; font-weight: 700; letter-spacing: 1px; }
+    .btn-secondary { display: inline-block; border: 1px solid rgba(77,136,255,0.5); color: #85aaff; padding: 14px 28px; border-radius: 6px; font-size: 14px; }
+
+    .signal-grid { max-width: 860px; margin: 0 auto 72px; padding: 0 40px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .signal-card { background: rgba(77,136,255,0.06); border: 1px solid rgba(77,136,255,0.2); border-radius: 8px; padding: 20px 18px; }
+    .signal-type { font-size: 10px; font-weight: 700; letter-spacing: 3px; color: #4d88ff; margin-bottom: 8px; }
+    .signal-badge { display: inline-block; background: rgba(0,200,140,0.15); color: #00c88c; font-size: 10px; font-weight: 700; letter-spacing: 1.5px; padding: 2px 8px; border-radius: 3px; margin-left: 8px; }
+    .signal-desc { font-size: 13px; color: #c8cad8; line-height: 1.55; margin-bottom: 8px; }
+    .signal-value { font-size: 12px; color: #4d88ff; font-weight: 600; }
+
+    .content { max-width: 860px; margin: 0 auto; padding: 0 40px 80px; }
+    h2 { font-family: 'Space Grotesk', sans-serif; font-size: 26px; font-weight: 700; margin-bottom: 14px; }
+    .content p { color: #8892a4; font-size: 15px; margin-bottom: 16px; }
+    .content ul { color: #8892a4; font-size: 15px; padding-left: 20px; margin-bottom: 24px; }
+    .content ul li { margin-bottom: 8px; }
+    .section { margin-bottom: 56px; }
+
+    .why-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 20px; }
+    .why-card { background: rgba(255,255,255,0.025); border: 1px solid rgba(77,136,255,0.12); border-radius: 8px; padding: 20px; }
+    .why-icon { font-size: 20px; margin-bottom: 10px; }
+    .why-title { font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+    .why-desc { font-size: 13px; color: #8892a4; line-height: 1.6; }
+
+    .footer { border-top: 1px solid rgba(77,136,255,0.12); padding: 28px 40px; text-align: center; color: #4a5568; font-size: 12px; }
+    .footer a { color: #4d88ff; margin: 0 10px; }
+
+    @media (max-width: 680px) {
+      .header { padding: 14px 18px; }
+      .hero { padding: 48px 20px 40px; }
+      h1 { font-size: 28px; }
+      .signal-grid, .why-grid { grid-template-columns: 1fr; padding: 0 20px; }
+      .content { padding: 0 20px 56px; }
+      .footer { padding: 24px 18px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header">
+    <a href="/" style="display:flex;align-items:center;">
+      <span class="logo">NYTHOS</span>
+      <span class="logo-tag">$NYT</span>
+    </a>
+    <a class="cta-btn" href="/dashboard">Launch App</a>
+  </header>
+
+  <main>
+    <div class="hero">
+      <div class="eyebrow">Base Network · On-Chain Intelligence</div>
+      <h1>Real-Time Intelligence<br>for the <em>Base Chain</em></h1>
+      <p class="sub">
+        NYTHOS is Base-native. Track DeFi smart money entries, bridge inflows, protocol launches,
+        and coordinated on-chain activity — scored by AI confidence before the crowd notices.
+        The $NYT token deploys on Base after audit.
+      </p>
+      <div class="cta-row">
+        <a class="btn-primary" href="/dashboard">Access Live Signals →</a>
+        <a class="btn-secondary" href="/proof">See the Proof Feed</a>
+      </div>
+    </div>
+
+    <div class="signal-grid">
+      <div class="signal-card">
+        <div class="signal-type">SMART MONEY ENTRY <span class="signal-badge">HIGH</span></div>
+        <div class="signal-desc">12 coordinated smart-money entries detected in Base DeFi within 90 minutes.</div>
+        <div class="signal-value">$1.4M deployed</div>
+      </div>
+      <div class="signal-card">
+        <div class="signal-type">BRIDGE INFLOW <span class="signal-badge">HIGH</span></div>
+        <div class="signal-desc">Unusual ETH bridge inflow to Base — $3.2M moved from mainnet in under 30 minutes.</div>
+        <div class="signal-value">$3.2M bridged</div>
+      </div>
+      <div class="signal-card">
+        <div class="signal-type">LAUNCH RADAR <span class="signal-badge">MED</span></div>
+        <div class="signal-desc">New protocol on Base drew 40+ unique wallets within 2 hours of deployment.</div>
+        <div class="signal-value">Early adoption signal</div>
+      </div>
+      <div class="signal-card">
+        <div class="signal-type">WHALE ACCUMULATION <span class="signal-badge">HIGH</span></div>
+        <div class="signal-desc">Known profitable wallet cluster accumulated a Base DeFi position across 6 addresses.</div>
+        <div class="signal-value">$680K accumulated</div>
+      </div>
+    </div>
+
+    <div class="content">
+
+      <div class="section">
+        <h2>Why Base-native intelligence matters</h2>
+        <p>Base is Coinbase's L2 — it has grown rapidly into one of the most active DeFi ecosystems, but most whale trackers focus almost exclusively on Ethereum mainnet. NYTHOS was built Base-first from day one.</p>
+        <div class="why-grid">
+          <div class="why-card">
+            <div class="why-icon">⬡</div>
+            <div class="why-title">DeFi Smart Money</div>
+            <div class="why-desc">Detect coordinated entries into Base protocols before they trend. Multi-wallet cluster analysis across all major Base DEXes.</div>
+          </div>
+          <div class="why-card">
+            <div class="why-icon">◎</div>
+            <div class="why-title">Bridge Flow Tracking</div>
+            <div class="why-desc">Large capital moves from Ethereum mainnet to Base often precede significant DeFi activity. NYTHOS flags anomalous bridge inflows in real time.</div>
+          </div>
+          <div class="why-card">
+            <div class="why-icon">⟁</div>
+            <div class="why-title">Launch Radar</div>
+            <div class="why-desc">New protocol deployments that attract a surge of early unique wallets are flagged automatically — find emerging Base opportunities early.</div>
+          </div>
+          <div class="why-card">
+            <div class="why-icon">⌁</div>
+            <div class="why-title">On-Chain Proof</div>
+            <div class="why-desc">Base signals are verified by on-chain follow-through (not just price). If the activity continued, NYTHOS marks it as a verified hit.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section">
+        <h2>What NYTHOS tracks on Base</h2>
+        <ul>
+          <li><strong>Coordinated DeFi entries</strong> — multiple known-profitable wallets entering the same protocol in a tight window</li>
+          <li><strong>Bridge inflow anomalies</strong> — unusual ETH or USDC flows from mainnet into Base wallets</li>
+          <li><strong>New protocol early adopters</strong> — launch radar detects early wallet surges on newly deployed contracts</li>
+          <li><strong>Large liquidity additions</strong> — significant LP deposits that may precede new incentive programs</li>
+          <li><strong>Whale accumulation in Base tokens</strong> — smart money building positions in Base-native assets</li>
+        </ul>
+      </div>
+
+      <div class="section">
+        <h2>NYTHOS is Base-native — by design</h2>
+        <p>The $NYT access token will deploy on Base after a professional smart contract audit. Founder round participants lock in at $0.005 per token before the deployment. No token is required during open beta.</p>
+        <div class="cta-row" style="justify-content:flex-start;">
+          <a class="btn-primary" href="/dashboard">Launch the App →</a>
+          <a class="btn-secondary" href="/presale">Join the Founder List</a>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div style="margin-bottom:10px;">
+      <a href="/">Home</a>
+      <a href="/proof">Live Proof Feed</a>
+      <a href="/presale">Presale</a>
+      <a href="/ethereum-whale-tracker">ETH Whale Tracker</a>
+      <a href="/crypto-smart-money-signals">Smart Money Signals</a>
+      <a href="/privacy">Privacy</a>
+      <a href="/terms">Terms</a>
+    </div>
+    © 2026 NYTHOS · @NythosAI · $NYT · Base-first on-chain intelligence
+  </footer>
+
+</body>
+</html>
