@@ -32,6 +32,15 @@
   --radius-sm: 4px;
   --radius-md: 8px;
   --radius-lg: 12px;
+
+  /* ── Spacing scale ── */
+  --space-xs:  0.5rem;   /* 8px */
+  --space-sm:  0.75rem;  /* 12px */
+  --space-md:  1.5rem;   /* 24px */
+  --space-lg:  2.5rem;   /* 40px */
+  --space-xl:  4rem;     /* 64px */
+  --space-2xl: 5rem;     /* 80px */
+  --space-3xl: 6rem;     /* 96px */
 }
 
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
@@ -59,7 +68,7 @@ h1, h2, h3, h4, h5, h6 { font-family: var(--font-display); }
 button { font-family: var(--font-display); }
 
 /* Monospace class for data/labels that should stay mono */
-.mono { font-family: var(--font-mono); }
+.mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
 
 /* Prevent iOS from zooming in on focused inputs (requires font-size >= 16px) */
 @media (max-width: 767px) {
@@ -95,6 +104,16 @@ button { font-family: var(--font-display); }
 .landing-footer,
 .dash-footer {
   padding-bottom: max(16px, env(safe-area-inset-bottom));
+}
+
+/* Respect prefers-reduced-motion — collapses all transitions/animations to instant */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 /* Scrollbar styling */

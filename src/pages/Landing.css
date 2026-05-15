@@ -10,15 +10,16 @@
 
 /* ── Shared section typography ──────────────────────────────────────────── */
 .section-label {
-  font-size: 10px;
-  letter-spacing: 4px;
+  font-size: 0.625rem;
+  letter-spacing: 2.5px;
   color: var(--accent-text);
-  font-weight: 700;
+  font-weight: 600;
   text-transform: uppercase;
   margin-bottom: 14px;
+  opacity: 0.7;
 }
 .section-title {
-  font-size: 32px;
+  font-size: 2rem;
   color: var(--text);
   font-weight: 700;
   line-height: 1.25;
@@ -26,10 +27,10 @@
   letter-spacing: 0.2px;
 }
 .section-sub {
-  font-size: 15px;
+  font-size: 0.9375rem;
   color: var(--text-muted);
-  line-height: 1.8;
-  max-width: 560px;
+  line-height: 1.85;
+  max-width: 65ch;
   margin: 0 auto 52px;
   text-align: center;
 }
@@ -91,6 +92,10 @@
   background: var(--accent);
   color: #fff;
   box-shadow: 0 0 24px rgba(108, 99, 255, 0.35);
+}
+.header-connect-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
 }
 
 .logo {
@@ -216,17 +221,14 @@
   line-height: 1.1;
 }
 .title-accent {
-  background: linear-gradient(135deg, #6c63ff 0%, #a78bfa 50%, #00e5a0 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--accent-text);
 }
 
 .landing-sub {
-  font-size: 17px;
+  font-size: 1.0625rem;
   color: var(--text-muted);
-  max-width: 580px;
-  line-height: 1.8;
+  max-width: 65ch;
+  line-height: 1.85;
   margin-bottom: 52px;
   position: relative;
   z-index: 1;
@@ -254,8 +256,9 @@
   padding: 0 24px;
 }
 .hero-stat-val {
-  font-size: 13px;
+  font-size: 0.8125rem;
   font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
   color: var(--accent-text);
   font-weight: 600;
   letter-spacing: 1px;
@@ -325,6 +328,10 @@
 }
 .connect-btn-main:active { transform: translateY(0); }
 .connect-btn-main:disabled { opacity: 0.55; cursor: default; transform: none; box-shadow: none; }
+.connect-btn-main:focus-visible {
+  outline: 2px solid var(--accent-text);
+  outline-offset: 3px;
+}
 .connect-btn-large { padding: 18px 56px; font-size: 14px; }
 
 .landing-hint {
@@ -449,11 +456,13 @@
 
 /* ── Features ───────────────────────────────────────────────────────────── */
 .features-section {
-  padding: 96px 48px;
+  padding: 80px 48px;
   text-align: center;
   max-width: 1100px;
   margin: 0 auto;
   width: 100%;
+  content-visibility: auto;
+  contain-intrinsic-size: 0 700px;
 }
 .features-grid {
   display: grid;
@@ -500,6 +509,8 @@
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
   text-align: center;
+  content-visibility: auto;
+  contain-intrinsic-size: 0 600px;
 }
 .how-steps {
   display: flex;
@@ -535,13 +546,14 @@
   color: var(--border-light);
 }
 .how-step-num {
-  font-size: 48px;
-  color: var(--accent);
-  opacity: 0.15;
+  font-size: 3rem;
+  color: var(--accent-text);
+  opacity: 0.35;
   pointer-events: none;
   font-weight: 700;
-  letter-spacing: 2px;
-  font-family: var(--font-display);
+  letter-spacing: 1px;
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
   line-height: 1;
 }
 .how-step-content { text-align: center; }
@@ -560,8 +572,10 @@
 
 /* ── Tiers ──────────────────────────────────────────────────────────────── */
 .tiers-section {
-  padding: 96px 48px;
+  padding: 80px 48px;
   text-align: center;
+  content-visibility: auto;
+  contain-intrinsic-size: 0 700px;
 }
 .tiers-grid {
   display: grid;
@@ -736,7 +750,11 @@
 }
 
 /* ── Business / Revenue ─────────────────────────────────────────────────── */
-.revenue-section { padding: 96px 48px; }
+.revenue-section {
+  padding: 80px 48px;
+  content-visibility: auto;
+  contain-intrinsic-size: 0 600px;
+}
 .revenue-inner {
   max-width: 1000px;
   margin: 0 auto;
@@ -813,10 +831,12 @@
 
 /* ── FAQ ────────────────────────────────────────────────────────────────── */
 .faq-section {
-  padding: 80px 48px;
+  padding: 96px 48px;
   max-width: 1100px;
   margin: 0 auto;
   width: 100%;
+  content-visibility: auto;
+  contain-intrinsic-size: 0 600px;
 }
 
 .faq-grid {
@@ -827,25 +847,27 @@
 }
 
 .faq-card {
-  background: rgba(255,255,255,0.025);
-  border: 1px solid rgba(108,99,255,0.15);
-  border-radius: 8px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
   padding: 24px 22px;
+  transition: border-color 0.2s;
 }
+.faq-card:hover { border-color: var(--border-light); }
 
 .faq-q {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 15px;
-  font-weight: 700;
-  color: #e8eaf0;
+  font-family: var(--font-display);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--text);
   margin: 0 0 10px;
   line-height: 1.4;
 }
 
 .faq-a {
-  font-size: 13px;
-  color: #8892a4;
-  line-height: 1.75;
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+  line-height: 1.8;
   margin: 0;
 }
 
@@ -948,7 +970,7 @@
 @media (max-width: 1024px) {
   .revenue-inner { grid-template-columns: 1fr; gap: 40px; }
   .revenue-card { min-width: auto; }
-  .features-section { padding: 80px 32px; }
+  .features-section { padding: 64px 32px; }
 }
 
 /* Phablet / large phone landscape */
@@ -986,9 +1008,9 @@
   /* Sections */
   .live-proof { padding: 32px 20px; }
   .features-section,
-  .how-section,
   .tiers-section,
-  .revenue-section,
+  .revenue-section { padding: 56px 20px; }
+  .how-section,
   .presale-cta,
   .faq-section { padding: 64px 20px; }
   .faq-grid { grid-template-columns: 1fr; gap: 14px; }
@@ -1001,10 +1023,10 @@
   .how-step { max-width: 380px; }
 
   /* Section headings */
-  .section-title { font-size: 26px; }
-  .presale-title { font-size: 28px; }
-  .revenue-text h2 { font-size: 26px; }
-  .manifesto-quote { font-size: 16px; }
+  .section-title { font-size: 1.625rem; }
+  .presale-title { font-size: 1.75rem; }
+  .revenue-text h2 { font-size: 1.625rem; }
+  .manifesto-quote { font-size: 1rem; }
 
   /* Presale rounds — hide arrow connectors, let cards wrap naturally */
   .pcr-connector { display: none; }
@@ -1045,9 +1067,9 @@
 
   /* Sections */
   .features-section,
-  .how-section,
   .tiers-section,
-  .revenue-section,
+  .revenue-section { padding: 48px 16px; }
+  .how-section,
   .presale-cta,
   .faq-section { padding: 56px 16px; }
   .manifesto-section { padding: 56px 16px; }
