@@ -73,10 +73,22 @@ export default function SignalCard({ signal, tier, onWhaleClick }) {
     setExpanded(prev => !prev);
   }
 
+  function handleCardKeyDown(e) {
+    if (!hasExpandableContent) return;
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      setExpanded(prev => !prev);
+    }
+  }
+
   return (
     <div
       className={`signal-card ${signal.post ? 'has-post' : ''} ${expanded ? 'expanded' : ''} ${hasExpandableContent ? 'clickable' : ''}`}
       onClick={handleCardClick}
+      onKeyDown={hasExpandableContent ? handleCardKeyDown : undefined}
+      role={hasExpandableContent ? 'button' : undefined}
+      tabIndex={hasExpandableContent ? 0 : undefined}
+      aria-expanded={hasExpandableContent ? expanded : undefined}
     >
       <div className="sc-score">
         <span className={`score-num ${cls}`}>{signal.score}</span>
@@ -259,7 +271,10 @@ export default function SignalCard({ signal, tier, onWhaleClick }) {
       <div className="sc-right-col">
         <div className="sc-time">{timeStr}</div>
         {hasExpandableContent && (
-          <div className={`sc-chevron ${expanded ? 'open' : ''}`}>
+          <div
+            className={`sc-chevron ${expanded ? 'open' : ''}`}
+            aria-hidden="true"
+          >
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
               <polyline points="6 9 12 15 18 9"/>
             </svg>

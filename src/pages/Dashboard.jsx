@@ -96,11 +96,26 @@ export default function Dashboard() {
     }
 
     fetchData();
-    const interval = setInterval(fetchData, 30000);
+    let interval = setInterval(fetchData, 30000);
+
+    // Pause polling when the tab is backgrounded. Render free is bandwidth-
+    // and CPU-constrained, and an idle tab polling every 30s burns through
+    // the per-IP rate limit for no benefit. Re-poll immediately on focus.
+    function handleVisibilityChange() {
+      if (document.visibilityState === 'hidden') {
+        clearInterval(interval);
+        interval = null;
+      } else if (!interval) {
+        fetchData();
+        interval = setInterval(fetchData, 30000);
+      }
+    }
+    document.addEventListener('visibilitychange', handleVisibilityChange);
 
     return () => {
       cancelled = true;
-      clearInterval(interval);
+      if (interval) clearInterval(interval);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
     };
   }, [address, hasSession]);
 
@@ -239,7 +254,7 @@ export default function Dashboard() {
       {prices && <PriceBar prices={prices} />}
 
       {tab === 'feed' && (
-        <main className="dash-main">
+        <main className="dash-main" id="main">
           <WalletScore address={address} chain="BASE" onPortfolioLoad={setPortfolio} />
 
           <div className="stats-row">
@@ -290,9 +305,9 @@ export default function Dashboard() {
           <AccuracyStats />
 
           {loading ? (
-            <div className="skeleton-list">
+            <div className="skeleton-list" role="status" aria-live="polite" aria-busy="true" aria-label="Loading live signals">
               {[1,2,3,4,5].map(i => (
-                <div key={i} className="skeleton-card">
+                <div key={i} className="skeleton-card" aria-hidden="true">
                   <div className="skeleton-score">
                     <div className="skeleton-block" style={{ width: 40, height: 34 }} />
                     <div className="skeleton-block" style={{ width: 32, height: 10 }} />
@@ -304,15 +319,21 @@ export default function Dashboard() {
                   </div>
                 </div>
               ))}
+              <span className="sr-only">Reading the chain for live signals.</span>
             </div>
           ) : filtered.length === 0 ? (
-            <div className="empty">
+            <div className="empty" role="status">
               <p>The chain is quiet.</p>
               <p>No signals match this filter.</p>
             </div>
           ) : (
             <>
-              <div className="signal-feed">
+              <div
+                className="signal-feed"
+                role="feed"
+                aria-label={`${filtered.length} live signal${filtered.length === 1 ? '' : 's'}`}
+                aria-busy="false"
+              >
                 {filtered.map(signal => (
                   <SignalCard key={signal.id} signal={signal} tier={tier} onWhaleClick={setWhaleTarget} />
                 ))}
@@ -323,7 +344,7 @@ export default function Dashboard() {
                   tier={tier}
                   message={`${allFiltered.length - tier.signalLimit} more signals hidden. Hold 100+ $NYT to unlock the full feed.`}
                 >
-                  <div className="signal-feed">
+                  <div className="signal-feed" aria-hidden="true">
                     {allFiltered.slice(tier.signalLimit, tier.signalLimit + 3).map(signal => (
                       <SignalCard key={signal.id} signal={signal} tier={tier} onWhaleClick={setWhaleTarget} />
                     ))}

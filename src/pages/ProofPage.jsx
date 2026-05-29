@@ -225,16 +225,26 @@ export default function ProofPage({ publicOnly = false }) {
                 ? ((signal.priceCheck24h - signal.priceUSD) / signal.priceUSD) * 100
                 : null;
 
+              const toggleCard = () => {
+                const nextId = signal.id || signal._id;
+                const nextOpen = expanded === nextId ? null : nextId;
+                setExpanded(nextOpen);
+                if (nextOpen && !detailsById[nextId]) {
+                  loadProofDetails(nextId);
+                }
+              };
               return (
                 <div
                   key={signal.id || signal._id}
                   className={`proof-card ${isOpen ? 'proof-card-open' : ''}`}
-                  onClick={() => {
-                    const nextId = signal.id || signal._id;
-                    const nextOpen = expanded === nextId ? null : nextId;
-                    setExpanded(nextOpen);
-                    if (nextOpen && !detailsById[nextId]) {
-                      loadProofDetails(nextId);
+                  role="button"
+                  tabIndex={0}
+                  aria-expanded={isOpen}
+                  onClick={toggleCard}
+                  onKeyDown={e => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                      e.preventDefault();
+                      toggleCard();
                     }
                   }}
                 >

@@ -3,28 +3,37 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
+    <link rel="mask-icon" href="/favicon.svg" color="#6c63ff" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-    <title>NYTHOS - The Dark Intelligence of the Blockchain</title>
-    <meta name="description" content="Real-time whale signal detection. AI-scored on-chain intelligence. Personalized to your wallet." />
+    <meta name="color-scheme" content="dark" />
+    <title>NYTHOS — Real-Time Whale Signals & On-Chain Intelligence for ETH, BTC, Base</title>
+    <meta name="description" content="NYTHOS tracks whale wallets across Ethereum, Bitcoin, and Base in real time. AI-scored HIGH/MED/LOW confidence signals, 24h outcome verification, free open beta." />
+    <meta name="author" content="NYTHOS" />
+    <meta name="application-name" content="NYTHOS" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://www.nythos.io/" />
-    <meta property="og:title" content="NYTHOS - The Dark Intelligence of the Blockchain" />
-    <meta property="og:description" content="Real-time whale signal detection. AI-scored on-chain intelligence. Personalized to your wallet." />
+    <meta property="og:title" content="NYTHOS — Real-Time Whale Signals & On-Chain Intelligence for ETH, BTC, Base" />
+    <meta property="og:description" content="NYTHOS tracks whale wallets across Ethereum, Bitcoin, and Base in real time. AI-scored HIGH/MED/LOW confidence signals, 24h outcome verification, free open beta." />
     <meta property="og:image" content="https://www.nythos.io/og-image.png?v=2" />
+    <meta property="og:image:secure_url" content="https://www.nythos.io/og-image.png?v=2" />
     <meta property="og:image:type" content="image/png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="NYTHOS social card with the NYTHOS wordmark, live signal panel, and onchain intelligence branding." />
     <meta property="og:site_name" content="NYTHOS" />
+    <meta property="og:locale" content="en_US" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@NythosAI" />
     <meta name="twitter:creator" content="@NythosAI" />
-    <meta name="twitter:title" content="NYTHOS - The Dark Intelligence of the Blockchain" />
-    <meta name="twitter:description" content="Real-time whale signal detection. AI-scored on-chain intelligence. Personalized to your wallet." />
+    <meta name="twitter:title" content="NYTHOS — Real-Time Whale Signals for ETH, BTC, Base" />
+    <meta name="twitter:description" content="AI-scored on-chain intelligence. HIGH/MED/LOW whale signals with 24h outcome verification. Free open beta — no token required." />
     <meta name="twitter:image" content="https://www.nythos.io/og-image.png" />
     <meta name="twitter:image:alt" content="NYTHOS social card with the NYTHOS wordmark, live signal panel, and onchain intelligence branding." />
     <meta name="base:app_id" content="69c686a42f29a15e2b91ed4e" />
@@ -35,6 +44,30 @@
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <meta name="apple-mobile-web-app-title" content="NYTHOS" />
+    <!-- Schema.org: Organization (standalone — improves brand SERP knowledge panel) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "NYTHOS",
+      "alternateName": "NYTHOS AI",
+      "url": "https://www.nythos.io",
+      "logo": "https://www.nythos.io/og-image.png",
+      "description": "AI-scored on-chain intelligence platform tracking whale wallets across Ethereum, Bitcoin, and Base.",
+      "foundingDate": "2026",
+      "sameAs": [
+        "https://x.com/NythosAI",
+        "https://t.me/NythosAI"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "customer support",
+        "email": "hello@nythos.io",
+        "availableLanguage": ["English"]
+      }
+    }
+    </script>
+
     <!-- Schema.org: WebSite -->
     <script type="application/ld+json">
     {
@@ -104,7 +137,7 @@
     }
     </script>
 
-    <!-- Schema.org: FAQPage -->
+    <!-- Schema.org: FAQPage — Q wording mirrors the visible FAQ on Landing.jsx so Google validates the rich result. -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -112,18 +145,10 @@
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "What is NYTHOS?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "NYTHOS is a real-time on-chain intelligence platform that monitors Ethereum, Bitcoin, and Base for large-wallet activity. It scores every signal HIGH, MED, or LOW by confidence and delivers a live feed traders can act on. No token or subscription is required during open beta."
-          }
-        },
-        {
-          "@type": "Question",
           "name": "How is NYTHOS different from Nansen or Arkham?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Nansen and Arkham focus on entity labeling and historical dashboards — useful for research but slow for real-time trading decisions. NYTHOS is built signal-first: every whale movement is scored and surfaced instantly, with 30-day outcome verification so you can audit accuracy before trusting it. The beta is free, no $149/month subscription required."
+            "text": "Nansen and Arkham are research tools — useful for historical deep-dives but slow for real-time trading. NYTHOS is built signal-first: every whale movement is scored, surfaced instantly, and verified on-chain after the fact so you can audit accuracy before you trust it. And the beta is free."
           }
         },
         {
@@ -131,31 +156,31 @@
           "name": "How is NYTHOS different from Whale Alert?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Whale Alert broadcasts raw transaction sizes on social media with no scoring, no history, and no accuracy tracking. NYTHOS scores every signal by confidence level, verifies outcomes on-chain, and lets you query the full 30-day history via REST API or the dashboard."
+            "text": "Whale Alert broadcasts raw transaction sizes on social media with no scoring, no history, and no accuracy record. NYTHOS scores every signal HIGH / MED / LOW, checks the outcome after 24h, and gives you a full 30-day queryable history — so you know which signals actually moved markets."
           }
         },
         {
           "@type": "Question",
-          "name": "What blockchains does NYTHOS support?",
+          "name": "What blockchains are supported?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "NYTHOS currently monitors Ethereum (ETH), Bitcoin (BTC), and Base. Ethereum and Base provide full on-chain intelligence including DEX activity, bridge flows, and smart contract interactions. Bitcoin monitoring covers large-wallet accumulation and dormant-wallet reactivation signals."
+            "text": "ETH, BTC, and Base today. ETH and Base include DEX activity, bridge flows, and smart contract interactions. BTC covers large-wallet accumulation and dormant-wallet reactivation. SOL support is in development."
           }
         },
         {
           "@type": "Question",
-          "name": "How accurate are NYTHOS signals?",
+          "name": "Is it really free?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Every NYTHOS signal is verified automatically after it fires. The public proof feed at nythos.io/proof shows verified hits and misses with full context. Accuracy is tracked over 24-hour windows and displayed live so you can judge performance yourself."
+            "text": "Yes. Full beta access — live signals, wallet scoring, 30-day history, REST API, and Telegram alerts — requires only a wallet connection. No subscription, no credit card. Token-gated tiers activate after the Base contract audit."
           }
         },
         {
           "@type": "Question",
-          "name": "Is NYTHOS free to use?",
+          "name": "How accurate are the signals?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Yes. NYTHOS is in open beta and fully free to use. Connect any EVM wallet (MetaMask, Coinbase Wallet, Rainbow, or any WalletConnect wallet) to access the full signal feed, wallet scoring, 30-day history, REST API, and Telegram alerts. Token-gated tiers are planned after the Base smart contract audit."
+            "text": "Every signal is verified automatically after it fires. The public proof feed shows verified hits and misses with full context. Accuracy is tracked over 24h windows and displayed live at nythos.io/proof."
           }
         },
         {
@@ -163,7 +188,7 @@
           "name": "What is the $NYT token?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "$NYT is the NYTHOS access token planned for deployment on Base after a professional smart contract audit. It will gate Pro Access (100 $NYT) and Partner tiers (5,000 $NYT). The presale founder round is priced at $0.005 per token. The token is not required during open beta."
+            "text": "$NYT is the NYTHOS access token planned for Base after a professional smart contract audit. It gates Pro (100 $NYT) and Partner (5,000 $NYT) tiers. Founder round price is $0.005. No token is needed during open beta."
           }
         }
       ]

@@ -77,43 +77,28 @@ function formatAge(ts) {
   return `${Math.floor(diff / 60)}h ago`;
 }
 
-const FEATURES = [
-  {
-    icon: '⬡',
-    title: 'Smart Money Tracking',
-    desc: 'Identify large wallet movements, coordinated entries, and dormant-wallet activity before the crowd notices.',
-  },
-  {
-    icon: '◎',
-    title: 'Confidence Scoring',
-    desc: 'Every signal is rated HIGH / MED / LOW based on cluster size, timing patterns, and historical accuracy.',
-  },
-  {
-    icon: '⟁',
-    title: 'Multi-Chain Coverage',
-    desc: 'ETH, BTC, and Base monitored in parallel. One feed, no switching between block explorers.',
-  },
-  {
-    icon: '⌁',
-    title: 'API & Alerts',
-    desc: 'Pipe signals into your own bots, dashboards, or Telegram. Full REST API with webhook support.',
-  },
-  {
-    icon: '⬖',
-    title: 'Wallet Scoring',
-    desc: 'Score any address by historical accuracy and profitability. Know which wallets are worth watching.',
-  },
-  {
-    icon: '◈',
-    title: 'Signal History',
-    desc: 'Full 30-day lookback on every signal. See what moved the market and when NYTHOS flagged it first.',
-  },
+const FLAGSHIP_FEATURE = {
+  eyebrow: 'The engine',
+  title: 'AI-scored signals, ranked before they become noise',
+  body: 'Every whale movement, DEX cluster, and dormant-wallet wake is scored HIGH, MED, or LOW by Claude, using cluster size, timing patterns, and historical follow-through. The signals that matter rise; the rest fade.',
+  bullets: [
+    'Cluster detection across 6 billion on-chain events',
+    'Outcome verification 24h after every signal fires',
+    'Confidence rated against historical accuracy',
+  ],
+};
+
+const SUPPORTING_FEATURES = [
+  { label: 'Multi-chain coverage', detail: 'ETH · BTC · Base in one feed.' },
+  { label: 'Wallet scoring',       detail: 'Score any address by historical accuracy.' },
+  { label: '30-day history',       detail: 'Full lookback on every signal.' },
+  { label: 'REST API & webhooks',  detail: 'Pipe signals into your own stack.' },
 ];
 
 export default function Landing() {
   useSeoHead({
-    title: 'NYTHOS - The Dark Intelligence of the Blockchain',
-    description: 'Real-time whale signal detection across ETH, BTC, and Base. AI-scored on-chain intelligence. Free open beta — no token required.',
+    title: 'NYTHOS: Real-Time Whale Signals & On-Chain Intelligence for ETH, BTC, Base',
+    description: 'NYTHOS tracks whale wallets across Ethereum, Bitcoin, and Base in real time. AI-scored HIGH/MED/LOW confidence signals, 24h outcome verification, free open beta.',
     canonical: 'https://www.nythos.io/',
   });
 
@@ -134,7 +119,7 @@ export default function Landing() {
         </nav>
       </header>
 
-      <main className="landing-main">
+      <main className="landing-main" id="main">
 
         {/* ── Hero ── */}
         <section className="hero-section">
@@ -155,28 +140,6 @@ export default function Landing() {
           <p className="landing-sub">
             NYTHOS monitors ETH, BTC, and Base for large-wallet activity, scores each signal by confidence, and delivers a live feed you can act on. Right now. No token needed.
           </p>
-
-          <div className="hero-stats">
-            <div className="hero-stat">
-              <span className="hero-stat-val">3 Chains</span>
-              <span className="hero-stat-label">ETH · BTC · BASE</span>
-            </div>
-            <div className="hero-stat-divider" />
-            <div className="hero-stat">
-              <span className="hero-stat-val">HIGH · MED · LOW</span>
-              <span className="hero-stat-label">Confidence tiers</span>
-            </div>
-            <div className="hero-stat-divider" />
-            <div className="hero-stat">
-              <span className="hero-stat-val">Live Now</span>
-              <span className="hero-stat-label">Beta · free access</span>
-            </div>
-            <div className="hero-stat-divider" />
-            <div className="hero-stat">
-              <span className="hero-stat-val">$0.005</span>
-              <span className="hero-stat-label">Founder price</span>
-            </div>
-          </div>
 
           <div className="hero-cta-row">
             <a className="connect-btn-main" href="/dashboard">Launch App →</a>
@@ -199,15 +162,26 @@ export default function Landing() {
           <div className="section-label">WHAT YOU GET</div>
           <h2 className="section-title">Everything you need to front-run smart money</h2>
           <p className="section-sub">No noise. No dashboard bloat. Just the signals that matter, scored and delivered.</p>
-          <div className="features-grid">
-            {FEATURES.map(f => (
-              <div key={f.title} className="feature-card">
-                <div className="feature-icon">{f.icon}</div>
-                <h3 className="feature-title">{f.title}</h3>
-                <p className="feature-desc">{f.desc}</p>
-              </div>
+
+          <article className="flagship-feature">
+            <div className="flagship-feature-eyebrow">{FLAGSHIP_FEATURE.eyebrow}</div>
+            <h3 className="flagship-feature-title">{FLAGSHIP_FEATURE.title}</h3>
+            <p className="flagship-feature-body">{FLAGSHIP_FEATURE.body}</p>
+            <ul className="flagship-feature-bullets">
+              {FLAGSHIP_FEATURE.bullets.map(b => (
+                <li key={b}>{b}</li>
+              ))}
+            </ul>
+          </article>
+
+          <ul className="supporting-features">
+            {SUPPORTING_FEATURES.map(f => (
+              <li key={f.label} className="supporting-feature">
+                <span className="supporting-feature-label">{f.label}</span>
+                <span className="supporting-feature-detail">{f.detail}</span>
+              </li>
             ))}
-          </div>
+          </ul>
         </section>
 
         {/* ── How It Works ── */}
@@ -387,11 +361,11 @@ export default function Landing() {
             {[
               {
                 q: 'How is NYTHOS different from Nansen or Arkham?',
-                a: 'Nansen and Arkham are research tools — useful for historical deep-dives but slow for real-time trading. NYTHOS is built signal-first: every whale movement is scored, surfaced instantly, and verified on-chain after the fact so you can audit accuracy before you trust it. And the beta is free.',
+                a: 'Nansen and Arkham are research tools: useful for historical deep-dives but slow for real-time trading. NYTHOS is built signal-first. Every whale movement is scored, surfaced instantly, and verified on-chain after the fact so you can audit accuracy before you trust it. And the beta is free.',
               },
               {
                 q: 'How is NYTHOS different from Whale Alert?',
-                a: "Whale Alert broadcasts raw transaction sizes on social media with no scoring, no history, and no accuracy record. NYTHOS scores every signal HIGH / MED / LOW, checks the outcome after 24h, and gives you a full 30-day queryable history — so you know which signals actually moved markets.",
+                a: "Whale Alert broadcasts raw transaction sizes on social media with no scoring, no history, and no accuracy record. NYTHOS scores every signal HIGH / MED / LOW, checks the outcome after 24h, and gives you a full 30-day queryable history, so you know which signals actually moved markets.",
               },
               {
                 q: 'What blockchains are supported?',
@@ -399,7 +373,7 @@ export default function Landing() {
               },
               {
                 q: 'Is it really free?',
-                a: 'Yes. Full beta access — live signals, wallet scoring, 30-day history, REST API, and Telegram alerts — requires only a wallet connection. No subscription, no credit card. Token-gated tiers activate after the Base contract audit.',
+                a: 'Yes. Full beta access (live signals, wallet scoring, 30-day history, REST API, and Telegram alerts) requires only a wallet connection. No subscription, no credit card. Token-gated tiers activate after the Base contract audit.',
               },
               {
                 q: 'How accurate are the signals?',
@@ -442,8 +416,8 @@ export default function Landing() {
             <a href="https://x.com/NythosAI" target="_blank" rel="noreferrer">Twitter / X</a>
             <a href="mailto:hello@nythos.io">Email</a>
             <a href="/proof">Live Feed</a>
-            <a href="/privacy.html">Privacy</a>
-            <a href="/terms.html">Terms</a>
+            <a href="/privacy">Privacy</a>
+            <a href="/terms">Terms</a>
           </nav>
           <div className="footer-copy">© 2026 NYTHOS. Working product now, token infrastructure after audit.</div>
         </div>

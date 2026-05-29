@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 
-const DEFAULT_TITLE = 'NYTHOS - The Dark Intelligence of the Blockchain';
-const DEFAULT_DESC  = 'Real-time whale signal detection. AI-scored on-chain intelligence. Personalized to your wallet.';
+const DEFAULT_TITLE = 'NYTHOS — Real-Time Whale Signals & On-Chain Intelligence for ETH, BTC, Base';
+const DEFAULT_DESC  = 'NYTHOS tracks whale wallets across Ethereum, Bitcoin, and Base in real time. AI-scored HIGH/MED/LOW confidence signals, 24h outcome verification, free open beta.';
 const DEFAULT_URL   = 'https://www.nythos.io/';
 
 function setMeta(selector, attr, value) {

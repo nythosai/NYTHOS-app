@@ -1,10 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import api from '../api';
 import './WhaleProfileModal.css';
+
+const FOCUSABLE = 'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
 export default function WhaleProfileModal({ address, chain = 'BASE', onClose }) {
   const requestKey = address ? `${address.toLowerCase()}:${chain}` : '';
   const [requestState, setRequestState] = useState({ key: '', profile: null });
+  const modalRef = useRef(null);
+  const closeBtnRef = useRef(null);
 
   useEffect(() => {
     if (!address) return;
@@ -27,6 +31,34 @@ export default function WhaleProfileModal({ address, chain = 'BASE', onClose }) 
     };
   }, [address, chain, requestKey]);
 
+  // Focus trap + initial focus + restore on close
+  useEffect(() => {
+    if (!address) return;
+    const previouslyFocused = document.activeElement;
+    closeBtnRef.current?.focus();
+
+    const handleKey = e => {
+      if (e.key === 'Escape') { onClose?.(); return; }
+      if (e.key !== 'Tab' || !modalRef.current) return;
+      const focusable = modalRef.current.querySelectorAll(FOCUSABLE);
+      if (focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault(); last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault(); first.focus();
+      }
+    };
+    window.addEventListener('keydown', handleKey);
+    return () => {
+      window.removeEventListener('keydown', handleKey);
+      if (previouslyFocused && typeof previouslyFocused.focus === 'function') {
+        previouslyFocused.focus();
+      }
+    };
+  }, [address, onClose]);
+
   const profile = requestState.key === requestKey ? requestState.profile : null;
   const loading = Boolean(address) && requestState.key !== requestKey;
 
@@ -34,9 +66,25 @@ export default function WhaleProfileModal({ address, chain = 'BASE', onClose }) 
   const short    = address ? `${address.slice(0, 8)}...${address.slice(-6)}` : '';
 
   return (
-    <div className="wpm-overlay" onClick={onClose}>
-      <div className="wpm-modal" onClick={e => e.stopPropagation()}>
-        <button className="wpm-close" onClick={onClose}>✕</button>
+    <div
+      className="wpm-overlay"
+      onClick={onClose}
+      role="presentation"
+    >
+      <div
+        className="wpm-modal"
+        onClick={e => e.stopPropagation()}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Whale profile"
+        ref={modalRef}
+      >
+        <button
+          className="wpm-close"
+          onClick={onClose}
+          aria-label="Close whale profile"
+          ref={closeBtnRef}
+        >✕</button>
 
         <div className="wpm-header">
           <span className="wpm-title">WHALE PROFILE</span>

@@ -613,5 +613,5 @@
 .proj-table tr.proj-highlight td { background: rgba(108,99,255,0.04); }
 
 .proj-muted  { color: var(--text-muted) !important; }
-.proj-yellow { color: var(--yellow, #f7931a) !important; }
+.proj-yellow { color: var(--yellow) !important; }
 .proj-green  { color: var(--green) !important; }

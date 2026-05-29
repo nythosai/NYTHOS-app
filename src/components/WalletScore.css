@@ -131,7 +131,7 @@
   font-family: var(--font-body);
   font-weight: 600;
   color: var(--text-dim);
-  background: var(--bg-card, #0d0d0f);
+  background: var(--bg-card);
   border: 1px solid var(--border);
   padding: 3px 7px;
   border-radius: 4px;

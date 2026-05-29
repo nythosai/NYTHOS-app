@@ -13,8 +13,8 @@
 .accuracy-bar:hover { border-color: var(--border-light); }
 
 .acc-label {
-  font-size: 9px;
-  letter-spacing: 2.5px;
+  font-size: 11px;
+  letter-spacing: 2px;
   color: var(--text-dim);
   text-transform: uppercase;
   font-weight: 600;

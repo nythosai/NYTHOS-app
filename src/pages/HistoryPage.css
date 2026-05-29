@@ -115,7 +115,7 @@
   padding: 3px 9px;
   cursor: pointer;
   border-radius: var(--radius-sm);
-  transition: all 0.2s;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
   white-space: nowrap;
 }
 
@@ -183,7 +183,7 @@
   padding: 4px 12px;
   cursor: pointer;
   border-radius: var(--radius-sm);
-  transition: all 0.2s;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
   margin-left: auto;
 }
 
@@ -255,7 +255,7 @@
   padding: 8px 20px;
   cursor: pointer;
   border-radius: var(--radius-sm);
-  transition: all 0.2s;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
 }
 
 .page-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }

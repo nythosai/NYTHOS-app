@@ -58,7 +58,7 @@ function getActions(score, chain, txCount, balanceETH, ageMonths) {
   return actions.slice(0, 3);
 }
 
-function getNextMilestone(score, label, chain, txCount, balanceETH, ageMonths) {
+function getNextMilestone(score, label, chain, txCount, balanceETH) {
   if (label === 'SMART MONEY') return null;
   if (chain === 'BASE') {
     const balanceScore = (balanceETH ?? 0) >= 1 ? 20 : (balanceETH ?? 0) >= 0.1 ? 12 : (balanceETH ?? 0) > 0 ? 6 : 0;
@@ -84,14 +84,13 @@ function useCountUp(target, duration = 900) {
   const raf = useRef(null);
 
   useEffect(() => {
-    if (target == null) { setDisplayed(0); return; }
-    const start     = performance.now();
-    const startVal  = 0;
+    if (target == null) return;
+    const start    = performance.now();
+    const startVal = 0;
 
     function tick(now) {
       const elapsed  = now - start;
       const progress = Math.min(elapsed / duration, 1);
-      // ease-out cubic
       const eased    = 1 - Math.pow(1 - progress, 3);
       setDisplayed(Math.round(startVal + (target - startVal) * eased));
       if (progress < 1) raf.current = requestAnimationFrame(tick);
@@ -101,7 +100,7 @@ function useCountUp(target, duration = 900) {
     return () => cancelAnimationFrame(raf.current);
   }, [target, duration]);
 
-  return displayed;
+  return target == null ? 0 : displayed;
 }
 
 export default function WalletScore({ address, chain = 'BASE', onPortfolioLoad }) {
@@ -141,15 +140,14 @@ export default function WalletScore({ address, chain = 'BASE', onPortfolioLoad }
   const portfolio = requestState.key === requestKey ? requestState.portfolio : null;
   const loading   = Boolean(address) && requestState.key !== requestKey;
 
-  // Animate bar after score arrives — delay one frame so CSS transition fires
+  // Animate bar after score arrives. Reset to 0 then ramp via setTimeout
+  // so the CSS transition rehydrates each time the score changes.
   useEffect(() => {
-    if (score?.score != null) {
-      setBarWidth(0);
-      const id = setTimeout(() => setBarWidth(score.score), 60);
-      return () => clearTimeout(id);
-    } else {
-      setBarWidth(0);
-    }
+    if (score?.score == null) return;
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setBarWidth(0);
+    const id = setTimeout(() => setBarWidth(score.score), 60);
+    return () => clearTimeout(id);
   }, [score?.score]);
 
   const displayedScore = useCountUp(score?.score ?? null);
@@ -159,12 +157,11 @@ export default function WalletScore({ address, chain = 'BASE', onPortfolioLoad }
 
   const tier          = score.score >= 70 ? 'high' : score.score >= 45 ? 'medium' : 'low';
   const isUnavailable = score.score === null;
-  const milestone     = isUnavailable ? null : getNextMilestone(score.score, score.label, score.chain, score.txCount, score.balanceETH, score.ageMonths);
+  const milestone     = isUnavailable ? null : getNextMilestone(score.score, score.label, score.chain, score.txCount, score.balanceETH);
   const breakdown     = isUnavailable ? null : getBreakdown(score.score, score.chain, score.txCount, score.balanceETH, score.ageMonths);
   const actions       = isUnavailable ? []   : getActions(score.score, score.chain, score.txCount, score.balanceETH, score.ageMonths);
 
   // Milestone bar: progress from tier-floor to tier-ceiling
-  const milestoneMin  = milestone?.from  ?? score.score;
   const milestoneTo   = milestone?.to    ?? 100;
   const tierFloor     = milestoneTo === 45 ? 0 : milestoneTo === 70 ? 45 : 70;
   const milestoneRange = milestoneTo - tierFloor;
@@ -183,7 +180,7 @@ export default function WalletScore({ address, chain = 'BASE', onPortfolioLoad }
         <div className="ws-label">WALLET SCORE</div>
 
         {isUnavailable ? (
-          <div className="ws-score low">—</div>
+          <div className="ws-score low" aria-label="Score unavailable">·</div>
         ) : (
           <button
             className={`ws-score ${tier} ws-score-btn`}

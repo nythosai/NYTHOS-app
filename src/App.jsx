@@ -24,25 +24,14 @@ function useReferralCapture() {
   }, []);
 }
 
+function SkipLink() {
+  return <a className="skip-link" href="#main">Skip to content</a>;
+}
+
 function LoadingScreen() {
   return (
-    <div style={{
-      background: '#080b12',
-      minHeight: '100vh',
-      minHeight: '100dvh',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-    }}>
-      <span style={{
-        color: '#6c63ff',
-        fontFamily: "'Courier New', monospace",
-        letterSpacing: '8px',
-        fontSize: '24px',
-        opacity: 0.6,
-      }}>
-        NYTHOS
-      </span>
+    <div className="auth-screen">
+      <span className="auth-wordmark muted">NYTHOS</span>
     </div>
   );
 }
@@ -51,55 +40,21 @@ function LoadingScreen() {
 function SigningScreen({ signing, signError, onRetry, connectorName }) {
   const walletLabel = connectorName || 'your wallet';
   return (
-    <div style={{
-      background: '#080b12',
-      minHeight: '100vh',
-      minHeight: '100dvh',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-      gap: '20px',
-      padding: '24px',
-    }}>
-      <span style={{
-        color: '#6c63ff',
-        fontFamily: "'Courier New', monospace",
-        letterSpacing: '8px',
-        fontSize: '24px',
-      }}>
-        NYTHOS
-      </span>
+    <div className="auth-screen">
+      <span className="auth-wordmark">NYTHOS</span>
 
       {signing && (
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '12px', maxWidth: '300px', textAlign: 'center' }}>
-          <span style={{ color: '#8892a4', fontSize: '13px', fontFamily: 'Inter, -apple-system, sans-serif', lineHeight: 1.6 }}>
+        <div className="auth-block">
+          <span className="auth-body">
             {isMobile
               ? `A sign request was sent to ${walletLabel}. Open your wallet app and approve it to continue.`
               : `Check ${walletLabel} to approve the sign request.`
             }
           </span>
           {isMobile && (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '6px', alignItems: 'center', marginTop: '4px' }}>
-              <span style={{ color: '#5a6478', fontSize: '11px', fontFamily: 'Inter, -apple-system, sans-serif', letterSpacing: '0.3px' }}>
-                Didn't get a prompt?
-              </span>
-              <button
-                onClick={onRetry}
-                style={{
-                  background: 'transparent',
-                  border: '1px solid rgba(108,99,255,0.4)',
-                  color: '#a89cff',
-                  borderRadius: '6px',
-                  padding: '8px 20px',
-                  fontSize: '12px',
-                  cursor: 'pointer',
-                  fontFamily: 'Inter, -apple-system, sans-serif',
-                  letterSpacing: '0.5px',
-                }}
-              >
-                Resend request
-              </button>
+            <div className="auth-block" style={{ gap: 6, marginTop: 4 }}>
+              <span className="auth-hint">Didn't get a prompt?</span>
+              <button className="auth-btn" onClick={onRetry}>Resend request</button>
             </div>
           )}
         </div>
@@ -107,33 +62,8 @@ function SigningScreen({ signing, signError, onRetry, connectorName }) {
 
       {signError && (
         <>
-          <span style={{
-            color: '#ff6b6b',
-            fontSize: '13px',
-            fontFamily: 'Inter, -apple-system, sans-serif',
-            maxWidth: '320px',
-            textAlign: 'center',
-            lineHeight: 1.6,
-          }}>
-            {signError}
-          </span>
-          <button
-            onClick={onRetry}
-            style={{
-              background: '#6c63ff',
-              color: '#fff',
-              border: 'none',
-              borderRadius: '6px',
-              padding: '12px 32px',
-              fontSize: '13px',
-              cursor: 'pointer',
-              fontFamily: 'Inter, -apple-system, sans-serif',
-              letterSpacing: '0.5px',
-              minHeight: '44px',
-            }}
-          >
-            Try Again
-          </button>
+          <span className="auth-error">{signError}</span>
+          <button className="auth-btn-primary" onClick={onRetry}>Try Again</button>
         </>
       )}
     </div>
@@ -145,52 +75,16 @@ function ConnectGate() {
   useSeoHead({ noindex: true });
   const { open } = useAppKit();
   return (
-    <div style={{
-      background: '#060912',
-      minHeight: '100vh',
-      minHeight: '100dvh',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-      gap: '28px',
-      padding: '24px',
-      textAlign: 'center',
-      fontFamily: "'Inter', -apple-system, sans-serif",
-    }}>
-      <span style={{ color: '#6c63ff', fontFamily: "'Space Grotesk', sans-serif", letterSpacing: '8px', fontSize: '20px', fontWeight: 700 }}>
-        NYTHOS
-      </span>
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', maxWidth: '340px' }}>
-        <h2 style={{ color: '#e8eaf0', fontSize: '22px', fontWeight: 700, fontFamily: "'Space Grotesk', sans-serif", lineHeight: 1.3 }}>
-          Connect your wallet to access the app
-        </h2>
-        <p style={{ color: '#8892a4', fontSize: '14px', lineHeight: 1.7 }}>
+    <div className="auth-screen" style={{ gap: 28 }}>
+      <span className="auth-wordmark sm">NYTHOS</span>
+      <div className="auth-block" style={{ gap: 10, maxWidth: 340 }}>
+        <h2 className="auth-heading">Connect your wallet to access the app</h2>
+        <p className="auth-body lg">
           Coinbase Wallet, MetaMask, Rainbow, or any WalletConnect wallet.
         </p>
       </div>
-      <button
-        onClick={() => open()}
-        style={{
-          background: 'linear-gradient(135deg, #6c63ff, #5b52e8)',
-          border: 'none',
-          color: '#fff',
-          fontFamily: "'Inter', sans-serif",
-          fontSize: '13px',
-          fontWeight: 700,
-          letterSpacing: '1px',
-          padding: '16px 48px',
-          borderRadius: '4px',
-          cursor: 'pointer',
-          textTransform: 'uppercase',
-          minHeight: '52px',
-        }}
-      >
-        Connect Wallet
-      </button>
-      <a href="/" style={{ color: '#5a6478', fontSize: '12px', textDecoration: 'none', letterSpacing: '0.5px' }}>
-        ← Back to landing
-      </a>
+      <button className="auth-btn-cta" onClick={() => open()}>Connect Wallet</button>
+      <a className="auth-link" href="/">← Back to landing</a>
     </div>
   );
 }
@@ -242,6 +136,7 @@ export default function App() {
   if (window.location.pathname.startsWith('/presale')) {
     return (
       <>
+        <SkipLink />
         <Suspense fallback={<LoadingScreen />}>
           <PresalePage />
         </Suspense>
@@ -254,6 +149,7 @@ export default function App() {
   if (window.location.pathname === '/proof') {
     return (
       <>
+        <SkipLink />
         <Suspense fallback={<LoadingScreen />}>
           <PublicProofShell />
         </Suspense>
@@ -266,6 +162,7 @@ export default function App() {
   if (window.location.pathname.startsWith('/dashboard')) {
     return (
       <>
+        <SkipLink />
         {isConnected
           ? <Suspense fallback={<LoadingScreen />}><ConnectedApp /></Suspense>
           : <ConnectGate />
@@ -277,6 +174,7 @@ export default function App() {
 
   return (
     <>
+      <SkipLink />
       {isConnected ? <ConnectedApp /> : <Landing />}
       <CookieBanner />
     </>

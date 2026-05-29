@@ -73,6 +73,7 @@
 .ob-symbol {
   margin: 8px 0 4px;
   opacity: 0.9;
+  color: var(--accent);
 }
 
 .ob-title {

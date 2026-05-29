@@ -1,16 +1,13 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import './CookieBanner.css';
 
 const STORAGE_KEY = 'nythos_cookie_consent';
 
 export default function CookieBanner() {
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    if (!localStorage.getItem(STORAGE_KEY)) {
-      setVisible(true);
-    }
-  }, []);
+  const [visible, setVisible] = useState(() => {
+    if (typeof window === 'undefined') return false;
+    return !window.localStorage.getItem(STORAGE_KEY);
+  });
 
   function accept() {
     localStorage.setItem(STORAGE_KEY, 'accepted');

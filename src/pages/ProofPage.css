@@ -374,9 +374,9 @@
   line-height: 1.8;
   margin: 0;
   padding: 16px 20px;
-  background: rgba(108,99,255,0.06);
-  border-left: 3px solid var(--accent);
-  border-radius: 0 4px 4px 0;
+  background: rgba(108, 99, 255, 0.06);
+  border: 1px solid rgba(108, 99, 255, 0.32);
+  border-radius: var(--radius-sm);
   font-style: italic;
 }
 

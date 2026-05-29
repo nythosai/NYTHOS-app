@@ -1,5 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import './OnboardingOverlay.css';
+
+const FOCUSABLE = 'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
 const STORAGE_KEY = 'nythos_onboarded';
 
@@ -30,6 +32,8 @@ export default function OnboardingOverlay() {
     return !window.localStorage.getItem(STORAGE_KEY);
   });
   const [step, setStep]       = useState(0);
+  const modalRef = useRef(null);
+  const ctaRef = useRef(null);
 
   function advance() {
     if (step < steps.length - 1) {
@@ -45,6 +49,34 @@ export default function OnboardingOverlay() {
     setVisible(false);
   }
 
+  // Focus trap + initial focus + Escape + restore
+  useEffect(() => {
+    if (!visible) return;
+    const previouslyFocused = document.activeElement;
+    ctaRef.current?.focus();
+
+    const handleKey = e => {
+      if (e.key === 'Escape') { dismiss(); return; }
+      if (e.key !== 'Tab' || !modalRef.current) return;
+      const focusable = modalRef.current.querySelectorAll(FOCUSABLE);
+      if (focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault(); last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault(); first.focus();
+      }
+    };
+    window.addEventListener('keydown', handleKey);
+    return () => {
+      window.removeEventListener('keydown', handleKey);
+      if (previouslyFocused && typeof previouslyFocused.focus === 'function') {
+        previouslyFocused.focus();
+      }
+    };
+  }, [visible]);
+
   if (!visible) return null;
 
   const current = steps[step];
@@ -52,7 +84,13 @@ export default function OnboardingOverlay() {
 
   return (
     <div className="ob-backdrop" onClick={e => e.target === e.currentTarget && dismiss()}>
-      <div className="ob-modal" role="dialog" aria-modal="true" aria-label="Welcome to NYTHOS">
+      <div
+        className="ob-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-label="Welcome to NYTHOS"
+        ref={modalRef}
+      >
 
         <button className="ob-skip" onClick={dismiss}>Skip</button>
 
@@ -64,9 +102,9 @@ export default function OnboardingOverlay() {
           ))}
         </div>
 
-        <div className="ob-symbol">
+        <div className="ob-symbol" aria-hidden="true">
           <svg viewBox="0 0 120 120" width="56" height="56">
-            <circle cx="60" cy="60" r="12" fill="#080b12" stroke="#6c63ff" strokeWidth="1.5" />
+            <circle cx="60" cy="60" r="12" fill="var(--bg)" stroke="currentColor" strokeWidth="1.5" />
             {Array.from({ length: 16 }, (_, i) => {
               const angle = (i * 360) / 16;
               const rad   = (angle * Math.PI) / 180;
@@ -76,7 +114,7 @@ export default function OnboardingOverlay() {
                   key={i}
                   x1={60 + inner * Math.cos(rad)} y1={60 + inner * Math.sin(rad)}
                   x2={60 + outer * Math.cos(rad)} y2={60 + outer * Math.sin(rad)}
-                  stroke="#6c63ff" strokeWidth="1" opacity="0.5"
+                  stroke="currentColor" strokeWidth="1" opacity="0.5"
                 />
               );
             })}
@@ -86,7 +124,11 @@ export default function OnboardingOverlay() {
         <h2 className="ob-title">{current.title}</h2>
         <p className="ob-body">{current.body}</p>
 
-        <button className={`ob-cta ${isLast ? 'ob-cta-final' : ''}`} onClick={advance}>
+        <button
+          className={`ob-cta ${isLast ? 'ob-cta-final' : ''}`}
+          onClick={advance}
+          ref={ctaRef}
+        >
           {current.cta} →
         </button>
 

@@ -57,7 +57,7 @@ const ROUNDS = [
 
 export default function PresalePage() {
   useSeoHead({
-    title: 'NYTHOS Presale — Join the Founder List | $NYT Token',
+    title: 'NYTHOS Presale: Join the Founder List | $NYT Token',
     description: 'Lock your $NYT founder price at $0.005 before the Base contract deploys. Three structured rounds open in sequence after audit. Join the NYTHOS founder list now.',
     canonical: 'https://www.nythos.io/presale',
     breadcrumb: [

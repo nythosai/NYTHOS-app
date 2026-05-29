@@ -1,4 +1,43 @@
+# NYTHOS — https://www.nythos.io
+# Public landing, proof feed, presale, and programmatic SEO pages are indexable.
+# Wallet-gated dashboard surfaces are excluded.
+
 User-agent: *
+Allow: /
+Allow: /og-image.png
+Allow: /favicon.svg
+
+# App / auth-gated surfaces — keep out of the index.
+Disallow: /dashboard
+Disallow: /dashboard/
+
+# Internal generator preview — clean URLs are the canonical entry points.
+Disallow: /og-image.html
+Disallow: /og-image
+
+# Prevent duplicate indexing of bare .html files (clean URLs are canonical).
+Disallow: /ethereum-whale-tracker.html
+Disallow: /crypto-smart-money-signals.html
+Disallow: /base-chain-intelligence.html
+Disallow: /privacy.html
+Disallow: /terms.html
+Disallow: /whitepaper.html
+
+# Strip tracking-parameter URLs from the crawl frontier.
+Disallow: /*?ref=
+Disallow: /*?utm_
+
+# Major search engines — explicit allow (defensive against odd defaults).
+User-agent: Googlebot
+Allow: /
+Disallow: /dashboard
+Disallow: /dashboard/
+
+User-agent: Googlebot-Image
+Allow: /og-image.png
+Allow: /favicon.svg
+
+User-agent: Bingbot
 Allow: /
 Disallow: /dashboard
 Disallow: /dashboard/

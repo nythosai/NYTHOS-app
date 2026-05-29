@@ -270,7 +270,7 @@ export default function AlertsPage({ prices }) {
             Alert when <strong>{token}</strong> {direction === 'above' ? 'rises above' : 'drops below'} <strong>${parseFloat(targetPrice).toLocaleString()}</strong>
             {currentPrice && (
               <span className="af-preview-gap">
-                {' '}— {direction === 'above'
+                {' · '}{direction === 'above'
                   ? `+${(((parseFloat(targetPrice) - currentPrice) / currentPrice) * 100).toFixed(1)}% from now`
                   : `${(((parseFloat(targetPrice) - currentPrice) / currentPrice) * 100).toFixed(1)}% from now`}
               </span>

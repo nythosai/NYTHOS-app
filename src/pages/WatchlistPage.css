@@ -92,7 +92,7 @@
   padding: 5px 14px;
   cursor: pointer;
   border-radius: var(--radius-sm);
-  transition: all 0.2s;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
 }
 
 .wl-chain-btn:hover { border-color: var(--text-muted); }
@@ -196,7 +196,7 @@
   padding: 4px 8px;
   cursor: pointer;
   border-radius: var(--radius-sm);
-  transition: all 0.2s;
+  transition: background 0.2s, border-color 0.2s, color 0.2s;
 }
 
 .wl-remove:hover { border-color: var(--red); color: var(--red); }

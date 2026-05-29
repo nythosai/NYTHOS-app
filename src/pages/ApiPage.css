@@ -56,7 +56,7 @@
 .akr-label {
   font-size: 12px;
   letter-spacing: 1px;
-  color: #00e5a0;
+  color: var(--green);
   margin-bottom: 12px;
 }
 

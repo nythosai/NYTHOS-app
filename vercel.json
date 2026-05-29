@@ -1,4 +1,12 @@
 {
+  "redirects": [
+    { "source": "/privacy.html",                       "destination": "/privacy",                       "permanent": true },
+    { "source": "/terms.html",                         "destination": "/terms",                         "permanent": true },
+    { "source": "/whitepaper.html",                    "destination": "/whitepaper",                    "permanent": true },
+    { "source": "/ethereum-whale-tracker.html",        "destination": "/ethereum-whale-tracker",        "permanent": true },
+    { "source": "/crypto-smart-money-signals.html",    "destination": "/crypto-smart-money-signals",    "permanent": true },
+    { "source": "/base-chain-intelligence.html",       "destination": "/base-chain-intelligence",       "permanent": true }
+  ],
   "rewrites": [
     { "source": "/privacy",                       "destination": "/privacy.html" },
     { "source": "/terms",                         "destination": "/terms.html" },
